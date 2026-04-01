@@ -1,2 +1,1 @@
-# wcn-mainpage
-WCN Corporate Site
+I can write my own fucking README files, you know. ~ JR
