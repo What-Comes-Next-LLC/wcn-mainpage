@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Spark — What Comes Next? LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #216869;
+    --teal-dark: #1a5354;
+    --coral: #e76f51;
+    --sage: #49a078;
+    --charcoal: #2d3436;
+    --off-white: #f4f4f4;
+    --amber: #f4a261;
+    --white: #ffffff;
+    --font: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --grid: 8px;
+  }
+
+  html { font-size: 16px; }
+  body {
+    font-family: var(--font);
+    background: var(--teal);
+    color: var(--white);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .app { min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* ── NAV ── */
+  nav {
+    padding: calc(var(--grid) * 1.5) calc(var(--grid) * 4);
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    position: relative; z-index: 10;
+  }
+  .nav-logo {
+    display: flex; align-items: center;
+    gap: calc(var(--grid) * 1.5); text-decoration: none;
+  }
+  .nav-logo img { width: 36px; height: 36px; }
+  .nav-logo .wordmark { color: var(--white); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+  .nav-logo .wordmark .ai { color: var(--amber); }
+  .nav-product { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+
+  /* ── PROGRESS ── */
+  .progress-bar-wrap { height: 2px; background: rgba(255,255,255,0.1); overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--coral); transition: width 0.5s cubic-bezier(0.22,1,0.36,1); width: 0%; }
+
+  /* ── SCREENS ── */
+  .screen {
+    display: none; flex: 1; align-items: center; justify-content: center;
+    padding: calc(var(--grid) * 6) calc(var(--grid) * 4);
+    position: relative; min-height: calc(100vh - 62px); overflow: hidden;
+  }
+  .screen.active { display: flex; }
+
+  /* Background arc — matches index.html hero-arc exactly */
+  .bg-arc {
+    position: absolute;
+    width: clamp(500px, 65vw, 900px);
+    height: clamp(500px, 65vw, 900px);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 50%;
+    right: -15%; top: -20%;
+    pointer-events: none;
+  }
+  .bg-arc::after {
+    content: ''; position: absolute; inset: 40px;
+    border: 1px solid rgba(255,255,255,0.03); border-radius: 50%;
+  }
+
+  /*
+   * Background ? — uses the EXACT same inline SVG path from index.html hero.
+   * Positioned bottom-left, large, opacity 0.04 — identical treatment.
+   * NOTE FOR CLI: swap this SVG element for the Kenao Sans Serif branded
+   * asset once available. See handoff doc for details.
+   */
+  .bg-qmark-svg {
+    position: absolute;
+    bottom: -8%; left: -4%;
+    width: clamp(320px, 45vw, 600px);
+    height: auto;
+    opacity: 0.04;
+    pointer-events: none;
+    user-select: none;
+  }
+  /* On the light output screen, darken the tint */
+  #screen-output .bg-qmark-svg { filter: invert(1); opacity: 0.025; }
+  #screen-output .bg-arc { border-color: rgba(0,0,0,0.04); }
+  #screen-output .bg-arc::after { border-color: rgba(0,0,0,0.02); }
+
+  /* ── PROMPT CARD ── */
+  .prompt-card { width: 100%; max-width: 560px; position: relative; z-index: 2; }
+
+  .step-label {
+    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    margin-bottom: calc(var(--grid) * 4);
+    display: flex; align-items: center; gap: calc(var(--grid) * 1.5);
+  }
+  .step-label::before {
+    content: ''; display: block; width: 20px; height: 1px; background: rgba(255,255,255,0.25);
+  }
+
+  .prompt-question {
+    font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.1; color: var(--white);
+    margin-bottom: calc(var(--grid) * 5);
+  }
+  .prompt-question em { font-style: normal; color: var(--amber); }
+
+  .input-wrap { position: relative; margin-bottom: calc(var(--grid) * 3); }
+  .input-label {
+    display: block; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: var(--grid);
+  }
+
+  input[type="text"], textarea {
+    width: 100%; background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.15); border-radius: 6px;
+    color: var(--white); font-family: var(--font); font-size: 1.125rem;
+    font-weight: 500; padding: calc(var(--grid) * 2) calc(var(--grid) * 2.5);
+    outline: none; transition: border-color 0.2s, background 0.2s; -webkit-appearance: none;
+  }
+  input[type="text"]::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); font-weight: 400; }
+  input[type="text"]:focus, textarea:focus {
+    border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.1);
+  }
+  textarea { min-height: 160px; resize: vertical; line-height: 1.6; font-size: 1rem; }
+
+  /*
+   * Screen 1 — de-emphasized demographic fields.
+   * Smaller font, slightly reduced opacity on label + border,
+   * so the primary Name field stays dominant. Age + Occupation
+   * sit in a two-col row beneath Name.
+   */
+  .demo-fields-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: calc(var(--grid) * 2); margin-top: calc(var(--grid) * -1);
+    margin-bottom: calc(var(--grid) * 3);
+  }
+  .demo-fields-row .input-wrap { margin-bottom: 0; }
+  .demo-fields-row .input-label { color: rgba(255,255,255,0.28); }
+  .demo-fields-row input[type="text"] {
+    font-size: 0.9375rem; font-weight: 400;
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.1);
+    padding: calc(var(--grid) * 1.5) calc(var(--grid) * 2);
+  }
+  .demo-fields-row input[type="text"]::placeholder { color: rgba(255,255,255,0.18); }
+  .demo-fields-row input[type="text"]:focus {
+    background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3);
+  }
+  .demo-fields-hint {
+    font-size: 0.75rem; color: rgba(255,255,255,0.25); line-height: 1.5;
+    margin-top: calc(var(--grid) * -2); margin-bottom: calc(var(--grid) * 3);
+    font-style: italic;
+  }
+
+  .btn-submit {
+    display: inline-flex; align-items: center; gap: var(--grid);
+    background: var(--coral); color: var(--white); border: none; border-radius: 4px;
+    font-family: var(--font); font-size: 0.9375rem; font-weight: 600;
+    padding: calc(var(--grid) * 1.75) calc(var(--grid) * 4);
+    cursor: pointer; transition: background 0.2s, transform 0.1s; letter-spacing: 0.01em;
+  }
+  .btn-submit:hover { background: #d4603f; }
+  .btn-submit:active { transform: scale(0.98); }
+  .btn-submit svg { width: 16px; height: 16px; transition: transform 0.2s; }
+  .btn-submit:hover svg { transform: translateX(3px); }
+
+  .hint-text { font-size: 0.8125rem; color: rgba(255,255,255,0.3); margin-top: calc(var(--grid) * 1.5); font-weight: 400; line-height: 1.5; }
+
+  @keyframes screenIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .screen.active .prompt-card,
+  .screen.active .processing-inner,
+  .screen.active .output-wrap {
+    animation: screenIn 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+
+  /* ── PROCESSING ── */
+  #screen-processing { background: var(--teal-dark); }
+  .processing-inner { text-align: center; max-width: 420px; position: relative; z-index: 2; }
+
+  /* ── Processing animation ── */
+  .processing-svg-logo {
+    width: 88px; height: 88px; display: block;
+    margin: 0 auto calc(var(--grid) * 4);
+    animation: orbSpin 3s linear infinite;
+  }
+  @keyframes orbSpin { to { transform: rotate(360deg); } }
+
+  .processing-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: var(--grid); }
+  .processing-title { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; color: var(--white); margin-bottom: calc(var(--grid) * 2); }
+  .processing-steps { list-style: none; margin-top: calc(var(--grid) * 4); text-align: left; display: inline-block; }
+  .processing-steps li {
+    font-size: 0.875rem; color: rgba(255,255,255,0.35);
+    padding: calc(var(--grid) * 0.75) 0;
+    display: flex; align-items: center; gap: calc(var(--grid) * 1.5); transition: color 0.4s;
+  }
+  .processing-steps li.done { color: rgba(255,255,255,0.8); }
+  .processing-steps li.active { color: var(--amber); }
+  .step-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+  .processing-steps li.active .step-dot { animation: dotPulse 0.8s ease-in-out infinite alternate; }
+  @keyframes dotPulse { from { transform: scale(1); opacity: 0.6; } to { transform: scale(1.6); opacity: 1; } }
+
+  /* ── OUTPUT ── */
+  #screen-output {
+    background: var(--off-white); color: var(--charcoal);
+    align-items: flex-start; padding-top: calc(var(--grid) * 8);
+  }
+  .output-wrap { width: 100%; max-width: 720px; margin: 0 auto; position: relative; z-index: 2; }
+
+  .demo-badge {
+    display: inline-flex; align-items: center; gap: var(--grid);
+    background: rgba(231,111,81,0.1); border: 1px solid rgba(231,111,81,0.2);
+    border-radius: 4px; padding: calc(var(--grid) * 0.75) calc(var(--grid) * 1.5);
+    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--coral); margin-bottom: calc(var(--grid) * 3);
+  }
+  .demo-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--coral); animation: badgePulse 1.4s ease-in-out infinite;
+  }
+  @keyframes badgePulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .output-eyebrow { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: calc(var(--grid) * 1.5); }
+  .output-headline { font-size: clamp(1.75rem,4vw,2.5rem); font-weight: 700; letter-spacing: -0.03em; color: var(--charcoal); line-height: 1.15; margin-bottom: calc(var(--grid) * 2); }
+
+  .output-goal-block {
+    background: var(--teal); border-radius: 8px;
+    padding: calc(var(--grid) * 3) calc(var(--grid) * 3.5);
+    margin-bottom: calc(var(--grid) * 4);
+    color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.65;
+  }
+  .output-goal-block strong {
+    display: block; font-size: 0.6875rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: var(--grid);
+  }
+
+  .output-section { margin-bottom: calc(var(--grid) * 5); }
+  .output-section-title {
+    font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: calc(var(--grid) * 2); padding-bottom: var(--grid);
+    border-bottom: 2px solid var(--teal); display: inline-block;
+  }
+
+  .noticed-list { list-style: none; display: flex; flex-direction: column; gap: calc(var(--grid) * 1.5); }
+  .noticed-list li {
+    display: flex; gap: calc(var(--grid) * 1.5);
+    font-size: 0.9375rem; line-height: 1.6; color: #636e72; align-items: flex-start;
+  }
+  .noticed-list li::before {
+    content: ''; display: block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--coral); flex-shrink: 0; margin-top: 8px;
+  }
+
+  .game-plan-list { list-style: none; display: flex; flex-direction: column; gap: calc(var(--grid) * 3); }
+  .game-plan-list li { display: flex; gap: calc(var(--grid) * 2.5); align-items: flex-start; }
+  .plan-num {
+    width: 28px; height: 28px; border-radius: 4px; background: var(--coral); color: var(--white);
+    font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .plan-content { flex: 1; }
+  .plan-title { font-size: 0.9375rem; font-weight: 700; color: var(--charcoal); margin-bottom: calc(var(--grid) * 0.5); }
+  .plan-body { font-size: 0.9375rem; color: #636e72; line-height: 1.65; }
+
+  .quick-wins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: calc(var(--grid) * 2); }
+  .quick-win-card {
+    background: var(--white); border-radius: 8px; padding: calc(var(--grid) * 2.5);
+    border: 1px solid #e0e0e0; font-size: 0.875rem; color: #636e72; line-height: 1.55;
+  }
+  .quick-win-card::before { content: '→'; display: block; font-size: 1rem; font-weight: 700; color: var(--sage); margin-bottom: var(--grid); }
+
+  .coaches-note { background: var(--charcoal); border-radius: 8px; padding: calc(var(--grid) * 3) calc(var(--grid) * 3.5); }
+  .coaches-note-label { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: var(--grid); }
+  .coaches-note p { font-size: 0.9375rem; color: rgba(255,255,255,0.8); line-height: 1.7; font-style: italic; }
+
+  .output-actions {
+    display: flex; gap: calc(var(--grid) * 2); flex-wrap: wrap;
+    margin-top: calc(var(--grid) * 6); padding-top: calc(var(--grid) * 4);
+    border-top: 1px solid #e0e0e0; margin-bottom: calc(var(--grid) * 8);
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: var(--grid);
+    background: var(--coral); color: var(--white); border: none; border-radius: 4px;
+    font-family: var(--font); font-size: 0.875rem; font-weight: 600;
+    padding: calc(var(--grid) * 1.5) calc(var(--grid) * 3);
+    cursor: pointer; text-decoration: none; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #d4603f; }
+  .btn-outline-dark {
+    display: inline-flex; align-items: center; gap: var(--grid);
+    background: transparent; color: var(--charcoal);
+    border: 1.5px solid #ccc; border-radius: 4px;
+    font-family: var(--font); font-size: 0.875rem; font-weight: 600;
+    padding: calc(var(--grid) * 1.5) calc(var(--grid) * 3);
+    cursor: pointer; text-decoration: none; transition: border-color 0.2s;
+  }
+  .btn-outline-dark:hover { border-color: var(--charcoal); }
+
+  @media (max-width: 600px) {
+    nav { padding: var(--grid) calc(var(--grid) * 2.5); }
+    .screen { padding: calc(var(--grid) * 4) calc(var(--grid) * 2.5); }
+    .demo-fields-row { grid-template-columns: 1fr; }
+    .prompt-question { font-size: 1.875rem; }
+    #screen-output { padding: calc(var(--grid) * 5) calc(var(--grid) * 2.5); }
+    .quick-wins-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- NAV -->
+  <nav>
+    <a href="https://whatcomesnextllc.ai" class="nav-logo">
+      <img src="assets/What_Comes_Next.svg" alt="WCN" width="36" height="36">
+      <span class="wordmark">whatcomesnextllc<span class="ai">.ai</span></span>
+    </a>
+    <span class="nav-product">The Spark &mdash; Demo</span>
+  </nav>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar"></div>
+  </div>
+
+  <!--
+    SHARED BACKGROUND SVG FRAGMENT (? mark)
+    Exact path from index.html hero — Kenao Sans Serif glyph.
+    Defined once, cloned per screen via JS to avoid repetition.
+    CLI TODO: when Kenao SVG asset is available, replace this path
+    with the branded asset file. See handoff doc.
+  -->
+  <svg style="display:none" id="qmark-def" aria-hidden="true">
+    <symbol id="qmark-symbol" viewBox="680 740 120 150">
+      <g fill="#ffffff" fill-opacity="1">
+        <g transform="translate(719.474972, 880.824864)">
+          <path d="M 38.734375 -108 C 42.859375 -108 47.175781 -107.707031 51.6875 -107.125 C 56.207031 -106.550781 60.484375 -105.453125 64.515625 -103.828125 C 69.890625 -101.710938 74.179688 -98.585938 77.390625 -94.453125 C 80.609375 -90.328125 82.363281 -85.816406 82.65625 -80.921875 C 82.84375 -76.503906 82.117188 -72.710938 80.484375 -69.546875 C 78.859375 -66.378906 76.65625 -63.570312 73.875 -61.125 C 71.09375 -58.675781 68.019531 -56.394531 64.65625 -54.28125 C 61.289062 -52.175781 57.976562 -50.039062 54.71875 -47.875 C 51.457031 -45.71875 48.550781 -43.367188 46 -40.828125 C 43.457031 -38.285156 41.585938 -35.285156 40.390625 -31.828125 C 39.191406 -28.367188 39.023438 -24.285156 39.890625 -19.578125 L 37.734375 -19.578125 C 35.710938 -25.535156 35.0625 -30.578125 35.78125 -34.703125 C 36.5 -38.828125 38.054688 -42.351562 40.453125 -45.28125 C 42.859375 -48.21875 45.691406 -50.882812 48.953125 -53.28125 C 52.222656 -55.675781 55.441406 -58.097656 58.609375 -60.546875 C 61.773438 -62.992188 64.460938 -65.753906 66.671875 -68.828125 C 68.878906 -71.898438 70.078125 -75.644531 70.265625 -80.0625 C 70.554688 -84.476562 69.550781 -88.601562 67.25 -92.4375 C 64.945312 -96.28125 61.726562 -99.453125 57.59375 -101.953125 C 53.46875 -104.453125 48.71875 -105.75 43.34375 -105.84375 C 37.875 -106.03125 32.570312 -105.234375 27.4375 -103.453125 C 22.300781 -101.679688 18.289062 -98.925781 15.40625 -95.1875 C 13.289062 -92.40625 11.894531 -89.1875 11.21875 -85.53125 C 10.550781 -81.882812 10.941406 -78.046875 12.390625 -74.015625 C 8.359375 -73.921875 5.285156 -74.953125 3.171875 -77.109375 C 1.054688 -79.273438 0 -81.988281 0 -85.25 C 0 -88.03125 0.8125 -90.597656 2.4375 -92.953125 C 4.070312 -95.304688 6.113281 -97.367188 8.5625 -99.140625 C 11.007812 -100.921875 13.390625 -102.335938 15.703125 -103.390625 C 19.347656 -105.023438 23.113281 -106.203125 27 -106.921875 C 30.882812 -107.640625 34.796875 -108 38.734375 -108 Z M 38.734375 -11.953125 C 37.097656 -11.953125 35.703125 -11.375 34.546875 -10.21875 C 33.398438 -9.070312 32.828125 -7.679688 32.828125 -6.046875 C 32.828125 -4.410156 33.398438 -2.992188 34.546875 -1.796875 C 35.703125 -0.597656 37.097656 0 38.734375 0 C 40.367188 0 41.785156 -0.597656 42.984375 -1.796875 C 44.179688 -2.992188 44.78125 -4.410156 44.78125 -6.046875 C 44.78125 -7.679688 44.179688 -9.070312 42.984375 -10.21875 C 41.785156 -11.375 40.367188 -11.953125 38.734375 -11.953125 Z M 38.734375 -11.953125"/>
+        </g>
+      </g>
+    </symbol>
+  </svg>
+
+  <!-- ═══════════════════════════════════
+       SCREEN 1 — NAME + DE-EMPHASIZED DEMOGRAPHICS
+       ═══════════════════════════════════ -->
+  <section class="screen active" id="screen-1">
+    <div class="bg-arc" aria-hidden="true"></div>
+    <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
+
+    <div class="prompt-card">
+      <div class="step-label">Step 1 of 3</div>
+      <h1 class="prompt-question">What's your <em>name?</em></h1>
+
+      <div class="input-wrap">
+        <!-- Label updated: "Name" not "First name" — accepts full/nick/display names -->
+        <label class="input-label" for="input-name">Name</label>
+        <input type="text" id="input-name" placeholder="e.g. Alex" autocomplete="name" autocapitalize="words">
+      </div>
+
+      <!--
+        De-emphasized demographics.
+        Visually subordinate to the Name field above:
+        smaller font, lower-opacity border/label, tighter padding.
+        Collected here so the pipeline has all three inputs before Step 2.
+      -->
+      <div class="demo-fields-row">
+        <div class="input-wrap">
+          <label class="input-label" for="input-age">Age</label>
+          <input type="text" id="input-age" placeholder="e.g. 34" inputmode="numeric">
+        </div>
+        <div class="input-wrap">
+          <label class="input-label" for="input-occupation">Occupation</label>
+          <input type="text" id="input-occupation" placeholder="e.g. Teacher">
+        </div>
+      </div>
+      <p class="demo-fields-hint">Optional — helps us personalize your snapshot.</p>
+
+      <button class="btn-submit" onclick="goToStep2()">
+        Continue
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+      <p class="hint-text">This is a demonstration of The Spark.<br>No data is stored or transmitted.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SCREEN 2 — FITNESS GOAL ONLY
+       ═══════════════════════════════════ -->
+  <section class="screen" id="screen-2">
+    <div class="bg-arc" aria-hidden="true"></div>
+    <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
+
+    <div class="prompt-card">
+      <div class="step-label">Step 2 of 3</div>
+      <h1 class="prompt-question">Hi <em id="name-display">there</em> — what's your <em>goal?</em></h1>
+
+      <div class="input-wrap">
+        <label class="input-label" for="input-goal">Your fitness goal</label>
+        <textarea id="input-goal" placeholder="Tell us what you're working toward. A sentence or two is perfect — your goal in your own words."></textarea>
+      </div>
+
+      <button class="btn-submit" onclick="goToStep3()">
+        Continue
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SCREEN 3 — WALK ME THROUGH YOUR DAY
+       ═══════════════════════════════════ -->
+  <section class="screen" id="screen-3">
+    <div class="bg-arc" aria-hidden="true"></div>
+    <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
+
+    <div class="prompt-card">
+      <div class="step-label">Step 3 of 3</div>
+      <h1 class="prompt-question">Walk me through <em>your day.</em></h1>
+
+      <div class="input-wrap">
+        <label class="input-label" for="input-day">A typical day, in your own words</label>
+        <textarea id="input-day" style="min-height:200px;" placeholder="When do you wake up? What do you eat? When do you work, move, sleep? Don't overthink it — just talk to us like you'd talk to a coach."></textarea>
+      </div>
+
+      <button class="btn-submit" onclick="goToProcessing()">
+        Get My Snapshot
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+      <p class="hint-text">The more honest you are, the more useful your snapshot will be.<br>There are no wrong answers.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SCREEN 4 — PROCESSING
+       CLI TODO: Replace .processing-orb with Evolutions.svg
+       ═══════════════════════════════════ -->
+  <section class="screen" id="screen-processing">
+    <div class="bg-arc" aria-hidden="true"></div>
+    <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
+
+    <div class="processing-inner">
+      <img src="assets/Evolutions.svg" class="processing-svg-logo" alt="" aria-hidden="true">
+      <div class="processing-label">Analyzing your input</div>
+      <h2 class="processing-title">Building your snapshot&hellip;</h2>
+      <ul class="processing-steps">
+        <li id="ps-1"><span class="step-dot"></span>Analyzing daily patterns</li>
+        <li id="ps-2"><span class="step-dot"></span>Cross-referencing with your goal</li>
+        <li id="ps-3"><span class="step-dot"></span>Applying NASM coaching framework</li>
+        <li id="ps-4"><span class="step-dot"></span>Building your Wellness Snapshot</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SCREEN 5 — OUTPUT (DEMO)
+       ═══════════════════════════════════ -->
+  <section class="screen" id="screen-output">
+    <div class="bg-arc" aria-hidden="true"></div>
+    <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
+
+    <div class="output-wrap">
+      <div class="demo-badge">Demo Output</div>
+      <div class="output-eyebrow">Wellness Snapshot</div>
+      <h1 class="output-headline" id="output-headline">Your Wellness Snapshot</h1>
+
+      <div class="output-goal-block">
+        <strong>Your Goal</strong>
+        <span id="output-goal-text">You want a lean, defined physique by summer — visible abs and a body you feel confident in at the beach. That's absolutely achievable with the right adjustments.</span>
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-title">What We Noticed</div>
+        <ul class="noticed-list">
+          <li>You're skipping breakfast most days, which means your body is running on empty through your most productive hours</li>
+          <li>Your meals are almost entirely unplanned — studio snacks, bodega runs, bus food, or whatever the kids leave behind</li>
+          <li>There's no mention of structured exercise, which means diet is doing all the heavy lifting right now — and it's not set up for that</li>
+          <li>Your schedule is unpredictable across work days, travel days, and home days, so rigid meal plans won't work for you</li>
+        </ul>
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-title">Your Game Plan</div>
+        <ol class="game-plan-list">
+          <li>
+            <div class="plan-num">1</div>
+            <div class="plan-content">
+              <div class="plan-title">Start every day with protein.</div>
+              <div class="plan-body">Before you leave in the morning, eat or drink something with 30+ grams of protein — a shake, eggs, or Greek yogurt. This protects muscle, controls hunger later, and kick-starts your metabolism. A visible six-pack requires building muscle AND losing fat, and skipping breakfast works against both.</div>
+            </div>
+          </li>
+          <li>
+            <div class="plan-num">2</div>
+            <div class="plan-content">
+              <div class="plan-title">Build 3–4 "default orders" and stick to them.</div>
+              <div class="plan-body">Pick a go-to option for each food source you rely on — something high-protein you don't have to think about. You don't need a meal plan; you need reliable defaults that fit your goal without requiring decision-making in the moment.</div>
+            </div>
+          </li>
+          <li>
+            <div class="plan-num">3</div>
+            <div class="plan-content">
+              <div class="plan-title">Add 3 days of resistance training per week.</div>
+              <div class="plan-body">Abs are revealed by losing body fat, but they're built by training. A basic push/pull/legs split — even 30–40 minutes — will build the muscle definition you're after. Bodyweight movements work fine when gym access is inconsistent.</div>
+            </div>
+          </li>
+          <li>
+            <div class="plan-num">4</div>
+            <div class="plan-content">
+              <div class="plan-title">Hydrate before you eat.</div>
+              <div class="plan-body">Before each meal, drink 16oz of water. A simple way to manage portions and support fat loss that reveals definition — especially when your meals are often grab-and-go.</div>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-title">Quick Wins</div>
+        <div class="quick-wins-grid">
+          <div class="quick-win-card">Buy a case of protein shakes and put them somewhere visible — grab one before you leave tomorrow morning.</div>
+          <div class="quick-win-card">Identify your best go-to order from one food source you use regularly. Decide on it today so you don't have to think about it later.</div>
+          <div class="quick-win-card">Fill a water bottle before bed so it's ready when you wake up.</div>
+        </div>
+      </div>
+
+      <div class="coaches-note">
+        <div class="coaches-note-label">Coach's Note</div>
+        <p>The fact that you're managing a demanding schedule and still thinking about your health tells me the discipline is already there — you're just not pointing it at your nutrition yet. Small switches to what's already in your routine will get you there. No overhaul needed.</p>
+      </div>
+
+      <div class="output-actions">
+        <a href="https://whatcomesnextllc.ai#contact" class="btn-primary">Work with a Coach &rarr;</a>
+        <button class="btn-outline-dark" onclick="resetDemo()">Start Over</button>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /app -->
+
+<script>
+  // ── State ──
+  let userName = '';
+
+  // ── Progress ──
+  const progressMap = {
+    'screen-1': 10, 'screen-2': 37, 'screen-3': 66,
+    'screen-processing': 88, 'screen-output': 100
+  };
+  function setProgress(id) {
+    document.getElementById('progress-bar').style.width = (progressMap[id] || 0) + '%';
+  }
+
+  // ── Screen transitions ──
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    setProgress(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Validation helper ──
+  function flashError(el) {
+    el.style.borderColor = 'rgba(231,111,81,0.7)';
+    el.focus();
+    setTimeout(() => { el.style.borderColor = ''; }, 1400);
+  }
+
+  // ── Name extraction helper ──
+  // Accepts "Mike Jones", "Mike", "MJ", "Mikey" etc.
+  // Displays whatever the user typed; for LLM injection, use full value.
+  // For the greeting we use the first token only (first word before a space).
+  function extractFirstToken(fullName) {
+    return fullName.trim().split(/\s+/)[0];
+  }
+
+  // ── Step navigation ──
+  function goToStep2() {
+    const el = document.getElementById('input-name');
+    if (!el.value.trim()) { flashError(el); return; }
+    userName = el.value.trim();
+    // Greeting uses first name / first token only; full name passes to LLM
+    document.getElementById('name-display').textContent = extractFirstToken(userName);
+    showScreen('screen-2');
+    setTimeout(() => document.getElementById('input-goal').focus(), 250);
+  }
+
+  function goToStep3() {
+    const el = document.getElementById('input-goal');
+    if (!el.value.trim()) { flashError(el); return; }
+    showScreen('screen-3');
+    setTimeout(() => document.getElementById('input-day').focus(), 250);
+  }
+
+  function goToProcessing() {
+    const el = document.getElementById('input-day');
+    if (!el.value.trim()) { flashError(el); return; }
+    showScreen('screen-processing');
+    runProcessing();
+  }
+
+  // ── Processing animation ──
+  function runProcessing() {
+    const ids = ['ps-1', 'ps-2', 'ps-3', 'ps-4'];
+    const delays = [300, 1200, 2100, 3000];
+
+    // Kick off first step immediately
+    document.getElementById(ids[0]).classList.add('active');
+
+    ids.forEach((id, i) => {
+      if (i === 0) return; // already handled
+      setTimeout(() => {
+        document.getElementById(ids[i - 1]).classList.remove('active');
+        document.getElementById(ids[i - 1]).classList.add('done');
+        document.getElementById(id).classList.add('active');
+      }, delays[i]);
+    });
+
+    // Transition to output
+    setTimeout(() => {
+      document.getElementById(ids[ids.length - 1]).classList.remove('active');
+      document.getElementById(ids[ids.length - 1]).classList.add('done');
+      personalizeOutput();
+      showScreen('screen-output');
+    }, 4300);
+  }
+
+  // ── Personalize output screen ──
+  function personalizeOutput() {
+    // Headline: "Mike Jones's Wellness Snapshot" or just first token if preferred
+    const displayName = extractFirstToken(userName);
+    document.getElementById('output-headline').textContent =
+      displayName ? displayName + '\u2019s Wellness Snapshot' : 'Your Wellness Snapshot';
+
+    // Goal block: echo their actual input with coaching suffix
+    const goal = document.getElementById('input-goal').value.trim();
+    if (goal) {
+      const g = goal.charAt(0).toUpperCase() + goal.slice(1);
+      document.getElementById('output-goal-text').textContent =
+        g + (g.slice(-1) === '.' ? '' : '.') + ' That\u2019s absolutely achievable with the right adjustments.';
+    }
+  }
+
+  // ── Reset ──
+  function resetDemo() {
+    ['input-name', 'input-age', 'input-occupation', 'input-goal', 'input-day']
+      .forEach(id => { document.getElementById(id).value = ''; });
+    document.querySelectorAll('.processing-steps li')
+      .forEach(li => li.classList.remove('active', 'done'));
+    userName = '';
+    showScreen('screen-1');
+    setTimeout(() => document.getElementById('input-name').focus(), 300);
+  }
+
+  // ── Keyboard: Enter on name field advances ──
+  document.getElementById('input-name').addEventListener('keydown', e => {
+    if (e.key === 'Enter') goToStep2();
+  });
+
+  // ── Init ──
+  setProgress('screen-1');
+</script>
+</body>
+</html>
