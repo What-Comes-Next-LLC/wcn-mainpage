@@ -321,6 +321,43 @@
     #screen-output { padding: calc(var(--grid) * 5) calc(var(--grid) * 2.5); }
     .quick-wins-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── PROMPT PACKAGE OUTPUT ── */
+  .prompt-block {
+    margin-bottom: calc(var(--grid) * 4);
+    background: var(--white); border-radius: 8px;
+    border: 1px solid #e0e0e0; overflow: hidden;
+  }
+  .prompt-block-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: calc(var(--grid) * 1.5) calc(var(--grid) * 2.5);
+    border-bottom: 1px solid #e0e0e0; background: var(--off-white);
+  }
+  .prompt-block-label {
+    font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--teal);
+  }
+  .btn-copy {
+    font-family: var(--font); font-size: 0.75rem; font-weight: 600;
+    background: transparent; border: 1px solid #ccc; border-radius: 3px;
+    color: #636e72; padding: 3px 10px; cursor: pointer;
+    transition: border-color 0.15s, color 0.15s; letter-spacing: 0.02em;
+  }
+  .btn-copy:hover { border-color: var(--teal); color: var(--teal); }
+  .btn-copy.copied { border-color: var(--sage); color: var(--sage); }
+  .prompt-textarea {
+    display: block; width: 100%; resize: none;
+    font-family: 'Courier New', Courier, monospace; font-size: 0.8rem;
+    color: var(--charcoal); background: var(--white);
+    border: none; outline: none;
+    padding: calc(var(--grid) * 2.5);
+    line-height: 1.65; min-height: 220px; overflow-y: auto;
+  }
+  .prompt-textarea--short { min-height: 160px; }
+  .prompt-pkg-note {
+    font-size: 0.9375rem; color: #636e72; line-height: 1.6;
+    margin-bottom: calc(var(--grid) * 5);
+  }
 </style>
 </head>
 <body>
@@ -467,82 +504,36 @@
   </section>
 
   <!-- ═══════════════════════════════════
-       SCREEN 5 — OUTPUT (DEMO)
+       SCREEN 5 — PROMPT PACKAGE OUTPUT
        ═══════════════════════════════════ -->
   <section class="screen" id="screen-output">
     <div class="bg-arc" aria-hidden="true"></div>
     <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
 
     <div class="output-wrap">
-      <div class="demo-badge">Demo Output</div>
-      <div class="output-eyebrow">Wellness Snapshot</div>
-      <h1 class="output-headline" id="output-headline">Your Wellness Snapshot</h1>
+      <div class="demo-badge">Pipeline &mdash; Stage 2</div>
+      <div class="output-eyebrow">Prompt Package</div>
+      <h1 class="output-headline" id="prompt-pkg-headline">Your prompt is ready.</h1>
+      <p class="prompt-pkg-note">Paste the system prompt into your LLM&rsquo;s system field, then paste the user message. Copy each section individually or grab the full package.</p>
 
-      <div class="output-goal-block">
-        <strong>Your Goal</strong>
-        <span id="output-goal-text">You want a lean, defined physique by summer — visible abs and a body you feel confident in at the beach. That's absolutely achievable with the right adjustments.</span>
-      </div>
-
-      <div class="output-section">
-        <div class="output-section-title">What We Noticed</div>
-        <ul class="noticed-list">
-          <li>You're skipping breakfast most days, which means your body is running on empty through your most productive hours</li>
-          <li>Your meals are almost entirely unplanned — studio snacks, bodega runs, bus food, or whatever the kids leave behind</li>
-          <li>There's no mention of structured exercise, which means diet is doing all the heavy lifting right now — and it's not set up for that</li>
-          <li>Your schedule is unpredictable across work days, travel days, and home days, so rigid meal plans won't work for you</li>
-        </ul>
-      </div>
-
-      <div class="output-section">
-        <div class="output-section-title">Your Game Plan</div>
-        <ol class="game-plan-list">
-          <li>
-            <div class="plan-num">1</div>
-            <div class="plan-content">
-              <div class="plan-title">Start every day with protein.</div>
-              <div class="plan-body">Before you leave in the morning, eat or drink something with 30+ grams of protein — a shake, eggs, or Greek yogurt. This protects muscle, controls hunger later, and kick-starts your metabolism. A visible six-pack requires building muscle AND losing fat, and skipping breakfast works against both.</div>
-            </div>
-          </li>
-          <li>
-            <div class="plan-num">2</div>
-            <div class="plan-content">
-              <div class="plan-title">Build 3–4 "default orders" and stick to them.</div>
-              <div class="plan-body">Pick a go-to option for each food source you rely on — something high-protein you don't have to think about. You don't need a meal plan; you need reliable defaults that fit your goal without requiring decision-making in the moment.</div>
-            </div>
-          </li>
-          <li>
-            <div class="plan-num">3</div>
-            <div class="plan-content">
-              <div class="plan-title">Add 3 days of resistance training per week.</div>
-              <div class="plan-body">Abs are revealed by losing body fat, but they're built by training. A basic push/pull/legs split — even 30–40 minutes — will build the muscle definition you're after. Bodyweight movements work fine when gym access is inconsistent.</div>
-            </div>
-          </li>
-          <li>
-            <div class="plan-num">4</div>
-            <div class="plan-content">
-              <div class="plan-title">Hydrate before you eat.</div>
-              <div class="plan-body">Before each meal, drink 16oz of water. A simple way to manage portions and support fat loss that reveals definition — especially when your meals are often grab-and-go.</div>
-            </div>
-          </li>
-        </ol>
-      </div>
-
-      <div class="output-section">
-        <div class="output-section-title">Quick Wins</div>
-        <div class="quick-wins-grid">
-          <div class="quick-win-card">Buy a case of protein shakes and put them somewhere visible — grab one before you leave tomorrow morning.</div>
-          <div class="quick-win-card">Identify your best go-to order from one food source you use regularly. Decide on it today so you don't have to think about it later.</div>
-          <div class="quick-win-card">Fill a water bottle before bed so it's ready when you wake up.</div>
+      <div class="prompt-block">
+        <div class="prompt-block-header">
+          <span class="prompt-block-label">System Prompt</span>
+          <button class="btn-copy" id="btn-copy-sys" onclick="copySection('prompt-system', 'btn-copy-sys')">Copy</button>
         </div>
+        <textarea id="prompt-system" class="prompt-textarea" readonly></textarea>
       </div>
 
-      <div class="coaches-note">
-        <div class="coaches-note-label">Coach's Note</div>
-        <p>The fact that you're managing a demanding schedule and still thinking about your health tells me the discipline is already there — you're just not pointing it at your nutrition yet. Small switches to what's already in your routine will get you there. No overhaul needed.</p>
+      <div class="prompt-block">
+        <div class="prompt-block-header">
+          <span class="prompt-block-label">User Message</span>
+          <button class="btn-copy" id="btn-copy-usr" onclick="copySection('prompt-user', 'btn-copy-usr')">Copy</button>
+        </div>
+        <textarea id="prompt-user" class="prompt-textarea prompt-textarea--short" readonly></textarea>
       </div>
 
       <div class="output-actions">
-        <a href="https://whatcomesnextllc.ai#contact" class="btn-primary">Work with a Coach &rarr;</a>
+        <button class="btn-primary" id="btn-copy-all" onclick="copyFullPackage()">Copy Full Package</button>
         <button class="btn-outline-dark" onclick="resetDemo()">Start Over</button>
       </div>
     </div>
@@ -632,25 +623,97 @@
     setTimeout(() => {
       document.getElementById(ids[ids.length - 1]).classList.remove('active');
       document.getElementById(ids[ids.length - 1]).classList.add('done');
-      personalizeOutput();
+      generatePromptOutput();
       showScreen('screen-output');
     }, 4300);
   }
 
-  // ── Personalize output screen ──
-  function personalizeOutput() {
-    // Headline: "Mike Jones's Wellness Snapshot" or just first token if preferred
-    const displayName = extractFirstToken(userName);
-    document.getElementById('output-headline').textContent =
-      displayName ? displayName + '\u2019s Wellness Snapshot' : 'Your Wellness Snapshot';
+  // ── System prompt (fixed — never changes) ──
+  const SYSTEM_PROMPT = `You are a certified wellness coach applying NASM CPT (Certified Personal Trainer) and NASM CNC (Certified Nutrition Coach) principles. Your job is to analyze a person's self-described daily routine alongside their fitness goal and produce a structured one-page wellness snapshot.
 
-    // Goal block: echo their actual input with coaching suffix
-    const goal = document.getElementById('input-goal').value.trim();
-    if (goal) {
-      const g = goal.charAt(0).toUpperCase() + goal.slice(1);
-      document.getElementById('output-goal-text').textContent =
-        g + (g.slice(-1) === '.' ? '' : '.') + ' That\u2019s absolutely achievable with the right adjustments.';
-    }
+You will receive:
+- DEMOGRAPHICS: Name, age, and occupation
+- GOAL: Their fitness goal in their own words
+- DAILY ROUTINE: A free-form description of their typical day
+
+ANALYSIS FRAMEWORK:
+1. Identify meal timing, composition (when inferable), and gaps
+2. Identify movement patterns, sedentary periods, and activity type/duration
+3. Identify sleep/recovery patterns and stress indicators
+4. Identify occupation-related factors (travel, irregular schedule, physical demands, sedentary work)
+5. Cross-reference findings against their stated goal
+6. Prioritize 3-5 actionable, specific recommendations that address the biggest gaps between their current habits and their goal
+
+OUTPUT RULES:
+- Write in second person ("you"), warm and direct — like a coach sitting across from them
+- Do NOT use clinical jargon; explain concepts in plain language
+- Every recommendation must be actionable and specific (not "eat better" but "add a protein source to your first meal — eggs, Greek yogurt, or a shake")
+- Tie each recommendation back to their goal so they understand WHY
+- Keep total output under 500 words — this must fit a single infographic page
+- Do NOT invent details the user didn't mention; if something is unclear, note it as an area to explore
+
+OUTPUT FORMAT (use this exact markdown structure):
+
+# Wellness Snapshot: [First Name]
+
+## Your Goal
+[Restate their goal in encouraging, clear terms — 1-2 sentences max]
+
+## What We Noticed
+[3-4 bullet points identifying key patterns from their routine. Be specific — reference their actual habits. Each bullet should be 1 sentence.]
+
+## Your Game Plan
+[3-5 numbered recommendations. Each should be 2-3 sentences: what to do, how to do it, and why it matters for their goal. These are the core of the infographic.]
+
+## Quick Wins
+[2-3 things they can do TODAY that require zero prep or equipment. Keep each to one sentence.]
+
+## Coach's Note
+[1-2 sentences of encouragement that reference something specific from their routine — show you were listening.]`;
+
+  // ── Generate prompt package from live inputs ──
+  function generatePromptOutput() {
+    const name       = document.getElementById('input-name').value.trim()       || '(not provided)';
+    const age        = document.getElementById('input-age').value.trim()        || '(not provided)';
+    const occupation = document.getElementById('input-occupation').value.trim() || '(not provided)';
+    const goal       = document.getElementById('input-goal').value.trim();
+    const routine    = document.getElementById('input-day').value.trim();
+
+    const userMsg =
+      'DEMOGRAPHICS:\n' +
+      'Name: ' + name + '\n' +
+      'Age: ' + age + '\n' +
+      'Occupation: ' + occupation + '\n\n' +
+      'GOAL:\n' + goal + '\n\n' +
+      'DAILY ROUTINE:\n' + routine;
+
+    document.getElementById('prompt-system').value = SYSTEM_PROMPT;
+    document.getElementById('prompt-user').value   = userMsg;
+
+    const firstName = extractFirstToken(name);
+    document.getElementById('prompt-pkg-headline').textContent =
+      firstName ? firstName + '\u2019s prompt is ready.' : 'Your prompt is ready.';
+  }
+
+  // ── Copy helpers ──
+  function copySection(textareaId, btnId) {
+    navigator.clipboard.writeText(document.getElementById(textareaId).value).then(function() {
+      var btn = document.getElementById(btnId);
+      btn.textContent = 'Copied \u2713';
+      btn.classList.add('copied');
+      setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function copyFullPackage() {
+    var sys = document.getElementById('prompt-system').value;
+    var usr = document.getElementById('prompt-user').value;
+    var full = '=== SYSTEM PROMPT ===\n\n' + sys + '\n\n=== USER MESSAGE ===\n\n' + usr;
+    navigator.clipboard.writeText(full).then(function() {
+      var btn = document.getElementById('btn-copy-all');
+      btn.textContent = 'Copied \u2713';
+      setTimeout(function() { btn.textContent = 'Copy Full Package'; }, 2000);
+    });
   }
 
   // ── Reset ──
