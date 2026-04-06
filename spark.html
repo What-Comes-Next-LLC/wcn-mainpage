@@ -322,6 +322,17 @@
     .quick-wins-grid { grid-template-columns: 1fr; }
   }
 
+  @media print {
+    nav, .progress-bar-wrap, .output-actions, .bg-arc, .bg-qmark-svg { display: none !important; }
+    body { background: white; }
+    .screen { display: none !important; }
+    #screen-output { display: block !important; background: white; padding: 1.5rem; min-height: auto; }
+    .output-wrap { max-width: 100%; }
+    .coaches-note { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .output-goal-block { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .plan-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
   /* ── PROMPT PACKAGE OUTPUT ── */
   .prompt-block {
     margin-bottom: calc(var(--grid) * 4);
@@ -504,36 +515,48 @@
   </section>
 
   <!-- ═══════════════════════════════════
-       SCREEN 5 — PROMPT PACKAGE OUTPUT
+       SCREEN 5 — WELLNESS SNAPSHOT OUTPUT
        ═══════════════════════════════════ -->
   <section class="screen" id="screen-output">
     <div class="bg-arc" aria-hidden="true"></div>
     <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
 
     <div class="output-wrap">
-      <div class="demo-badge">Pipeline &mdash; Stage 2</div>
-      <div class="output-eyebrow">Prompt Package</div>
-      <h1 class="output-headline" id="prompt-pkg-headline">Your prompt is ready.</h1>
-      <p class="prompt-pkg-note">Paste the system prompt into your LLM&rsquo;s system field, then paste the user message. Copy each section individually or grab the full package.</p>
+      <div class="output-eyebrow">Your Wellness Snapshot</div>
+      <h1 class="output-headline" id="snapshot-headline">Here&rsquo;s your plan.</h1>
 
-      <div class="prompt-block">
-        <div class="prompt-block-header">
-          <span class="prompt-block-label">System Prompt</span>
-          <button class="btn-copy" id="btn-copy-sys" onclick="copySection('prompt-system', 'btn-copy-sys')">Copy</button>
-        </div>
-        <textarea id="prompt-system" class="prompt-textarea" readonly></textarea>
+      <!-- Goal -->
+      <div class="output-goal-block">
+        <strong>Your Goal</strong>
+        <span id="snap-goal"></span>
       </div>
 
-      <div class="prompt-block">
-        <div class="prompt-block-header">
-          <span class="prompt-block-label">User Message</span>
-          <button class="btn-copy" id="btn-copy-usr" onclick="copySection('prompt-user', 'btn-copy-usr')">Copy</button>
-        </div>
-        <textarea id="prompt-user" class="prompt-textarea prompt-textarea--short" readonly></textarea>
+      <!-- What We Noticed -->
+      <div class="output-section">
+        <div class="output-section-title">What We Noticed</div>
+        <ul class="noticed-list" id="snap-noticed"></ul>
+      </div>
+
+      <!-- Your Game Plan -->
+      <div class="output-section">
+        <div class="output-section-title">Your Game Plan</div>
+        <ol class="game-plan-list" id="snap-gameplan"></ol>
+      </div>
+
+      <!-- Quick Wins -->
+      <div class="output-section">
+        <div class="output-section-title">Quick Wins &mdash; Start Today</div>
+        <div class="quick-wins-grid" id="snap-quickwins"></div>
+      </div>
+
+      <!-- Coach's Note -->
+      <div class="coaches-note">
+        <div class="coaches-note-label">Coach&rsquo;s Note</div>
+        <p id="snap-coachnote"></p>
       </div>
 
       <div class="output-actions">
-        <button class="btn-primary" id="btn-copy-all" onclick="copyFullPackage()">Copy Full Package</button>
+        <button class="btn-primary" onclick="window.print()">Save as PDF</button>
         <button class="btn-outline-dark" onclick="resetDemo()">Start Over</button>
       </div>
     </div>
@@ -602,119 +625,147 @@
     runProcessing();
   }
 
-  // ── Processing animation ──
+  // ── Processing: real API call, animation runs until response ──
   function runProcessing() {
     const ids = ['ps-1', 'ps-2', 'ps-3', 'ps-4'];
-    const delays = [300, 1200, 2100, 3000];
-
-    // Kick off first step immediately
-    document.getElementById(ids[0]).classList.add('active');
+    // Spread steps across ~25s (CPU inference time); final step holds until API returns
+    const stepDelays = [0, 6000, 13000, 21000];
 
     ids.forEach((id, i) => {
-      if (i === 0) return; // already handled
       setTimeout(() => {
-        document.getElementById(ids[i - 1]).classList.remove('active');
-        document.getElementById(ids[i - 1]).classList.add('done');
+        if (i > 0) {
+          document.getElementById(ids[i - 1]).classList.remove('active');
+          document.getElementById(ids[i - 1]).classList.add('done');
+        }
         document.getElementById(id).classList.add('active');
-      }, delays[i]);
+      }, stepDelays[i]);
     });
 
-    // Transition to output
-    setTimeout(() => {
-      document.getElementById(ids[ids.length - 1]).classList.remove('active');
-      document.getElementById(ids[ids.length - 1]).classList.add('done');
-      generatePromptOutput();
-      showScreen('screen-output');
-    }, 4300);
-  }
-
-  // ── System prompt (fixed — never changes) ──
-  const SYSTEM_PROMPT = `You are a certified wellness coach applying NASM CPT (Certified Personal Trainer) and NASM CNC (Certified Nutrition Coach) principles. Your job is to analyze a person's self-described daily routine alongside their fitness goal and produce a structured one-page wellness snapshot.
-
-You will receive:
-- DEMOGRAPHICS: Name, age, and occupation
-- GOAL: Their fitness goal in their own words
-- DAILY ROUTINE: A free-form description of their typical day
-
-ANALYSIS FRAMEWORK:
-1. Identify meal timing, composition (when inferable), and gaps
-2. Identify movement patterns, sedentary periods, and activity type/duration
-3. Identify sleep/recovery patterns and stress indicators
-4. Identify occupation-related factors (travel, irregular schedule, physical demands, sedentary work)
-5. Cross-reference findings against their stated goal
-6. Prioritize 3-5 actionable, specific recommendations that address the biggest gaps between their current habits and their goal
-
-OUTPUT RULES:
-- Write in second person ("you"), warm and direct — like a coach sitting across from them
-- Do NOT use clinical jargon; explain concepts in plain language
-- Every recommendation must be actionable and specific (not "eat better" but "add a protein source to your first meal — eggs, Greek yogurt, or a shake")
-- Tie each recommendation back to their goal so they understand WHY
-- Keep total output under 500 words — this must fit a single infographic page
-- Do NOT invent details the user didn't mention; if something is unclear, note it as an area to explore
-
-OUTPUT FORMAT (use this exact markdown structure):
-
-# Wellness Snapshot: [First Name]
-
-## Your Goal
-[Restate their goal in encouraging, clear terms — 1-2 sentences max]
-
-## What We Noticed
-[3-4 bullet points identifying key patterns from their routine. Be specific — reference their actual habits. Each bullet should be 1 sentence.]
-
-## Your Game Plan
-[3-5 numbered recommendations. Each should be 2-3 sentences: what to do, how to do it, and why it matters for their goal. These are the core of the infographic.]
-
-## Quick Wins
-[2-3 things they can do TODAY that require zero prep or equipment. Keep each to one sentence.]
-
-## Coach's Note
-[1-2 sentences of encouragement that reference something specific from their routine — show you were listening.]`;
-
-  // ── Generate prompt package from live inputs ──
-  function generatePromptOutput() {
-    const name       = document.getElementById('input-name').value.trim()       || '(not provided)';
-    const age        = document.getElementById('input-age').value.trim()        || '(not provided)';
-    const occupation = document.getElementById('input-occupation').value.trim() || '(not provided)';
+    const name       = document.getElementById('input-name').value.trim();
+    const age        = document.getElementById('input-age').value.trim()        || '';
+    const occupation = document.getElementById('input-occupation').value.trim() || '';
     const goal       = document.getElementById('input-goal').value.trim();
     const routine    = document.getElementById('input-day').value.trim();
 
-    const userMsg =
-      'DEMOGRAPHICS:\n' +
-      'Name: ' + name + '\n' +
-      'Age: ' + age + '\n' +
-      'Occupation: ' + occupation + '\n\n' +
-      'GOAL:\n' + goal + '\n\n' +
-      'DAILY ROUTINE:\n' + routine;
-
-    document.getElementById('prompt-system').value = SYSTEM_PROMPT;
-    document.getElementById('prompt-user').value   = userMsg;
-
-    const firstName = extractFirstToken(name);
-    document.getElementById('prompt-pkg-headline').textContent =
-      firstName ? firstName + '\u2019s prompt is ready.' : 'Your prompt is ready.';
-  }
-
-  // ── Copy helpers ──
-  function copySection(textareaId, btnId) {
-    navigator.clipboard.writeText(document.getElementById(textareaId).value).then(function() {
-      var btn = document.getElementById(btnId);
-      btn.textContent = 'Copied \u2713';
-      btn.classList.add('copied');
-      setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    fetch('https://api.whatcomesnextllc.ai/api/wellness', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, age, occupation, goal, routine })
+    })
+    .then(r => {
+      if (!r.ok) throw new Error('API returned ' + r.status);
+      return r.json();
+    })
+    .then(data => {
+      ids.forEach(id => {
+        document.getElementById(id).classList.remove('active');
+        document.getElementById(id).classList.add('done');
+      });
+      renderSnapshot(data.output);
+      showScreen('screen-output');
+    })
+    .catch(() => {
+      const inner = document.querySelector('.processing-inner');
+      document.querySelector('.processing-title').textContent = 'Something went wrong.';
+      document.querySelector('.processing-title').style.color = 'var(--coral)';
+      const btn = document.createElement('button');
+      btn.className = 'btn-submit';
+      btn.textContent = 'Start Over';
+      btn.style.marginTop = '24px';
+      btn.onclick = resetDemo;
+      inner.appendChild(btn);
     });
   }
 
-  function copyFullPackage() {
-    var sys = document.getElementById('prompt-system').value;
-    var usr = document.getElementById('prompt-user').value;
-    var full = '=== SYSTEM PROMPT ===\n\n' + sys + '\n\n=== USER MESSAGE ===\n\n' + usr;
-    navigator.clipboard.writeText(full).then(function() {
-      var btn = document.getElementById('btn-copy-all');
-      btn.textContent = 'Copied \u2713';
-      setTimeout(function() { btn.textContent = 'Copy Full Package'; }, 2000);
-    });
+  // ── Render markdown response into the snapshot template ──
+  function renderSnapshot(markdown) {
+    const sections = {};
+    let currentKey = null;
+    let currentLines = [];
+
+    for (const line of markdown.split('\n')) {
+      const h1 = line.match(/^#\s+Wellness Snapshot:\s*(.+)/i);
+      if (h1) { sections._name = h1[1].trim(); continue; }
+      const h2 = line.match(/^##\s+(.+)/);
+      if (h2) {
+        if (currentKey) sections[currentKey] = currentLines.join('\n').trim();
+        currentKey = h2[1].trim().toLowerCase().replace(/[^a-z\s]/g, '').trim();
+        currentLines = [];
+        continue;
+      }
+      if (currentKey) currentLines.push(line);
+    }
+    if (currentKey) sections[currentKey] = currentLines.join('\n').trim();
+
+    const name = sections._name || extractFirstToken(document.getElementById('input-name').value.trim());
+    document.getElementById('snapshot-headline').textContent = `Here\u2019s your plan, ${name}.`;
+
+    // Goal
+    document.getElementById('snap-goal').textContent = sections['your goal'] || '';
+
+    // What We Noticed
+    const noticedEl = document.getElementById('snap-noticed');
+    noticedEl.innerHTML = '';
+    (sections['what we noticed'] || '').split('\n')
+      .map(l => l.replace(/^[-*\d.)]+\s*/, '').trim()).filter(Boolean)
+      .forEach(text => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        noticedEl.appendChild(li);
+      });
+
+    // Game Plan — parse numbered items, split **Title.** body
+    const gameplanEl = document.getElementById('snap-gameplan');
+    gameplanEl.innerHTML = '';
+    if (sections['your game plan']) {
+      const items = [];
+      let cur = null;
+      for (const line of sections['your game plan'].split('\n')) {
+        const m = line.match(/^\d+[\.\)]\s+(.+)/);
+        if (m) { if (cur !== null) items.push(cur); cur = m[1].trim(); }
+        else if (cur !== null && line.trim()) { cur += ' ' + line.trim(); }
+      }
+      if (cur !== null) items.push(cur);
+
+      items.forEach((item, i) => {
+        const boldMatch = item.match(/^\*\*(.+?)[.:]\*\*\s*(.*)/s);
+        const li = document.createElement('li');
+        const numDiv = document.createElement('div');
+        numDiv.className = 'plan-num';
+        numDiv.textContent = i + 1;
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'plan-content';
+        if (boldMatch) {
+          const t = document.createElement('div'); t.className = 'plan-title'; t.textContent = boldMatch[1];
+          const b = document.createElement('div'); b.className = 'plan-body';  b.textContent = boldMatch[2];
+          contentDiv.appendChild(t); contentDiv.appendChild(b);
+        } else {
+          const b = document.createElement('div'); b.className = 'plan-body';
+          b.textContent = item.replace(/\*\*/g, '');
+          contentDiv.appendChild(b);
+        }
+        li.appendChild(numDiv); li.appendChild(contentDiv);
+        gameplanEl.appendChild(li);
+      });
+    }
+
+    // Quick Wins
+    const quickwinsEl = document.getElementById('snap-quickwins');
+    quickwinsEl.innerHTML = '';
+    (sections['quick wins'] || '').split('\n')
+      .map(l => l.replace(/^[-*\d.)]+\s*/, '').trim()).filter(Boolean)
+      .forEach(text => {
+        const card = document.createElement('div');
+        card.className = 'quick-win-card';
+        card.textContent = text;
+        quickwinsEl.appendChild(card);
+      });
+
+    // Coach's Note (handle apostrophe variants in section key)
+    const noteKey = Object.keys(sections).find(k => k.includes('coach')) || '';
+    document.getElementById('snap-coachnote').textContent = sections[noteKey] || '';
   }
+
 
   // ── Reset ──
   function resetDemo() {
