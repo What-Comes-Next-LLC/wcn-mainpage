@@ -7,11 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
+    /* ── Intake form tokens (Screens 1–4) ── */
     --teal: #216869;
     --teal-dark: #1a5354;
     --coral: #e76f51;
@@ -22,6 +24,21 @@
     --white: #ffffff;
     --font: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --grid: 8px;
+    /* ── WCN Evolutions tokens (output stages) — same colors, distinct namespace ── */
+    --wcn-primary: #216869;
+    --wcn-primary-light: #2a8385;
+    --wcn-accent-green: #49A078;
+    --wcn-accent-coral: #E76F51;
+    --wcn-accent-amber: #F4A261;
+    --wcn-heading: #216869;
+    --wcn-body: #2D3436;
+    --wcn-body-light: #636e72;
+    --wcn-bg: #F4F4F4;
+    --wcn-card-bg: #FFFFFF;
+    --wcn-border: #e0e0e0;
+    --wcn-green-bg: #edf7f2;
+    --wcn-amber-bg: #fef8f0;
+    --wcn-primary-bg: #edf5f5;
   }
 
   html { font-size: 16px; }
@@ -43,10 +60,7 @@
     border-bottom: 1px solid rgba(255,255,255,0.08);
     position: relative; z-index: 10;
   }
-  .nav-logo {
-    display: flex; align-items: center;
-    gap: calc(var(--grid) * 1.5); text-decoration: none;
-  }
+  .nav-logo { display: flex; align-items: center; gap: calc(var(--grid) * 1.5); text-decoration: none; }
   .nav-logo img { width: 36px; height: 36px; }
   .nav-logo .wordmark { color: var(--white); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
   .nav-logo .wordmark .ai { color: var(--amber); }
@@ -64,40 +78,23 @@
   }
   .screen.active { display: flex; }
 
-  /* Background arc — matches index.html hero-arc exactly */
   .bg-arc {
     position: absolute;
-    width: clamp(500px, 65vw, 900px);
-    height: clamp(500px, 65vw, 900px);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 50%;
-    right: -15%; top: -20%;
-    pointer-events: none;
+    width: clamp(500px, 65vw, 900px); height: clamp(500px, 65vw, 900px);
+    border: 1px solid rgba(255,255,255,0.05); border-radius: 50%;
+    right: -15%; top: -20%; pointer-events: none;
   }
   .bg-arc::after {
     content: ''; position: absolute; inset: 40px;
     border: 1px solid rgba(255,255,255,0.03); border-radius: 50%;
   }
-
-  /*
-   * Background ? — uses the EXACT same inline SVG path from index.html hero.
-   * Positioned bottom-left, large, opacity 0.04 — identical treatment.
-   * NOTE FOR CLI: swap this SVG element for the Kenao Sans Serif branded
-   * asset once available. See handoff doc for details.
-   */
   .bg-qmark-svg {
-    position: absolute;
-    bottom: -8%; left: -4%;
-    width: clamp(320px, 45vw, 600px);
-    height: auto;
-    opacity: 0.04;
-    pointer-events: none;
-    user-select: none;
+    position: absolute; bottom: -8%; left: -4%;
+    width: clamp(320px, 45vw, 600px); height: auto;
+    opacity: 0.04; pointer-events: none; user-select: none;
   }
-  /* On the light output screen, darken the tint */
-  #screen-output .bg-qmark-svg { filter: invert(1); opacity: 0.025; }
-  #screen-output .bg-arc { border-color: rgba(0,0,0,0.04); }
-  #screen-output .bg-arc::after { border-color: rgba(0,0,0,0.02); }
+  #screen-output .bg-qmark-svg { filter: invert(1); opacity: 0.015; }
+  #screen-output .bg-arc { border-color: rgba(0,0,0,0.03); }
 
   /* ── PROMPT CARD ── */
   .prompt-card { width: 100%; max-width: 560px; position: relative; z-index: 2; }
@@ -108,9 +105,7 @@
     margin-bottom: calc(var(--grid) * 4);
     display: flex; align-items: center; gap: calc(var(--grid) * 1.5);
   }
-  .step-label::before {
-    content: ''; display: block; width: 20px; height: 1px; background: rgba(255,255,255,0.25);
-  }
+  .step-label::before { content: ''; display: block; width: 20px; height: 1px; background: rgba(255,255,255,0.25); }
 
   .prompt-question {
     font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 700;
@@ -133,38 +128,25 @@
     outline: none; transition: border-color 0.2s, background 0.2s; -webkit-appearance: none;
   }
   input[type="text"]::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); font-weight: 400; }
-  input[type="text"]:focus, textarea:focus {
-    border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.1);
-  }
+  input[type="text"]:focus, textarea:focus { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.1); }
   textarea { min-height: 160px; resize: vertical; line-height: 1.6; font-size: 1rem; }
 
-  /*
-   * Screen 1 — de-emphasized demographic fields.
-   * Smaller font, slightly reduced opacity on label + border,
-   * so the primary Name field stays dominant. Age + Occupation
-   * sit in a two-col row beneath Name.
-   */
   .demo-fields-row {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: calc(var(--grid) * 2); margin-top: calc(var(--grid) * -1);
-    margin-bottom: calc(var(--grid) * 3);
+    gap: calc(var(--grid) * 2); margin-top: calc(var(--grid) * -1); margin-bottom: calc(var(--grid) * 3);
   }
   .demo-fields-row .input-wrap { margin-bottom: 0; }
   .demo-fields-row .input-label { color: rgba(255,255,255,0.28); }
   .demo-fields-row input[type="text"] {
     font-size: 0.9375rem; font-weight: 400;
-    background: rgba(255,255,255,0.04);
-    border-color: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1);
     padding: calc(var(--grid) * 1.5) calc(var(--grid) * 2);
   }
   .demo-fields-row input[type="text"]::placeholder { color: rgba(255,255,255,0.18); }
-  .demo-fields-row input[type="text"]:focus {
-    background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3);
-  }
+  .demo-fields-row input[type="text"]:focus { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
   .demo-fields-hint {
     font-size: 0.75rem; color: rgba(255,255,255,0.25); line-height: 1.5;
-    margin-top: calc(var(--grid) * -2); margin-bottom: calc(var(--grid) * 3);
-    font-style: italic;
+    margin-top: calc(var(--grid) * -2); margin-bottom: calc(var(--grid) * 3); font-style: italic;
   }
 
   .btn-submit {
@@ -186,188 +168,179 @@
     to   { opacity: 1; transform: translateY(0); }
   }
   .screen.active .prompt-card,
-  .screen.active .processing-inner,
-  .screen.active .output-wrap {
+  .screen.active .processing-inner {
     animation: screenIn 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
   }
 
   /* ── PROCESSING ── */
   #screen-processing { background: var(--teal-dark); }
   .processing-inner { text-align: center; max-width: 420px; position: relative; z-index: 2; }
-
-  /* ── Processing animation ── */
-  .processing-svg-logo {
-    width: 88px; height: 88px; display: block;
-    margin: 0 auto calc(var(--grid) * 4);
-    animation: orbSpin 3s linear infinite;
-  }
+  .processing-svg-logo { width: 88px; height: 88px; display: block; margin: 0 auto calc(var(--grid) * 4); animation: orbSpin 3s linear infinite; }
   @keyframes orbSpin { to { transform: rotate(360deg); } }
-
   .processing-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: var(--grid); }
   .processing-title { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; color: var(--white); margin-bottom: calc(var(--grid) * 2); }
   .processing-steps { list-style: none; margin-top: calc(var(--grid) * 4); text-align: left; display: inline-block; }
-  .processing-steps li {
-    font-size: 0.875rem; color: rgba(255,255,255,0.35);
-    padding: calc(var(--grid) * 0.75) 0;
-    display: flex; align-items: center; gap: calc(var(--grid) * 1.5); transition: color 0.4s;
-  }
+  .processing-steps li { font-size: 0.875rem; color: rgba(255,255,255,0.35); padding: calc(var(--grid) * 0.75) 0; display: flex; align-items: center; gap: calc(var(--grid) * 1.5); transition: color 0.4s; }
   .processing-steps li.done { color: rgba(255,255,255,0.8); }
   .processing-steps li.active { color: var(--amber); }
   .step-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
   .processing-steps li.active .step-dot { animation: dotPulse 0.8s ease-in-out infinite alternate; }
   @keyframes dotPulse { from { transform: scale(1); opacity: 0.6; } to { transform: scale(1.6); opacity: 1; } }
 
-  /* ── OUTPUT ── */
-  #screen-output {
-    background: var(--off-white); color: var(--charcoal);
-    align-items: flex-start; padding-top: calc(var(--grid) * 8);
-  }
-  .output-wrap { width: 100%; max-width: 720px; margin: 0 auto; position: relative; z-index: 2; }
+  /* ── OUTPUT SCREEN — block container for stage-based flow ── */
+  #screen-output { background: var(--off-white); color: var(--charcoal); padding: 0; }
+  #screen-output.active { display: block; min-height: calc(100vh - 64px); }
 
-  .demo-badge {
-    display: inline-flex; align-items: center; gap: var(--grid);
-    background: rgba(231,111,81,0.1); border: 1px solid rgba(231,111,81,0.2);
-    border-radius: 4px; padding: calc(var(--grid) * 0.75) calc(var(--grid) * 1.5);
-    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--coral); margin-bottom: calc(var(--grid) * 3);
-  }
-  .demo-badge::before {
-    content: ''; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--coral); animation: badgePulse 1.4s ease-in-out infinite;
-  }
-  @keyframes badgePulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  /* ── Stage management ── */
+  .stage { display: none; }
+  .stage.active { display: block; animation: fadeUp 0.4s ease-out; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-  .output-eyebrow { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); margin-bottom: calc(var(--grid) * 1.5); }
-  .output-headline { font-size: clamp(1.75rem,4vw,2.5rem); font-weight: 700; letter-spacing: -0.03em; color: var(--charcoal); line-height: 1.15; margin-bottom: calc(var(--grid) * 2); }
-
-  .output-goal-block {
-    background: var(--teal); border-radius: 8px;
-    padding: calc(var(--grid) * 3) calc(var(--grid) * 3.5);
-    margin-bottom: calc(var(--grid) * 4);
-    color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.65;
-  }
-  .output-goal-block strong {
-    display: block; font-size: 0.6875rem; font-weight: 600;
-    letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: var(--grid);
+  /* ── Honesty marker ── */
+  .honesty-marker {
+    display: inline-block; font-size: 0.65rem; color: var(--wcn-body-light);
+    background: var(--wcn-bg); padding: 2px 8px; border-radius: 4px;
+    border: 1px dashed var(--wcn-border); font-style: italic; margin-left: 0.5rem; vertical-align: middle;
   }
 
-  .output-section { margin-bottom: calc(var(--grid) * 5); }
-  .output-section-title {
-    font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--teal); margin-bottom: calc(var(--grid) * 2); padding-bottom: var(--grid);
-    border-bottom: 2px solid var(--teal); display: inline-block;
+  /* ============================================================
+     STAGE 1: SNAPSHOT (Evolutions report template)
+     ============================================================ */
+  .snapshot-page {
+    max-width: 820px; margin: 2rem auto;
+    background: var(--wcn-card-bg); border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04); overflow: hidden;
   }
+  .snapshot-header { background: var(--wcn-primary); padding: 1.8rem 2.5rem 1.6rem; position: relative; overflow: hidden; }
+  .snapshot-header::after {
+    content: ''; position: absolute; top: -40%; right: -5%; width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(73,160,120,0.2) 0%, transparent 70%); border-radius: 50%; pointer-events: none;
+  }
+  .snapshot-header h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.85rem; font-weight: 400; color: #FFF; letter-spacing: -0.01em; position: relative; z-index: 1; }
+  .snapshot-header .subtitle { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; font-weight: 400; color: rgba(255,255,255,0.7); margin-top: 0.25rem; letter-spacing: 0.04em; text-transform: uppercase; position: relative; z-index: 1; }
+  .snapshot-body { padding: 2rem 2.5rem 2.5rem; }
+  .section-goal { background: var(--wcn-primary-bg); border-left: 4px solid var(--wcn-primary); border-radius: 0 8px 8px 0; padding: 1.1rem 1.4rem; margin-bottom: 1.8rem; }
+  .section-goal p { font-size: 1.02rem; color: var(--wcn-body); line-height: 1.6; }
+  .section-title { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.2rem; font-weight: 400; color: var(--wcn-heading); margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 2px solid var(--wcn-border); letter-spacing: -0.01em; }
+  .section-noticed { margin-bottom: 1.8rem; }
+  .noticed-list { list-style: none; display: grid; gap: 0.6rem; }
+  .noticed-list li { padding: 0.6rem 0.8rem 0.6rem 2.2rem; background: var(--wcn-bg); border-radius: 6px; font-size: 0.92rem; line-height: 1.5; position: relative; }
+  .noticed-list li::before { content: ''; position: absolute; left: 0.85rem; top: 0.85rem; width: 7px; height: 7px; background: var(--wcn-accent-coral); border-radius: 50%; }
+  .section-gameplan { margin-bottom: 1.8rem; }
+  .gameplan-list { list-style: none; counter-reset: gameplan; display: grid; gap: 0.75rem; }
+  .gameplan-list li { counter-increment: gameplan; padding: 0.9rem 1rem 0.9rem 3.2rem; background: var(--wcn-card-bg); border: 1px solid var(--wcn-border); border-radius: 8px; font-size: 0.92rem; line-height: 1.6; position: relative; }
+  .gameplan-list li::before { content: counter(gameplan); position: absolute; left: 0.9rem; top: 0.85rem; width: 1.7rem; height: 1.7rem; background: var(--wcn-accent-green); color: white; font-weight: 700; font-size: 0.8rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
+  .gameplan-list li strong { color: var(--wcn-heading); font-weight: 600; }
+  .section-quickwins { margin-bottom: 1.8rem; }
+  .quickwins-box { background: var(--wcn-amber-bg); border-radius: 8px; padding: 1rem 1.2rem; }
+  .quickwins-list { list-style: none; display: grid; gap: 0.5rem; }
+  .quickwins-list li { padding-left: 1.6rem; font-size: 0.92rem; line-height: 1.5; position: relative; }
+  .quickwins-list li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--wcn-accent-amber); font-weight: 700; font-size: 1rem; }
+  .section-coachnote { background: var(--wcn-green-bg); border-radius: 8px; padding: 1.1rem 1.4rem; position: relative; margin-bottom: 1.8rem; }
+  .section-coachnote::before { content: '\201C'; font-family: 'DM Serif Display', Georgia, serif; font-size: 3.5rem; color: var(--wcn-accent-green); opacity: 0.3; position: absolute; top: -0.1rem; left: 0.8rem; line-height: 1; }
+  .section-coachnote p { font-size: 0.95rem; font-style: italic; color: var(--wcn-body); line-height: 1.6; padding-left: 0.5rem; }
+  .evolution-cta { text-align: center; padding: 1.5rem; background: linear-gradient(135deg, var(--wcn-primary) 0%, var(--wcn-primary-light) 100%); border-radius: 10px; margin-top: 0.5rem; }
+  .evolution-cta h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.3rem; color: white; margin-bottom: 0.4rem; font-weight: 400; }
+  .evolution-cta p { font-size: 0.88rem; color: rgba(255,255,255,0.85); margin-bottom: 1rem; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.6rem; background: white; color: var(--wcn-primary); border: none; border-radius: 6px; font-family: 'Source Sans 3', sans-serif; font-size: 0.92rem; font-weight: 600; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; text-decoration: none; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .btn-primary svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
-  .noticed-list { list-style: none; display: flex; flex-direction: column; gap: calc(var(--grid) * 1.5); }
-  .noticed-list li {
-    display: flex; gap: calc(var(--grid) * 1.5);
-    font-size: 0.9375rem; line-height: 1.6; color: #636e72; align-items: flex-start;
-  }
-  .noticed-list li::before {
-    content: ''; display: block; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--coral); flex-shrink: 0; margin-top: 8px;
-  }
+  /* ============================================================
+     STAGE 2: HABIT SELECTION
+     ============================================================ */
+  .selection-page { max-width: 720px; margin: 2rem auto; padding: 2rem; }
+  .selection-header { text-align: center; margin-bottom: 2rem; }
+  .selection-header h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 2rem; color: var(--wcn-heading); margin-bottom: 0.5rem; font-weight: 400; }
+  .selection-header p { font-size: 1rem; color: var(--wcn-body-light); max-width: 520px; margin: 0 auto; }
+  .selection-header .pick-counter { display: inline-block; margin-top: 1rem; padding: 0.4rem 1rem; background: var(--wcn-amber-bg); color: var(--wcn-accent-amber); border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+  .selection-list { display: grid; gap: 0.85rem; margin-bottom: 2rem; }
+  .selection-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1.1rem 1.2rem; background: var(--wcn-card-bg); border: 2px solid var(--wcn-border); border-radius: 10px; cursor: pointer; transition: all 0.15s; }
+  .selection-item:hover { border-color: var(--wcn-accent-green); background: var(--wcn-green-bg); }
+  .selection-item.selected { border-color: var(--wcn-accent-green); background: var(--wcn-green-bg); }
+  .selection-item.disabled { opacity: 0.45; cursor: not-allowed; }
+  .selection-checkbox { flex-shrink: 0; width: 24px; height: 24px; border: 2px solid var(--wcn-border); border-radius: 6px; background: white; display: flex; align-items: center; justify-content: center; margin-top: 2px; transition: all 0.15s; }
+  .selection-item.selected .selection-checkbox { background: var(--wcn-accent-green); border-color: var(--wcn-accent-green); }
+  .selection-checkbox::after { content: ''; width: 6px; height: 11px; border: solid white; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) translate(-1px, -1px); opacity: 0; transition: opacity 0.15s; }
+  .selection-item.selected .selection-checkbox::after { opacity: 1; }
+  .selection-content { flex-grow: 1; font-size: 0.94rem; line-height: 1.55; }
+  .selection-content strong { color: var(--wcn-heading); font-weight: 600; }
+  .selection-actions { text-align: center; }
+  .btn-primary-solid { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 2rem; background: var(--wcn-primary); color: white; border: none; border-radius: 8px; font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .btn-primary-solid:hover:not(:disabled) { background: var(--wcn-primary-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(33,104,105,0.25); }
+  .btn-primary-solid:disabled { background: var(--wcn-border); cursor: not-allowed; }
 
-  .game-plan-list { list-style: none; display: flex; flex-direction: column; gap: calc(var(--grid) * 3); }
-  .game-plan-list li { display: flex; gap: calc(var(--grid) * 2.5); align-items: flex-start; }
-  .plan-num {
-    width: 28px; height: 28px; border-radius: 4px; background: var(--coral); color: var(--white);
-    font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 2px;
-  }
-  .plan-content { flex: 1; }
-  .plan-title { font-size: 0.9375rem; font-weight: 700; color: var(--charcoal); margin-bottom: calc(var(--grid) * 0.5); }
-  .plan-body { font-size: 0.9375rem; color: #636e72; line-height: 1.65; }
-
-  .quick-wins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: calc(var(--grid) * 2); }
-  .quick-win-card {
-    background: var(--white); border-radius: 8px; padding: calc(var(--grid) * 2.5);
-    border: 1px solid #e0e0e0; font-size: 0.875rem; color: #636e72; line-height: 1.55;
-  }
-  .quick-win-card::before { content: '→'; display: block; font-size: 1rem; font-weight: 700; color: var(--sage); margin-bottom: var(--grid); }
-
-  .coaches-note { background: var(--charcoal); border-radius: 8px; padding: calc(var(--grid) * 3) calc(var(--grid) * 3.5); }
-  .coaches-note-label { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: var(--grid); }
-  .coaches-note p { font-size: 0.9375rem; color: rgba(255,255,255,0.8); line-height: 1.7; font-style: italic; }
-
-  .output-actions {
-    display: flex; gap: calc(var(--grid) * 2); flex-wrap: wrap;
-    margin-top: calc(var(--grid) * 6); padding-top: calc(var(--grid) * 4);
-    border-top: 1px solid #e0e0e0; margin-bottom: calc(var(--grid) * 8);
-  }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: var(--grid);
-    background: var(--coral); color: var(--white); border: none; border-radius: 4px;
-    font-family: var(--font); font-size: 0.875rem; font-weight: 600;
-    padding: calc(var(--grid) * 1.5) calc(var(--grid) * 3);
-    cursor: pointer; text-decoration: none; transition: background 0.2s;
-  }
-  .btn-primary:hover { background: #d4603f; }
-  .btn-outline-dark {
-    display: inline-flex; align-items: center; gap: var(--grid);
-    background: transparent; color: var(--charcoal);
-    border: 1.5px solid #ccc; border-radius: 4px;
-    font-family: var(--font); font-size: 0.875rem; font-weight: 600;
-    padding: calc(var(--grid) * 1.5) calc(var(--grid) * 3);
-    cursor: pointer; text-decoration: none; transition: border-color 0.2s;
-  }
-  .btn-outline-dark:hover { border-color: var(--charcoal); }
+  /* ============================================================
+     STAGE 3: THE SPARK (Daily View — mobile frame)
+     ============================================================ */
+  .spark-frame { max-width: 420px; margin: 2rem auto; background: var(--wcn-card-bg); border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); overflow: hidden; border: 8px solid #1a1a1a; }
+  .spark-statusbar { background: #1a1a1a; color: white; padding: 0.4rem 1.2rem; font-size: 0.75rem; display: flex; justify-content: space-between; font-weight: 500; }
+  .spark-header { background: var(--wcn-primary); padding: 1.1rem 1.4rem 1rem; color: white; }
+  .spark-header .evolution-meta { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.7); margin-bottom: 0.25rem; }
+  .spark-header .day-title { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.4rem; font-weight: 400; line-height: 1.2; }
+  .spark-header .transformation-line { font-size: 0.78rem; color: rgba(255,255,255,0.75); margin-top: 0.4rem; }
+  .day-picker { display: flex; gap: 4px; padding: 0.75rem 1rem; background: var(--wcn-bg); border-bottom: 1px solid var(--wcn-border); overflow-x: auto; }
+  .day-pill { flex-shrink: 0; padding: 0.4rem 0.7rem; background: white; border: 1px solid var(--wcn-border); border-radius: 6px; font-size: 0.72rem; font-weight: 600; color: var(--wcn-body-light); cursor: pointer; transition: all 0.15s; text-align: center; min-width: 44px; }
+  .day-pill .day-num { display: block; font-size: 0.85rem; color: var(--wcn-heading); line-height: 1.1; }
+  .day-pill:hover { border-color: var(--wcn-primary); }
+  .day-pill.active { background: var(--wcn-primary); border-color: var(--wcn-primary); color: rgba(255,255,255,0.85); }
+  .day-pill.active .day-num { color: white; }
+  .day-pill.special { border-color: var(--wcn-accent-amber); }
+  .day-pill.special .day-num { color: var(--wcn-accent-amber); }
+  .day-pill.special.active { background: var(--wcn-accent-amber); border-color: var(--wcn-accent-amber); }
+  .day-pill.special.active .day-num { color: white; }
+  .spark-body { padding: 1.2rem 1.4rem 2rem; }
+  .spark-coachnote { background: var(--wcn-green-bg); border-radius: 10px; padding: 1rem 1.1rem; margin-bottom: 1.4rem; }
+  .spark-coachnote .label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--wcn-accent-green); font-weight: 700; margin-bottom: 0.4rem; }
+  .spark-coachnote p { font-size: 0.88rem; font-style: italic; color: var(--wcn-body); line-height: 1.55; }
+  .spark-section-title { font-family: 'Source Sans 3', sans-serif; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: var(--wcn-body-light); margin-bottom: 0.7rem; }
+  .habits-list { display: grid; gap: 0.55rem; margin-bottom: 1.6rem; }
+  .habit-item { display: flex; align-items: center; gap: 0.85rem; padding: 0.85rem 1rem; background: white; border: 1.5px solid var(--wcn-border); border-radius: 10px; cursor: pointer; transition: all 0.15s; }
+  .habit-item:hover { border-color: var(--wcn-accent-green); }
+  .habit-item.checked { background: var(--wcn-green-bg); border-color: var(--wcn-accent-green); }
+  .habit-checkbox { flex-shrink: 0; width: 22px; height: 22px; border: 2px solid var(--wcn-border); border-radius: 6px; background: white; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .habit-item.checked .habit-checkbox { background: var(--wcn-accent-green); border-color: var(--wcn-accent-green); }
+  .habit-checkbox::after { content: ''; width: 5px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); opacity: 0; transition: opacity 0.15s; }
+  .habit-item.checked .habit-checkbox::after { opacity: 1; }
+  .habit-text { flex-grow: 1; font-size: 0.88rem; line-height: 1.4; color: var(--wcn-body); }
+  .habit-item.checked .habit-text { color: var(--wcn-body-light); text-decoration: line-through; text-decoration-color: var(--wcn-accent-green); }
+  .journal-area { background: white; border: 1.5px solid var(--wcn-border); border-radius: 10px; padding: 0.9rem 1rem; min-height: 120px; transition: border-color 0.15s; }
+  .journal-area:focus-within { border-color: var(--wcn-primary); }
+  .journal-textarea { width: 100%; border: none; outline: none; resize: none; font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; line-height: 1.55; color: var(--wcn-body); background: transparent; min-height: 100px; }
+  .journal-textarea::placeholder { color: var(--wcn-body-light); opacity: 0.7; font-style: italic; }
+  .lookback-card { background: linear-gradient(135deg, var(--wcn-amber-bg) 0%, #fdf4e6 100%); border: 1.5px solid var(--wcn-accent-amber); border-radius: 12px; padding: 1.1rem 1.2rem; margin-bottom: 1.4rem; }
+  .lookback-card .label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--wcn-accent-amber); font-weight: 700; margin-bottom: 0.5rem; }
+  .lookback-card h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.1rem; color: var(--wcn-heading); margin-bottom: 0.7rem; font-weight: 400; }
+  .lookback-stats { display: grid; gap: 0.4rem; margin-bottom: 0.9rem; font-size: 0.85rem; line-height: 1.5; }
+  .lookback-stats .stat-line { display: flex; align-items: baseline; gap: 0.5rem; }
+  .lookback-stats .stat-line::before { content: '\B7'; color: var(--wcn-accent-amber); font-weight: 700; font-size: 1.2rem; line-height: 0.5; }
+  .lookback-card .reflection-prompt { font-size: 0.85rem; font-style: italic; color: var(--wcn-body); padding-top: 0.7rem; border-top: 1px solid rgba(244,162,97,0.25); }
+  .end-evolution-card { background: var(--wcn-primary); border-radius: 12px; padding: 1.4rem 1.3rem; color: white; text-align: center; margin-top: 1.4rem; }
+  .end-evolution-card h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.4rem; margin-bottom: 0.6rem; font-weight: 400; }
+  .end-evolution-card p { font-size: 0.85rem; color: rgba(255,255,255,0.85); margin-bottom: 1rem; line-height: 1.5; }
+  .end-evolution-card .btn-primary { background: white; color: var(--wcn-primary); }
+  .demo-restart { max-width: 420px; margin: 0.5rem auto 2rem; text-align: center; }
+  .demo-restart a { font-size: 0.78rem; color: var(--wcn-body-light); text-decoration: none; border-bottom: 1px dotted var(--wcn-body-light); }
+  .demo-restart a:hover { color: var(--wcn-primary); border-bottom-color: var(--wcn-primary); }
 
   @media (max-width: 600px) {
     nav { padding: var(--grid) calc(var(--grid) * 2.5); }
     .screen { padding: calc(var(--grid) * 4) calc(var(--grid) * 2.5); }
     .demo-fields-row { grid-template-columns: 1fr; }
     .prompt-question { font-size: 1.875rem; }
-    #screen-output { padding: calc(var(--grid) * 5) calc(var(--grid) * 2.5); }
-    .quick-wins-grid { grid-template-columns: 1fr; }
+    .snapshot-page { margin: 0; border-radius: 0; }
+    .selection-page { padding: 1rem; }
   }
 
   @media print {
-    nav, .progress-bar-wrap, .output-actions, .bg-arc, .bg-qmark-svg { display: none !important; }
+    nav, .progress-bar-wrap, .evolution-cta, .bg-arc, .bg-qmark-svg { display: none !important; }
     body { background: white; }
     .screen { display: none !important; }
-    #screen-output { display: block !important; background: white; padding: 1.5rem; min-height: auto; }
-    .output-wrap { max-width: 100%; }
-    .coaches-note { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .output-goal-block { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .plan-num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  }
-
-  /* ── PROMPT PACKAGE OUTPUT ── */
-  .prompt-block {
-    margin-bottom: calc(var(--grid) * 4);
-    background: var(--white); border-radius: 8px;
-    border: 1px solid #e0e0e0; overflow: hidden;
-  }
-  .prompt-block-header {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: calc(var(--grid) * 1.5) calc(var(--grid) * 2.5);
-    border-bottom: 1px solid #e0e0e0; background: var(--off-white);
-  }
-  .prompt-block-label {
-    font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--teal);
-  }
-  .btn-copy {
-    font-family: var(--font); font-size: 0.75rem; font-weight: 600;
-    background: transparent; border: 1px solid #ccc; border-radius: 3px;
-    color: #636e72; padding: 3px 10px; cursor: pointer;
-    transition: border-color 0.15s, color 0.15s; letter-spacing: 0.02em;
-  }
-  .btn-copy:hover { border-color: var(--teal); color: var(--teal); }
-  .btn-copy.copied { border-color: var(--sage); color: var(--sage); }
-  .prompt-textarea {
-    display: block; width: 100%; resize: none;
-    font-family: 'Courier New', Courier, monospace; font-size: 0.8rem;
-    color: var(--charcoal); background: var(--white);
-    border: none; outline: none;
-    padding: calc(var(--grid) * 2.5);
-    line-height: 1.65; min-height: 220px; overflow-y: auto;
-  }
-  .prompt-textarea--short { min-height: 160px; }
-  .prompt-pkg-note {
-    font-size: 0.9375rem; color: #636e72; line-height: 1.6;
-    margin-bottom: calc(var(--grid) * 5);
+    #screen-output { display: block !important; background: white; }
+    .stage { display: none !important; }
+    #stage-snapshot { display: block !important; }
+    .snapshot-page { margin: 0; border-radius: 0; box-shadow: none; }
+    .snapshot-header, .section-coachnote, .noticed-list li, .gameplan-list li::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
 </head>
@@ -404,28 +377,18 @@
   </svg>
 
   <!-- ═══════════════════════════════════
-       SCREEN 1 — NAME + DE-EMPHASIZED DEMOGRAPHICS
+       SCREEN 1 — NAME + DEMOGRAPHICS
        ═══════════════════════════════════ -->
   <section class="screen active" id="screen-1">
     <div class="bg-arc" aria-hidden="true"></div>
     <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
-
     <div class="prompt-card">
       <div class="step-label">Step 1 of 3</div>
       <h1 class="prompt-question">What's your <em>name?</em></h1>
-
       <div class="input-wrap">
-        <!-- Label updated: "Name" not "First name" — accepts full/nick/display names -->
         <label class="input-label" for="input-name">Name</label>
         <input type="text" id="input-name" placeholder="e.g. Alex" autocomplete="name" autocapitalize="words">
       </div>
-
-      <!--
-        De-emphasized demographics.
-        Visually subordinate to the Name field above:
-        smaller font, lower-opacity border/label, tighter padding.
-        Collected here so the pipeline has all three inputs before Step 2.
-      -->
       <div class="demo-fields-row">
         <div class="input-wrap">
           <label class="input-label" for="input-age">Age</label>
@@ -437,7 +400,6 @@
         </div>
       </div>
       <p class="demo-fields-hint">Optional — helps us personalize your snapshot.</p>
-
       <button class="btn-submit" onclick="goToStep2()">
         Continue
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
@@ -447,21 +409,18 @@
   </section>
 
   <!-- ═══════════════════════════════════
-       SCREEN 2 — FITNESS GOAL ONLY
+       SCREEN 2 — FITNESS GOAL
        ═══════════════════════════════════ -->
   <section class="screen" id="screen-2">
     <div class="bg-arc" aria-hidden="true"></div>
     <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
-
     <div class="prompt-card">
       <div class="step-label">Step 2 of 3</div>
       <h1 class="prompt-question">Hi <em id="name-display">there</em> — what's your <em>goal?</em></h1>
-
       <div class="input-wrap">
         <label class="input-label" for="input-goal">Your fitness goal</label>
         <textarea id="input-goal" placeholder="Tell us what you're working toward. A sentence or two is perfect — your goal in your own words."></textarea>
       </div>
-
       <button class="btn-submit" onclick="goToStep3()">
         Continue
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
@@ -470,21 +429,18 @@
   </section>
 
   <!-- ═══════════════════════════════════
-       SCREEN 3 — WALK ME THROUGH YOUR DAY
+       SCREEN 3 — DAILY ROUTINE
        ═══════════════════════════════════ -->
   <section class="screen" id="screen-3">
     <div class="bg-arc" aria-hidden="true"></div>
     <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
-
     <div class="prompt-card">
       <div class="step-label">Step 3 of 3</div>
       <h1 class="prompt-question">Walk me through <em>your day.</em></h1>
-
       <div class="input-wrap">
         <label class="input-label" for="input-day">A typical day, in your own words</label>
         <textarea id="input-day" style="min-height:200px;" placeholder="When do you wake up? What do you eat? When do you work, move, sleep? Don't overthink it — just talk to us like you'd talk to a coach."></textarea>
       </div>
-
       <button class="btn-submit" onclick="goToProcessing()">
         Get My Snapshot
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
@@ -495,12 +451,10 @@
 
   <!-- ═══════════════════════════════════
        SCREEN 4 — PROCESSING
-       CLI TODO: Replace .processing-orb with Evolutions.svg
        ═══════════════════════════════════ -->
   <section class="screen" id="screen-processing">
     <div class="bg-arc" aria-hidden="true"></div>
     <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
-
     <div class="processing-inner">
       <img src="assets/Evolutions.svg" class="processing-svg-logo" alt="" aria-hidden="true">
       <div class="processing-label">Analyzing your input</div>
@@ -515,51 +469,87 @@
   </section>
 
   <!-- ═══════════════════════════════════
-       SCREEN 5 — WELLNESS SNAPSHOT OUTPUT
+       SCREEN 5 — OUTPUT (three-stage Evolutions flow)
        ═══════════════════════════════════ -->
   <section class="screen" id="screen-output">
-    <div class="bg-arc" aria-hidden="true"></div>
-    <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
 
-    <div class="output-wrap">
-      <div class="output-eyebrow">Your Wellness Snapshot</div>
-      <h1 class="output-headline" id="snapshot-headline">Here&rsquo;s your plan.</h1>
-
-      <!-- Goal -->
-      <div class="output-goal-block">
-        <strong>Your Goal</strong>
-        <span id="snap-goal"></span>
-      </div>
-
-      <!-- What We Noticed -->
-      <div class="output-section">
-        <div class="output-section-title">What We Noticed</div>
-        <ul class="noticed-list" id="snap-noticed"></ul>
-      </div>
-
-      <!-- Your Game Plan -->
-      <div class="output-section">
-        <div class="output-section-title">Your Game Plan</div>
-        <ol class="game-plan-list" id="snap-gameplan"></ol>
-      </div>
-
-      <!-- Quick Wins -->
-      <div class="output-section">
-        <div class="output-section-title">Quick Wins &mdash; Start Today</div>
-        <div class="quick-wins-grid" id="snap-quickwins"></div>
-      </div>
-
-      <!-- Coach's Note -->
-      <div class="coaches-note">
-        <div class="coaches-note-label">Coach&rsquo;s Note</div>
-        <p id="snap-coachnote"></p>
-      </div>
-
-      <div class="output-actions">
-        <button class="btn-primary" onclick="window.print()">Save as PDF</button>
-        <button class="btn-outline-dark" onclick="resetDemo()">Start Over</button>
+    <!-- STAGE 1: SNAPSHOT (Pivot Meeting output) -->
+    <div class="stage active" id="stage-snapshot">
+      <div class="snapshot-page">
+        <div class="snapshot-header">
+          <h1 id="snapshot-title">Wellness Snapshot</h1>
+          <div class="subtitle">Your Pivot Meeting &middot; What Comes Next LLC</div>
+        </div>
+        <div class="snapshot-body">
+          <div class="section-goal">
+            <p id="goal-content"></p>
+          </div>
+          <div class="section-noticed">
+            <div class="section-title">What We Noticed</div>
+            <ul class="noticed-list" id="noticed-list"></ul>
+          </div>
+          <div class="section-gameplan">
+            <div class="section-title">Your Game Plan</div>
+            <ol class="gameplan-list" id="gameplan-list"></ol>
+          </div>
+          <div class="section-quickwins">
+            <div class="section-title">Quick Wins &mdash; Start Today</div>
+            <div class="quickwins-box">
+              <ul class="quickwins-list" id="quickwins-list"></ul>
+            </div>
+          </div>
+          <div class="section-coachnote">
+            <p id="coachnote-content"></p>
+          </div>
+          <div class="evolution-cta">
+            <h3>Ready to begin your first Evolution?</h3>
+            <p>Pick the habits you&rsquo;ll commit to and start your week.</p>
+            <button class="btn-primary" onclick="goToHabitSelection()">
+              Begin your first Evolution
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- STAGE 2: HABIT SELECTION -->
+    <div class="stage" id="stage-selection">
+      <div class="selection-page">
+        <div class="selection-header">
+          <h2>Pick Your 3</h2>
+          <p>Your Game Plan has five recommendations. Pick the three you&rsquo;ll commit to this week. Start small. We&rsquo;ll add more next Evolution.</p>
+          <div class="pick-counter" id="pick-counter">0 of 3 selected</div>
+        </div>
+        <div class="selection-list" id="selection-list"></div>
+        <div class="selection-actions">
+          <button class="btn-primary-solid" id="commit-btn" disabled onclick="enterTheSpark()">
+            Begin Day 1 &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STAGE 3: THE SPARK (Daily View) -->
+    <div class="stage" id="stage-spark">
+      <div class="spark-frame">
+        <div class="spark-statusbar">
+          <span>9:41</span>
+          <span>The Spark</span>
+        </div>
+        <div class="spark-header">
+          <div class="evolution-meta" id="evolution-meta">Evolution #1 &middot; Day 1 of 7</div>
+          <div class="day-title" id="day-title">Monday</div>
+          <div class="transformation-line" id="transformation-line"></div>
+        </div>
+        <div class="day-picker" id="day-picker"></div>
+        <div class="spark-body" id="spark-body"></div>
+      </div>
+      <div class="demo-restart">
+        <a href="#" onclick="restartDemo(); return false;">&circlearrowleft; Restart demo</a>
+      </div>
+    </div>
+
   </section>
 
 </div><!-- /app -->
@@ -567,6 +557,14 @@
 <script>
   // ── State ──
   let userName = '';
+  const state = {
+    snapshot: null,
+    gameplanItems: [],
+    selectedIndices: [],
+    committedHabits: [],
+    currentDay: 1,
+    dayState: {},
+  };
 
   // ── Progress ──
   const progressMap = {
@@ -593,9 +591,6 @@
   }
 
   // ── Name extraction helper ──
-  // Accepts "Mike Jones", "Mike", "MJ", "Mikey" etc.
-  // Displays whatever the user typed; for LLM injection, use full value.
-  // For the greeting we use the first token only (first word before a space).
   function extractFirstToken(fullName) {
     return fullName.trim().split(/\s+/)[0];
   }
@@ -605,7 +600,6 @@
     const el = document.getElementById('input-name');
     if (!el.value.trim()) { flashError(el); return; }
     userName = el.value.trim();
-    // Greeting uses first name / first token only; full name passes to LLM
     document.getElementById('name-display').textContent = extractFirstToken(userName);
     showScreen('screen-2');
     setTimeout(() => document.getElementById('input-goal').focus(), 250);
@@ -628,7 +622,6 @@
   // ── Processing: real API call, animation runs until response ──
   function runProcessing() {
     const ids = ['ps-1', 'ps-2', 'ps-3', 'ps-4'];
-    // Spread steps across ~25s (CPU inference time); final step holds until API returns
     const stepDelays = [0, 6000, 13000, 21000];
 
     ids.forEach((id, i) => {
@@ -661,7 +654,13 @@
         document.getElementById(id).classList.remove('active');
         document.getElementById(id).classList.add('done');
       });
-      renderSnapshot(data.output);
+      // Seed state from real API output
+      state.snapshot = parseSnapshot(data.output);
+      state.gameplanItems = parseGamePlan(state.snapshot['your game plan']);
+      // Reset to stage 1 in case of a repeat run
+      document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+      document.getElementById('stage-snapshot').classList.add('active');
+      renderSnapshot();
       showScreen('screen-output');
     })
     .catch(() => {
@@ -677,8 +676,8 @@
     });
   }
 
-  // ── Render markdown response into the snapshot template ──
-  function renderSnapshot(markdown) {
+  // ── Markdown parser ──
+  function parseSnapshot(markdown) {
     const sections = {};
     let currentKey = null;
     let currentLines = [];
@@ -696,86 +695,358 @@
       if (currentKey) currentLines.push(line);
     }
     if (currentKey) sections[currentKey] = currentLines.join('\n').trim();
-
-    const name = sections._name || extractFirstToken(document.getElementById('input-name').value.trim());
-    document.getElementById('snapshot-headline').textContent = `Here\u2019s your plan, ${name}.`;
-
-    // Goal
-    document.getElementById('snap-goal').textContent = sections['your goal'] || '';
-
-    // What We Noticed
-    const noticedEl = document.getElementById('snap-noticed');
-    noticedEl.innerHTML = '';
-    (sections['what we noticed'] || '').split('\n')
-      .map(l => l.replace(/^[-*\d.)]+\s*/, '').trim()).filter(Boolean)
-      .forEach(text => {
-        const li = document.createElement('li');
-        li.textContent = text;
-        noticedEl.appendChild(li);
-      });
-
-    // Game Plan — parse numbered items, split **Title.** body
-    const gameplanEl = document.getElementById('snap-gameplan');
-    gameplanEl.innerHTML = '';
-    if (sections['your game plan']) {
-      const items = [];
-      let cur = null;
-      for (const line of sections['your game plan'].split('\n')) {
-        const m = line.match(/^\d+[\.\)]\s+(.+)/);
-        if (m) { if (cur !== null) items.push(cur); cur = m[1].trim(); }
-        else if (cur !== null && line.trim()) { cur += ' ' + line.trim(); }
-      }
-      if (cur !== null) items.push(cur);
-
-      items.forEach((item, i) => {
-        const boldMatch = item.match(/^\*\*(.+?)[.:]\*\*\s*(.*)/s);
-        const li = document.createElement('li');
-        const numDiv = document.createElement('div');
-        numDiv.className = 'plan-num';
-        numDiv.textContent = i + 1;
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'plan-content';
-        if (boldMatch) {
-          const t = document.createElement('div'); t.className = 'plan-title'; t.textContent = boldMatch[1];
-          const b = document.createElement('div'); b.className = 'plan-body';  b.textContent = boldMatch[2];
-          contentDiv.appendChild(t); contentDiv.appendChild(b);
-        } else {
-          const b = document.createElement('div'); b.className = 'plan-body';
-          b.textContent = item.replace(/\*\*/g, '');
-          contentDiv.appendChild(b);
-        }
-        li.appendChild(numDiv); li.appendChild(contentDiv);
-        gameplanEl.appendChild(li);
-      });
-    }
-
-    // Quick Wins
-    const quickwinsEl = document.getElementById('snap-quickwins');
-    quickwinsEl.innerHTML = '';
-    (sections['quick wins'] || '').split('\n')
-      .map(l => l.replace(/^[-*\d.)]+\s*/, '').trim()).filter(Boolean)
-      .forEach(text => {
-        const card = document.createElement('div');
-        card.className = 'quick-win-card';
-        card.textContent = text;
-        quickwinsEl.appendChild(card);
-      });
-
-    // Coach's Note (handle apostrophe variants in section key)
-    const noteKey = Object.keys(sections).find(k => k.includes('coach')) || '';
-    document.getElementById('snap-coachnote').textContent = sections[noteKey] || '';
+    return sections;
   }
 
+  function parseGamePlan(text) {
+    if (!text) return [];
+    const items = [];
+    const lines = text.split('\n').filter(l => l.trim());
+    let current = null;
+    for (const line of lines) {
+      const numMatch = line.match(/^\d+[\.\)]\s*(.+)/);
+      if (numMatch) {
+        if (current) items.push(current);
+        const content = numMatch[1];
+        const boldMatch = content.match(/^\*\*(.+?)\*\*\s*\.?\s*(.*)/);
+        if (boldMatch) {
+          current = { title: boldMatch[1].trim(), rest: boldMatch[2].trim(), full: content };
+        } else {
+          const sentMatch = content.match(/^(.+?\.)\s*(.*)/);
+          current = {
+            title: sentMatch ? sentMatch[1].replace(/\*\*/g, '').trim() : content.substring(0, 60),
+            rest: sentMatch ? sentMatch[2].trim() : '',
+            full: content,
+          };
+        }
+      } else if (current) {
+        current.full += ' ' + line.trim();
+        if (current.rest) current.rest += ' ' + line.trim();
+      }
+    }
+    if (current) items.push(current);
+    return items;
+  }
 
-  // ── Reset ──
+  function habitFromGamePlan(item) {
+    let h = item.title.replace(/\*\*/g, '').replace(/\.$/, '');
+    if (h.length > 60) h = h.substring(0, 57) + '...';
+    return h;
+  }
+
+  // ── Stage 1: Render snapshot from state ──
+  function renderSnapshot() {
+    const s = state.snapshot;
+
+    document.getElementById('snapshot-title').textContent =
+      'Wellness Snapshot: ' + (s._name || extractFirstToken(document.getElementById('input-name').value.trim()));
+
+    document.getElementById('goal-content').textContent = s['your goal'] || '';
+
+    const noticedList = document.getElementById('noticed-list');
+    noticedList.innerHTML = '';
+    if (s['what we noticed']) {
+      s['what we noticed'].split('\n')
+        .map(l => l.replace(/^[-*]\s*/, '').trim()).filter(Boolean)
+        .forEach(b => {
+          const li = document.createElement('li');
+          li.textContent = b;
+          noticedList.appendChild(li);
+        });
+    }
+
+    const gameplanList = document.getElementById('gameplan-list');
+    gameplanList.innerHTML = '';
+    state.gameplanItems.forEach(item => {
+      const li = document.createElement('li');
+      li.innerHTML = item.full.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      gameplanList.appendChild(li);
+    });
+
+    const quickwinsList = document.getElementById('quickwins-list');
+    quickwinsList.innerHTML = '';
+    if (s['quick wins']) {
+      s['quick wins'].split('\n')
+        .map(l => l.replace(/^[-*]\s*/, '').trim()).filter(Boolean)
+        .forEach(w => {
+          const li = document.createElement('li');
+          li.textContent = w;
+          quickwinsList.appendChild(li);
+        });
+    }
+
+    const noteKey = Object.keys(s).find(k => k.includes('coach')) || '';
+    document.getElementById('coachnote-content').textContent = s[noteKey] || '';
+  }
+
+  // ── Stage 2: Habit Selection ──
+  function goToHabitSelection() {
+    document.getElementById('stage-snapshot').classList.remove('active');
+    document.getElementById('stage-selection').classList.add('active');
+    window.scrollTo(0, 0);
+    renderSelection();
+  }
+
+  function renderSelection() {
+    const list = document.getElementById('selection-list');
+    list.innerHTML = '';
+    state.gameplanItems.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = 'selection-item';
+      div.dataset.index = i;
+      div.onclick = () => toggleSelection(i);
+
+      const checkbox = document.createElement('div');
+      checkbox.className = 'selection-checkbox';
+
+      const content = document.createElement('div');
+      content.className = 'selection-content';
+      const preview = item.rest ? ' ' + item.rest.substring(0, 130) + (item.rest.length > 130 ? '...' : '') : '';
+      content.innerHTML = '<strong>' + item.title.replace(/\*\*/g, '') + '</strong>' + preview;
+
+      div.appendChild(checkbox);
+      div.appendChild(content);
+      list.appendChild(div);
+    });
+    updatePickCounter();
+  }
+
+  function toggleSelection(i) {
+    const idx = state.selectedIndices.indexOf(i);
+    if (idx >= 0) {
+      state.selectedIndices.splice(idx, 1);
+    } else {
+      if (state.selectedIndices.length >= 3) return;
+      state.selectedIndices.push(i);
+    }
+    refreshSelectionUI();
+  }
+
+  function refreshSelectionUI() {
+    document.querySelectorAll('.selection-item').forEach((el, i) => {
+      el.classList.toggle('selected', state.selectedIndices.includes(i));
+      el.classList.toggle('disabled', !state.selectedIndices.includes(i) && state.selectedIndices.length >= 3);
+    });
+    updatePickCounter();
+  }
+
+  function updatePickCounter() {
+    const n = state.selectedIndices.length;
+    document.getElementById('pick-counter').textContent = n + ' of 3 selected';
+    document.getElementById('commit-btn').disabled = n !== 3;
+  }
+
+  // ── Stage 3: The Spark ──
+  function enterTheSpark() {
+    state.committedHabits = state.selectedIndices.map(i => habitFromGamePlan(state.gameplanItems[i]));
+
+    for (let d = 1; d <= 7; d++) {
+      state.dayState[d] = { checked: [false, false, false], journal: '' };
+    }
+    // Pre-populate Days 1–4 so Day 5 Look Back has real data to reference
+    state.dayState[1] = { checked: [true, true, true],  journal: "Felt weird not having coffee after 2 but I made it. Slept around midnight which is earlier than usual." };
+    state.dayState[2] = { checked: [true, false, true], journal: "Skipped the workout. Was too tired from sleeping better — sounds backwards but I think my body is recalibrating." };
+    state.dayState[3] = { checked: [true, true, true],  journal: "Best day so far. Walked in the morning, ate eggs, no late coffee. This might actually work." };
+    state.dayState[4] = { checked: [false, true, true], journal: "Coffee at 4pm — meeting ran long and I needed it. Didn't sleep great. Lesson learned." };
+
+    document.getElementById('stage-selection').classList.remove('active');
+    document.getElementById('stage-spark').classList.add('active');
+    window.scrollTo(0, 0);
+    renderDayPicker();
+    renderDay(1);
+  }
+
+  function renderDayPicker() {
+    const picker = document.getElementById('day-picker');
+    picker.innerHTML = '';
+    const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    for (let d = 1; d <= 7; d++) {
+      const pill = document.createElement('div');
+      pill.className = 'day-pill';
+      if (d === 5) pill.classList.add('special');
+      if (d === state.currentDay) pill.classList.add('active');
+      pill.innerHTML = dayLabels[d-1] + '<span class="day-num">' + d + '</span>';
+      pill.onclick = () => { state.currentDay = d; renderDayPicker(); renderDay(d); };
+      picker.appendChild(pill);
+    }
+  }
+
+  function renderDay(dayNum) {
+    saveCurrentJournal();
+    state.currentDay = dayNum;
+    const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    document.getElementById('day-title').textContent = dayLabels[dayNum - 1];
+    document.getElementById('evolution-meta').textContent = 'Evolution #1 \u00B7 Day ' + dayNum + ' of 7';
+    document.getElementById('transformation-line').textContent = 'Toward: ' + getTransformationFromGoal();
+
+    const body = document.getElementById('spark-body');
+    body.innerHTML = '';
+
+    if (dayNum === 5) body.appendChild(buildLookBackCard());
+    body.appendChild(buildCoachNote(dayNum));
+    body.appendChild(buildHabitsSection(dayNum));
+    body.appendChild(buildJournalSection(dayNum));
+    if (dayNum === 7) body.appendChild(buildEndOfEvolutionCard());
+  }
+
+  function getTransformationFromGoal() {
+    const goal = state.snapshot['your goal'] || '';
+    const first = goal.split('.')[0];
+    if (first.length > 60) return first.substring(0, 57) + '...';
+    return first;
+  }
+
+  const MOCK_COACH_NOTES = [
+    null, // Day 1 uses real Coach's Note from snapshot
+    "Day 2 always feels harder than Day 1 \u2014 you\u2019re past the novelty and into the work. Notice what\u2019s pulling at you and write it down. We\u2019ll talk about it Friday.",
+    "Three days in. You\u2019re building the muscle of doing the thing whether you feel like it or not. That muscle is the whole point.",
+    "Halfway through the week. Whatever happened yesterday \u2014 good or bad \u2014 it\u2019s data. Tomorrow we look back together.",
+    "It\u2019s Friday. Time to look at what the week told us. Be honest, not harsh.",
+    "Saturdays are for the work that fits the day, not the work that fits the schedule. Adjust without abandoning.",
+    "Last day of your first Evolution. Tomorrow we set up the next one. You\u2019ve already done the hardest part \u2014 you started.",
+  ];
+
+  function buildCoachNote(dayNum) {
+    const wrap = document.createElement('div');
+    wrap.className = 'spark-coachnote';
+    let note, isReal = false;
+    if (dayNum === 1) {
+      const noteKey = Object.keys(state.snapshot).find(k => k.includes('coach')) || '';
+      note = state.snapshot[noteKey] || "The fact that you\u2019re here is the first step. Let\u2019s see what this week brings.";
+      isReal = true;
+    } else {
+      note = MOCK_COACH_NOTES[dayNum - 1];
+    }
+    wrap.innerHTML =
+      '<div class="label">From your coach ' + (isReal ? '' : '<span class="honesty-marker">demo content</span>') + '</div>' +
+      '<p>' + note + '</p>';
+    return wrap;
+  }
+
+  function buildHabitsSection(dayNum) {
+    const wrap = document.createElement('div');
+    wrap.style.marginBottom = '1.4rem';
+    const title = document.createElement('div');
+    title.className = 'spark-section-title';
+    title.textContent = "Today\u2019s Habits";
+    wrap.appendChild(title);
+    const list = document.createElement('div');
+    list.className = 'habits-list';
+    state.committedHabits.forEach((habit, i) => {
+      const item = document.createElement('div');
+      item.className = 'habit-item';
+      if (state.dayState[dayNum].checked[i]) item.classList.add('checked');
+      item.onclick = () => toggleHabit(dayNum, i);
+      const checkbox = document.createElement('div');
+      checkbox.className = 'habit-checkbox';
+      const text = document.createElement('div');
+      text.className = 'habit-text';
+      text.textContent = habit;
+      item.appendChild(checkbox);
+      item.appendChild(text);
+      list.appendChild(item);
+    });
+    wrap.appendChild(list);
+    return wrap;
+  }
+
+  function toggleHabit(dayNum, habitIdx) {
+    state.dayState[dayNum].checked[habitIdx] = !state.dayState[dayNum].checked[habitIdx];
+    renderDay(dayNum);
+  }
+
+  function buildJournalSection(dayNum) {
+    const wrap = document.createElement('div');
+    const title = document.createElement('div');
+    title.className = 'spark-section-title';
+    title.textContent = "Today\u2019s Journal";
+    wrap.appendChild(title);
+    const area = document.createElement('div');
+    area.className = 'journal-area';
+    const ta = document.createElement('textarea');
+    ta.className = 'journal-textarea';
+    ta.id = 'journal-input';
+    ta.placeholder = 'What happened today?';
+    ta.value = state.dayState[dayNum].journal || '';
+    ta.oninput = () => { state.dayState[dayNum].journal = ta.value; };
+    area.appendChild(ta);
+    wrap.appendChild(area);
+    return wrap;
+  }
+
+  function saveCurrentJournal() {
+    const ta = document.getElementById('journal-input');
+    if (ta && state.dayState[state.currentDay]) {
+      state.dayState[state.currentDay].journal = ta.value;
+    }
+  }
+
+  function buildLookBackCard() {
+    let totalChecks = 0, totalPossible = 0;
+    for (let d = 1; d <= 4; d++) {
+      state.dayState[d].checked.forEach(c => { totalPossible++; if (c) totalChecks++; });
+    }
+    const card = document.createElement('div');
+    card.className = 'lookback-card';
+    card.innerHTML =
+      '<div class="label">Alignment Friday \u00B7 Look Back <span class="honesty-marker">demo content</span></div>' +
+      '<h3>Here\u2019s what your week told us</h3>' +
+      '<div class="lookback-stats">' +
+        '<div class="stat-line">You committed to 3 habits and checked in ' + totalChecks + ' of ' + totalPossible + ' times so far</div>' +
+        '<div class="stat-line">Your strongest day was Wednesday \u2014 three for three, and you wrote: \u201CThis might actually work.\u201D</div>' +
+        '<div class="stat-line">Thursday\u2019s coffee at 4pm was a real-world moment, not a failure. You named it and moved on.</div>' +
+        '<div class="stat-line">The pattern across your journals: you\u2019re noticing how you feel, not just what you did. That\u2019s the work.</div>' +
+      '</div>' +
+      '<div class="reflection-prompt">No judgment, just data. What do you want to do differently next week?</div>';
+    return card;
+  }
+
+  function buildEndOfEvolutionCard() {
+    const card = document.createElement('div');
+    card.className = 'end-evolution-card';
+    card.innerHTML =
+      '<h3>Your first Evolution is complete</h3>' +
+      '<p>You showed up for seven days. Now we set the feet for the next week.</p>' +
+      '<button class="btn-primary" onclick="alert(\'S3 Session: in production this opens a Pivot-style refinement screen to update your habits for next week. End of demo.\')">' +
+        'Begin Next S3 Session' +
+        '<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
+      '</button>';
+    return card;
+  }
+
+  // ── Reset handlers ──
   function resetDemo() {
     ['input-name', 'input-age', 'input-occupation', 'input-goal', 'input-day']
       .forEach(id => { document.getElementById(id).value = ''; });
-    document.querySelectorAll('.processing-steps li')
-      .forEach(li => li.classList.remove('active', 'done'));
+    document.querySelectorAll('.processing-steps li').forEach(li => li.classList.remove('active', 'done'));
+    const ptitle = document.querySelector('.processing-title');
+    if (ptitle) { ptitle.textContent = 'Building your snapshot\u2026'; ptitle.style.color = ''; }
+    const plabel = document.querySelector('.processing-label');
+    if (plabel) plabel.textContent = 'Analyzing your input';
+    const tryBtn = document.querySelector('.processing-inner .btn-submit');
+    if (tryBtn) tryBtn.remove();
+    // Reset demo state
+    state.snapshot = null;
+    state.gameplanItems = [];
+    state.selectedIndices = [];
+    state.committedHabits = [];
+    state.currentDay = 1;
+    state.dayState = {};
+    document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+    document.getElementById('stage-snapshot').classList.add('active');
     userName = '';
     showScreen('screen-1');
     setTimeout(() => document.getElementById('input-name').focus(), 300);
+  }
+
+  function restartDemo() {
+    state.selectedIndices = [];
+    state.committedHabits = [];
+    state.currentDay = 1;
+    state.dayState = {};
+    document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+    document.getElementById('stage-snapshot').classList.add('active');
+    window.scrollTo(0, 0);
   }
 
   // ── Keyboard: Enter on name field advances ──
