@@ -120,15 +120,15 @@
     text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: var(--grid);
   }
 
-  input[type="text"], textarea {
+  input[type="text"], input[type="email"], textarea {
     width: 100%; background: rgba(255,255,255,0.07);
     border: 1.5px solid rgba(255,255,255,0.15); border-radius: 6px;
     color: var(--white); font-family: var(--font); font-size: 1.125rem;
     font-weight: 500; padding: calc(var(--grid) * 2) calc(var(--grid) * 2.5);
     outline: none; transition: border-color 0.2s, background 0.2s; -webkit-appearance: none;
   }
-  input[type="text"]::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); font-weight: 400; }
-  input[type="text"]:focus, textarea:focus { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.1); }
+  input[type="text"]::placeholder, input[type="email"]::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); font-weight: 400; }
+  input[type="text"]:focus, input[type="email"]:focus, textarea:focus { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.1); }
   textarea { min-height: 160px; resize: vertical; line-height: 1.6; font-size: 1rem; }
 
   .demo-fields-row {
@@ -306,8 +306,14 @@
   .habit-item.checked .habit-text { color: var(--wcn-body-light); text-decoration: line-through; text-decoration-color: var(--wcn-accent-green); }
   .journal-area { background: white; border: 1.5px solid var(--wcn-border); border-radius: 10px; padding: 0.9rem 1rem; min-height: 120px; transition: border-color 0.15s; }
   .journal-area:focus-within { border-color: var(--wcn-primary); }
-  .journal-textarea { width: 100%; border: none; outline: none; resize: none; font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; line-height: 1.55; color: var(--wcn-body); background: transparent; min-height: 100px; }
+  .journal-textarea { width: 100%; border: none; outline: none; resize: none; font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; line-height: 1.55; color: var(--wcn-body); background: transparent; min-height: 80px; }
   .journal-textarea::placeholder { color: var(--wcn-body-light); opacity: 0.7; font-style: italic; }
+  .journal-entries { margin-bottom: 0.9rem; display: grid; gap: 0.6rem; }
+  .journal-entry { background: var(--wcn-bg); border-radius: 6px; padding: 0.55rem 0.75rem; }
+  .journal-entry .entry-time { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--wcn-body-light); margin-bottom: 0.2rem; }
+  .journal-entry .entry-text { font-size: 0.88rem; line-height: 1.5; color: var(--wcn-body); }
+  .btn-add-entry { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.6rem; padding: 0.45rem 0.9rem; background: var(--wcn-primary-bg); color: var(--wcn-primary); border: 1px solid var(--wcn-primary); border-radius: 6px; font-family: 'Source Sans 3', sans-serif; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .btn-add-entry:hover { background: var(--wcn-primary); color: white; }
   .lookback-card { background: linear-gradient(135deg, var(--wcn-amber-bg) 0%, #fdf4e6 100%); border: 1.5px solid var(--wcn-accent-amber); border-radius: 12px; padding: 1.1rem 1.2rem; margin-bottom: 1.4rem; }
   .lookback-card .label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--wcn-accent-amber); font-weight: 700; margin-bottom: 0.5rem; }
   .lookback-card h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.1rem; color: var(--wcn-heading); margin-bottom: 0.7rem; font-weight: 400; }
@@ -315,6 +321,15 @@
   .lookback-stats .stat-line { display: flex; align-items: baseline; gap: 0.5rem; }
   .lookback-stats .stat-line::before { content: '\B7'; color: var(--wcn-accent-amber); font-weight: 700; font-size: 1.2rem; line-height: 0.5; }
   .lookback-card .reflection-prompt { font-size: 0.85rem; font-style: italic; color: var(--wcn-body); padding-top: 0.7rem; border-top: 1px solid rgba(244,162,97,0.25); }
+  .lookback-intro { font-size: 0.85rem; color: var(--wcn-body-light); margin-bottom: 0.7rem; line-height: 1.5; }
+  .btn-generate-lookback { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem; padding: 0.55rem 1.1rem; background: var(--wcn-accent-amber); color: white; border: none; border-radius: 6px; font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .btn-generate-lookback:hover { background: #d48a3a; }
+  .lookback-loading { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; padding: 0.8rem 0; }
+  .lookback-loading p { font-size: 0.85rem; color: var(--wcn-body-light); font-style: italic; }
+  .lookback-spinner { width: 22px; height: 22px; border: 2.5px solid rgba(244,162,97,0.25); border-top-color: var(--wcn-accent-amber); border-radius: 50%; animation: spinnerSpin 0.75s linear infinite; }
+  @keyframes spinnerSpin { to { transform: rotate(360deg); } }
+  .lookback-moment { background: rgba(244,162,97,0.1); border-left: 3px solid var(--wcn-accent-amber); padding: 0.55rem 0.8rem; border-radius: 0 6px 6px 0; margin: 0.6rem 0; font-size: 0.85rem; line-height: 1.55; color: var(--wcn-body); font-style: italic; }
+  .lookback-numbers { font-size: 0.8rem; color: var(--wcn-body-light); margin-bottom: 0.7rem; line-height: 1.5; }
   .end-evolution-card { background: var(--wcn-primary); border-radius: 12px; padding: 1.4rem 1.3rem; color: white; text-align: center; margin-top: 1.4rem; }
   .end-evolution-card h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.4rem; margin-bottom: 0.6rem; font-weight: 400; }
   .end-evolution-card p { font-size: 0.85rem; color: rgba(255,255,255,0.85); margin-bottom: 1rem; line-height: 1.5; }
@@ -331,6 +346,17 @@
     .snapshot-page { margin: 0; border-radius: 0; }
     .selection-page { padding: 1rem; }
   }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(12px);
+    background: var(--charcoal); color: rgba(255,255,255,0.9);
+    font-size: 0.8125rem; font-weight: 500; padding: 10px 18px;
+    border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    opacity: 0; transition: opacity 0.3s, transform 0.3s; pointer-events: none; z-index: 999;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   @media print {
     nav, .progress-bar-wrap, .evolution-cta, .bg-arc, .bg-qmark-svg { display: none !important; }
@@ -404,7 +430,7 @@
         Continue
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
       </button>
-      <p class="hint-text">This is a demonstration of The Spark.<br>No data is stored or transmitted.</p>
+      <p class="hint-text">Your snapshot is emailed to you at the end.<br>We collect only what you share here.</p>
     </div>
   </section>
 
@@ -441,11 +467,32 @@
         <label class="input-label" for="input-day">A typical day, in your own words</label>
         <textarea id="input-day" style="min-height:200px;" placeholder="When do you wake up? What do you eat? When do you work, move, sleep? Don't overthink it — just talk to us like you'd talk to a coach."></textarea>
       </div>
-      <button class="btn-submit" onclick="goToProcessing()">
+      <button class="btn-submit" onclick="goToEmailCapture()">
         Get My Snapshot
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
       </button>
       <p class="hint-text">The more honest you are, the more useful your snapshot will be.<br>There are no wrong answers.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SCREEN 3.5 — EMAIL CAPTURE
+       ═══════════════════════════════════ -->
+  <section class="screen" id="screen-email">
+    <div class="bg-arc" aria-hidden="true"></div>
+    <svg class="bg-qmark-svg" aria-hidden="true"><use href="#qmark-symbol"/></svg>
+    <div class="prompt-card">
+      <div class="step-label">Almost there</div>
+      <h1 class="prompt-question">Where should we <em>send it?</em></h1>
+      <div class="input-wrap">
+        <label class="input-label" for="input-email">Email address</label>
+        <input type="email" id="input-email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+      </div>
+      <button class="btn-submit" onclick="submitEmail()">
+        Get My Snapshot &rarr;
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+      <p class="hint-text">We&rsquo;ll email your personalized report. That&rsquo;s it &mdash; no spam, no list.</p>
     </div>
   </section>
 
@@ -502,12 +549,17 @@
             <p id="coachnote-content"></p>
           </div>
           <div class="evolution-cta">
-            <h3>Ready to begin your first Evolution?</h3>
-            <p>Pick the habits you&rsquo;ll commit to and start your week.</p>
-            <button class="btn-primary" onclick="goToHabitSelection()">
-              Begin your first Evolution
-              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
+            <h3>Ready to take the next step?</h3>
+            <p>Set up a free conversation with a coach to talk through your snapshot.</p>
+            <a class="btn-primary" href="https://whatcomesnextllc.ai/#contact">
+              Set up time with a coach
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <div style="margin-top:1rem;">
+              <a href="#" onclick="goToHabitSelection(); return false;" style="font-size:0.82rem; color:rgba(255,255,255,0.65); text-decoration:underline;">
+                or try the habit tracker demo &rarr;
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -526,6 +578,9 @@
           <button class="btn-primary-solid" id="commit-btn" disabled onclick="enterTheSpark()">
             Begin Day 1 &rarr;
           </button>
+          <div style="margin-top:1rem;">
+            <a href="#" onclick="enterTheSparkSample(); return false;" style="font-size:0.78rem; color:var(--wcn-body-light); text-decoration:none; border-bottom:1px dotted var(--wcn-body-light);">Skip ahead with sample data</a>
+          </div>
         </div>
       </div>
     </div>
@@ -554,7 +609,12 @@
 
 </div><!-- /app -->
 
+<div class="toast" id="toast"></div>
+
 <script>
+  // ── API ──
+  const API_BASE = 'https://api.whatcomesnextllc.ai';
+
   // ── State ──
   let userName = '';
   const state = {
@@ -564,12 +624,20 @@
     committedHabits: [],
     currentDay: 1,
     dayState: {},
+    // Persistence
+    userId: null,
+    evolutionId: null,
+    sampleMode: false,
+    lookbackOutput: null,
+    lookbackLoading: false,
+    // Lead capture
+    email: null,
   };
 
   // ── Progress ──
   const progressMap = {
     'screen-1': 10, 'screen-2': 37, 'screen-3': 66,
-    'screen-processing': 88, 'screen-output': 100
+    'screen-email': 75, 'screen-processing': 88, 'screen-output': 100
   };
   function setProgress(id) {
     document.getElementById('progress-bar').style.width = (progressMap[id] || 0) + '%';
@@ -612,9 +680,24 @@
     setTimeout(() => document.getElementById('input-day').focus(), 250);
   }
 
-  function goToProcessing() {
+  function goToEmailCapture() {
     const el = document.getElementById('input-day');
     if (!el.value.trim()) { flashError(el); return; }
+    showScreen('screen-email');
+    setTimeout(() => document.getElementById('input-email').focus(), 250);
+  }
+
+  function submitEmail() {
+    const el = document.getElementById('input-email');
+    const val = el.value.trim();
+    if (!val || !val.includes('@') || !val.slice(val.indexOf('@')).includes('.')) {
+      flashError(el); return;
+    }
+    state.email = val;
+    goToProcessing();
+  }
+
+  function goToProcessing() {
     showScreen('screen-processing');
     runProcessing();
   }
@@ -640,7 +723,7 @@
     const goal       = document.getElementById('input-goal').value.trim();
     const routine    = document.getElementById('input-day').value.trim();
 
-    fetch('https://api.whatcomesnextllc.ai/api/wellness', {
+    fetch(API_BASE + '/api/wellness', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, age, occupation, goal, routine })
@@ -662,6 +745,8 @@
       document.getElementById('stage-snapshot').classList.add('active');
       renderSnapshot();
       showScreen('screen-output');
+      // Fire send-report in the background — does not block snapshot display
+      if (state.email) sendReport(data.output);
     })
     .catch(() => {
       const inner = document.querySelector('.processing-inner');
@@ -678,7 +763,7 @@
 
   // ── Markdown parser ──
   function parseSnapshot(markdown) {
-    const sections = {};
+    const sections = { _raw: markdown };
     let currentKey = null;
     let currentLines = [];
 
@@ -837,18 +922,66 @@
   }
 
   // ── Stage 3: The Spark ──
+
+  // Real mode: POST to /api/evolution/start, then render with empty days
   function enterTheSpark() {
+    state.sampleMode = false;
+    state.committedHabits = state.selectedIndices.map(i => habitFromGamePlan(state.gameplanItems[i]));
+    state.userId = crypto.randomUUID();
+
+    const noteKey = Object.keys(state.snapshot).find(k => k.includes('coach')) || '';
+    const day1Note = state.snapshot[noteKey] || "The fact that you\u2019re here is the first step. Let\u2019s see what this week brings.";
+    const transformation = getTransformationFromGoal();
+
+    const commitBtn = document.getElementById('commit-btn');
+    commitBtn.disabled = true;
+    commitBtn.textContent = 'Starting\u2026';
+
+    fetch(API_BASE + '/api/evolution/start', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: state.userId,
+        pivot_markdown: state.snapshot._raw || '',
+        transformation: transformation,
+        habits: state.committedHabits,
+        day1_coach_note: day1Note,
+      })
+    })
+    .then(r => { if (!r.ok) throw new Error('API returned ' + r.status); return r.json(); })
+    .then(data => {
+      state.evolutionId = data.evolution_id;
+      for (let d = 1; d <= 7; d++) {
+        state.dayState[d] = { checked: [false, false, false], entries: [], draft: '' };
+      }
+      _launchSparkStage();
+    })
+    .catch(err => {
+      commitBtn.disabled = false;
+      commitBtn.textContent = 'Begin Day 1 \u2192';
+      alert('Could not start Evolution: ' + err.message + '\n\nCheck that the API is reachable.');
+    });
+  }
+
+  // Sample mode: bypass API, pre-populate Days 1–4 with canned data
+  function enterTheSparkSample() {
+    if (state.selectedIndices.length !== 3) return;
+    state.sampleMode = true;
+    state.evolutionId = null;
+    state.userId = null;
     state.committedHabits = state.selectedIndices.map(i => habitFromGamePlan(state.gameplanItems[i]));
 
     for (let d = 1; d <= 7; d++) {
-      state.dayState[d] = { checked: [false, false, false], journal: '' };
+      state.dayState[d] = { checked: [false, false, false], entries: [], draft: '' };
     }
-    // Pre-populate Days 1–4 so Day 5 Look Back has real data to reference
-    state.dayState[1] = { checked: [true, true, true],  journal: "Felt weird not having coffee after 2 but I made it. Slept around midnight which is earlier than usual." };
-    state.dayState[2] = { checked: [true, false, true], journal: "Skipped the workout. Was too tired from sleeping better — sounds backwards but I think my body is recalibrating." };
-    state.dayState[3] = { checked: [true, true, true],  journal: "Best day so far. Walked in the morning, ate eggs, no late coffee. This might actually work." };
-    state.dayState[4] = { checked: [false, true, true], journal: "Coffee at 4pm — meeting ran long and I needed it. Didn't sleep great. Lesson learned." };
+    state.dayState[1] = { checked: [true, true, true],  entries: [{ time: null, text: "Felt weird not having coffee after 2 but I made it. Slept around midnight which is earlier than usual." }], draft: '' };
+    state.dayState[2] = { checked: [true, false, true], entries: [{ time: null, text: "Skipped the workout. Was too tired from sleeping better \u2014 sounds backwards but I think my body is recalibrating." }], draft: '' };
+    state.dayState[3] = { checked: [true, true, true],  entries: [{ time: null, text: "Best day so far. Walked in the morning, ate eggs, no late coffee. This might actually work." }], draft: '' };
+    state.dayState[4] = { checked: [false, true, true], entries: [{ time: null, text: "Coffee at 4pm \u2014 meeting ran long and I needed it. Didn\u2019t sleep great. Lesson learned." }], draft: '' };
+    _launchSparkStage();
+  }
 
+  function _launchSparkStage() {
     document.getElementById('stage-selection').classList.remove('active');
     document.getElementById('stage-spark').classList.add('active');
     window.scrollTo(0, 0);
@@ -953,6 +1086,18 @@
   function toggleHabit(dayNum, habitIdx) {
     state.dayState[dayNum].checked[habitIdx] = !state.dayState[dayNum].checked[habitIdx];
     renderDay(dayNum);
+    if (!state.sampleMode && state.evolutionId) {
+      fetch(API_BASE + '/api/evolution/checkin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: state.userId,
+          evolution_id: state.evolutionId,
+          day: dayNum,
+          habit_states: state.dayState[dayNum].checked,
+        })
+      }).catch(err => console.error('checkin failed:', err));
+    }
   }
 
   function buildJournalSection(dayNum) {
@@ -961,44 +1106,212 @@
     title.className = 'spark-section-title';
     title.textContent = "Today\u2019s Journal";
     wrap.appendChild(title);
+
+    // Render saved entries
+    const ds = state.dayState[dayNum];
+    if (ds.entries && ds.entries.length > 0) {
+      const entriesEl = document.createElement('div');
+      entriesEl.className = 'journal-entries';
+      ds.entries.forEach(e => {
+        const entry = document.createElement('div');
+        entry.className = 'journal-entry';
+        if (e.time) {
+          const timeEl = document.createElement('div');
+          timeEl.className = 'entry-time';
+          timeEl.textContent = e.time;
+          entry.appendChild(timeEl);
+        }
+        const textEl = document.createElement('div');
+        textEl.className = 'entry-text';
+        textEl.textContent = e.text;
+        entry.appendChild(textEl);
+        entriesEl.appendChild(entry);
+      });
+      wrap.appendChild(entriesEl);
+    }
+
+    // Input area for new entry
     const area = document.createElement('div');
     area.className = 'journal-area';
     const ta = document.createElement('textarea');
     ta.className = 'journal-textarea';
     ta.id = 'journal-input';
-    ta.placeholder = 'What happened today?';
-    ta.value = state.dayState[dayNum].journal || '';
-    ta.oninput = () => { state.dayState[dayNum].journal = ta.value; };
+    ta.placeholder = ds.entries && ds.entries.length > 0 ? 'Add another entry\u2026' : 'What happened today?';
+    ta.value = ds.draft || '';
+    ta.oninput = () => { state.dayState[dayNum].draft = ta.value; };
     area.appendChild(ta);
+
+    const addBtn = document.createElement('button');
+    addBtn.className = 'btn-add-entry';
+    addBtn.textContent = '+ Add entry';
+    addBtn.onclick = () => saveJournalEntry(dayNum);
+    area.appendChild(addBtn);
+
     wrap.appendChild(area);
     return wrap;
   }
 
-  function saveCurrentJournal() {
+  function saveJournalEntry(dayNum) {
     const ta = document.getElementById('journal-input');
-    if (ta && state.dayState[state.currentDay]) {
-      state.dayState[state.currentDay].journal = ta.value;
+    if (!ta || !ta.value.trim()) return;
+    const text = ta.value.trim();
+
+    if (!state.sampleMode && state.evolutionId) {
+      // Real mode: POST to server, then update local state on success
+      fetch(API_BASE + '/api/evolution/checkin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: state.userId,
+          evolution_id: state.evolutionId,
+          day: dayNum,
+          habit_states: state.dayState[dayNum].checked,
+          journal_append: text,
+        })
+      })
+      .then(r => { if (!r.ok) throw new Error('API returned ' + r.status); return r.json(); })
+      .then(() => {
+        // Add entry with a local timestamp (server stamped the file too)
+        const now = new Date();
+        let h = now.getHours() % 12 || 12;
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const ampm = now.getHours() < 12 ? 'AM' : 'PM';
+        state.dayState[dayNum].entries.push({ time: `${h}:${m} ${ampm}`, text });
+        state.dayState[dayNum].draft = '';
+        renderDay(dayNum);
+      })
+      .catch(err => alert('Failed to save entry: ' + err.message));
+    } else {
+      // Sample mode: local only
+      state.dayState[dayNum].entries.push({ time: null, text });
+      state.dayState[dayNum].draft = '';
+      renderDay(dayNum);
     }
   }
 
+  function saveCurrentJournal() {
+    // Draft is kept in state.dayState[dayNum].draft via oninput — nothing to flush here
+  }
+
   function buildLookBackCard() {
-    let totalChecks = 0, totalPossible = 0;
-    for (let d = 1; d <= 4; d++) {
-      state.dayState[d].checked.forEach(c => { totalPossible++; if (c) totalChecks++; });
-    }
     const card = document.createElement('div');
     card.className = 'lookback-card';
+    card.id = 'lookback-card';
+
+    if (state.lookbackLoading) {
+      card.innerHTML =
+        '<div class="label">Alignment Friday \u00B7 Look Back</div>' +
+        '<div class="lookback-loading">' +
+          '<div class="lookback-spinner"></div>' +
+          '<p>Reading your week\u2026</p>' +
+        '</div>';
+      return card;
+    }
+
+    if (state.lookbackOutput) {
+      renderLookBackOutput(card, state.lookbackOutput);
+      return card;
+    }
+
     card.innerHTML =
-      '<div class="label">Alignment Friday \u00B7 Look Back <span class="honesty-marker">demo content</span></div>' +
+      '<div class="label">Alignment Friday \u00B7 Look Back</div>' +
       '<h3>Here\u2019s what your week told us</h3>' +
-      '<div class="lookback-stats">' +
-        '<div class="stat-line">You committed to 3 habits and checked in ' + totalChecks + ' of ' + totalPossible + ' times so far</div>' +
-        '<div class="stat-line">Your strongest day was Wednesday \u2014 three for three, and you wrote: \u201CThis might actually work.\u201D</div>' +
-        '<div class="stat-line">Thursday\u2019s coffee at 4pm was a real-world moment, not a failure. You named it and moved on.</div>' +
-        '<div class="stat-line">The pattern across your journals: you\u2019re noticing how you feel, not just what you did. That\u2019s the work.</div>' +
-      '</div>' +
-      '<div class="reflection-prompt">No judgment, just data. What do you want to do differently next week?</div>';
+      '<p class="lookback-intro">Your first Alignment Friday. Ready to see what the data reveals about your week?</p>' +
+      '<button class="btn-generate-lookback" onclick="triggerLookBack()">Generate my Look Back</button>';
     return card;
+  }
+
+  function renderLookBackOutput(card, markdown) {
+    const s = parseLookBackMarkdown(markdown);
+    let html = '<div class="label">Alignment Friday \u00B7 Look Back</div>';
+
+    if (s.title) html += '<h3>' + esc(s.title) + '</h3>';
+
+    if (s.whatTheWeekToldUs) {
+      const lines = s.whatTheWeekToldUs.split('\n')
+        .map(l => l.replace(/^[-*]\s*/, '').trim())
+        .filter(l => l.length > 0);
+      html += '<div class="lookback-stats">';
+      lines.forEach(l => { html += '<div class="stat-line">' + esc(l) + '</div>'; });
+      html += '</div>';
+    }
+
+    if (s.momentThatMattered) {
+      html += '<div class="lookback-moment">' + esc(s.momentThatMattered) + '</div>';
+    }
+
+    if (s.byTheNumbers) {
+      html += '<div class="lookback-numbers">' + esc(s.byTheNumbers) + '</div>';
+    }
+
+    if (s.lookingAhead) {
+      html += '<div class="reflection-prompt">' + esc(s.lookingAhead) + '</div>';
+    }
+
+    card.innerHTML = html;
+  }
+
+  function parseLookBackMarkdown(markdown) {
+    const result = {};
+    const titleMatch = markdown.match(/^#\s+Look Back:\s*([^\n]+)/m);
+    if (titleMatch) {
+      // Strip "— Week N" suffix from title for the h3
+      result.title = titleMatch[1].replace(/\s*\u2014.*$/, '').trim();
+    }
+    const sectionRe = /##\s+([\w\s']+)\n([\s\S]*?)(?=\n##\s|$)/g;
+    let m;
+    while ((m = sectionRe.exec(markdown)) !== null) {
+      const heading = m[1].trim();
+      const body = m[2].trim();
+      if (/what the week/i.test(heading)) result.whatTheWeekToldUs = body;
+      else if (/moment that mattered/i.test(heading)) result.momentThatMattered = body;
+      else if (/by the numbers/i.test(heading)) result.byTheNumbers = body;
+      else if (/looking ahead/i.test(heading)) result.lookingAhead = body;
+    }
+    return result;
+  }
+
+  function esc(text) {
+    return String(text)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  async function triggerLookBack() {
+    if (state.sampleMode || !state.evolutionId) {
+      const card = document.getElementById('lookback-card');
+      if (card) {
+        card.innerHTML =
+          '<div class="label">Alignment Friday \u00B7 Look Back</div>' +
+          '<p class="lookback-intro">Look Back generation requires a real Spark session \u2014 complete the intake and commit to your habits first.</p>';
+      }
+      return;
+    }
+
+    state.lookbackLoading = true;
+    renderDay(5);
+
+    try {
+      const res = await fetch(API_BASE + '/api/evolution/lookback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: state.userId, evolution_id: state.evolutionId }),
+      });
+      if (!res.ok) throw new Error('API returned ' + res.status);
+      const data = await res.json();
+      state.lookbackOutput = data.output;
+      state.lookbackLoading = false;
+      renderDay(5);
+    } catch (err) {
+      state.lookbackLoading = false;
+      const card = document.getElementById('lookback-card');
+      if (card) {
+        card.innerHTML =
+          '<div class="label">Alignment Friday \u00B7 Look Back</div>' +
+          '<p class="lookback-intro">Couldn\u2019t generate your Look Back right now. Try again in a moment.</p>' +
+          '<button class="btn-generate-lookback" onclick="triggerLookBack()">Try again</button>';
+      }
+    }
   }
 
   function buildEndOfEvolutionCard() {
@@ -1014,9 +1327,35 @@
     return card;
   }
 
+  // ── Send report (background — fire-and-forget) ──
+  function sendReport(snapshotMarkdown) {
+    const name       = document.getElementById('input-name').value.trim();
+    const age        = document.getElementById('input-age').value.trim()        || '';
+    const occupation = document.getElementById('input-occupation').value.trim() || '';
+    const goal       = document.getElementById('input-goal').value.trim();
+
+    fetch(API_BASE + '/api/send-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, age, occupation, email: state.email, goal, snapshot_markdown: snapshotMarkdown })
+    })
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (data && data.email_sent) showToast('Report sent to ' + state.email + ' \u2713');
+    })
+    .catch(() => {});
+  }
+
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 4000);
+  }
+
   // ── Reset handlers ──
   function resetDemo() {
-    ['input-name', 'input-age', 'input-occupation', 'input-goal', 'input-day']
+    ['input-name', 'input-age', 'input-occupation', 'input-goal', 'input-day', 'input-email']
       .forEach(id => { document.getElementById(id).value = ''; });
     document.querySelectorAll('.processing-steps li').forEach(li => li.classList.remove('active', 'done'));
     const ptitle = document.querySelector('.processing-title');
@@ -1032,6 +1371,12 @@
     state.committedHabits = [];
     state.currentDay = 1;
     state.dayState = {};
+    state.userId = null;
+    state.evolutionId = null;
+    state.email = null;
+    state.sampleMode = false;
+    state.lookbackOutput = null;
+    state.lookbackLoading = false;
     document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
     document.getElementById('stage-snapshot').classList.add('active');
     userName = '';
@@ -1044,6 +1389,11 @@
     state.committedHabits = [];
     state.currentDay = 1;
     state.dayState = {};
+    state.userId = null;
+    state.evolutionId = null;
+    state.sampleMode = false;
+    state.lookbackOutput = null;
+    state.lookbackLoading = false;
     document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
     document.getElementById('stage-snapshot').classList.add('active');
     window.scrollTo(0, 0);
