@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — What Comes Next? LLC</title>
+  <meta name="description" content="Privacy policy for The Spark by What Comes Next? LLC. Your health data is processed on hardware we control. No third-party AI providers.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#216869">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:      #216869;
+      --teal-dark: #1a5354;
+      --coral:     #e76f51;
+      --sage:      #49a078;
+      --charcoal:  #2d3436;
+      --off-white: #f4f4f4;
+      --amber:     #f4a261;
+      --white:     #ffffff;
+      --font: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --grid: 8px;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--charcoal); background: var(--off-white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--teal);
+      padding: calc(var(--grid) * 1.5) calc(var(--grid) * 4);
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-logo { display: flex; align-items: center; gap: calc(var(--grid) * 1.5); text-decoration: none; }
+    .nav-logo img { width: 36px; height: 36px; }
+    .nav-logo .wordmark { color: var(--white); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+    .nav-logo .wordmark .ai { color: var(--amber); }
+    nav .nav-links { display: flex; gap: calc(var(--grid) * 4); list-style: none; }
+    nav .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s; }
+    nav .nav-links a:hover { color: var(--white); }
+    .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .mobile-toggle span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; border-radius: 1px; }
+
+    /* ── HERO ── */
+    .privacy-hero {
+      background: var(--teal);
+      color: var(--white);
+      padding: calc(var(--grid) * 10) calc(var(--grid) * 4) calc(var(--grid) * 8);
+    }
+    .privacy-hero .inner { max-width: 720px; margin: 0 auto; }
+    .privacy-hero .label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55); margin-bottom: calc(var(--grid) * 2);
+    }
+    .privacy-hero h1 {
+      font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -0.03em;
+      line-height: 1.15; margin-bottom: calc(var(--grid) * 2);
+    }
+    .privacy-hero .subhead {
+      font-size: 1.0625rem; color: rgba(255,255,255,0.75); margin-bottom: calc(var(--grid) * 1.5);
+    }
+    .privacy-hero .dates {
+      font-size: 0.8125rem; color: rgba(255,255,255,0.45); letter-spacing: 0.01em;
+    }
+
+    /* ── BODY ── */
+    .privacy-body {
+      background: var(--off-white);
+      padding: calc(var(--grid) * 8) calc(var(--grid) * 4) calc(var(--grid) * 12);
+    }
+    .privacy-body .inner { max-width: 720px; margin: 0 auto; }
+
+    /* Short version callout */
+    .callout {
+      background: var(--white);
+      border-left: 4px solid var(--coral);
+      border-radius: 0 6px 6px 0;
+      padding: calc(var(--grid) * 3) calc(var(--grid) * 4);
+      margin-bottom: calc(var(--grid) * 7);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .callout .callout-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--coral); margin-bottom: calc(var(--grid) * 1.5);
+    }
+    .callout p {
+      font-size: 0.9375rem; line-height: 1.7; color: var(--charcoal);
+      margin-bottom: calc(var(--grid) * 1.5);
+    }
+    .callout p:last-child { margin-bottom: 0; }
+
+    /* Sections */
+    .policy-section { margin-bottom: calc(var(--grid) * 7); }
+    .policy-section h2 {
+      font-size: 1.25rem; font-weight: 700; color: var(--teal);
+      letter-spacing: -0.02em; margin-bottom: calc(var(--grid) * 2);
+      padding-bottom: calc(var(--grid) * 1.5);
+      border-bottom: 1px solid rgba(33,104,105,0.15);
+    }
+    .policy-section p {
+      font-size: 0.9375rem; line-height: 1.75; color: var(--charcoal);
+      margin-bottom: calc(var(--grid) * 2);
+    }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section ul {
+      list-style: none; margin: calc(var(--grid) * 1.5) 0 calc(var(--grid) * 2) calc(var(--grid) * 2);
+    }
+    .policy-section ul li {
+      font-size: 0.9375rem; line-height: 1.75; color: var(--charcoal);
+      padding: calc(var(--grid) * 0.5) 0;
+      padding-left: calc(var(--grid) * 2.5);
+      position: relative;
+    }
+    .policy-section ul li::before {
+      content: '';
+      position: absolute; left: 0; top: 0.7em;
+      width: 5px; height: 5px;
+      background: var(--coral); border-radius: 50%;
+    }
+    .policy-section a { color: var(--coral); text-decoration: none; }
+    .policy-section a:hover { text-decoration: underline; }
+
+    /* Deletion request highlight */
+    .deletion-highlight {
+      background: var(--white);
+      border: 1px solid rgba(231,111,81,0.25);
+      border-radius: 6px;
+      padding: calc(var(--grid) * 3) calc(var(--grid) * 4);
+      margin-top: calc(var(--grid) * 2);
+    }
+    .deletion-highlight p { margin-bottom: calc(var(--grid) * 1.5); }
+    .deletion-highlight p:last-child { margin-bottom: 0; }
+
+    /* Contact block */
+    .contact-block {
+      background: var(--white);
+      border-radius: 6px;
+      padding: calc(var(--grid) * 3) calc(var(--grid) * 4);
+      margin-top: calc(var(--grid) * 2);
+      font-size: 0.9375rem; line-height: 1.9; color: var(--charcoal);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--charcoal);
+      padding: calc(var(--grid) * 5) calc(var(--grid) * 4);
+    }
+    .site-footer .inner {
+      max-width: 720px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: calc(var(--grid) * 2);
+    }
+    .site-footer span { font-size: 0.8125rem; color: rgba(255,255,255,0.4); }
+    .site-footer a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.8125rem; transition: color 0.2s; }
+    .site-footer a:hover { color: var(--white); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: calc(var(--grid) * 1.5) calc(var(--grid) * 3); }
+      .mobile-toggle { display: block; }
+      nav .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--teal-dark); flex-direction: column;
+        padding: calc(var(--grid) * 2) calc(var(--grid) * 3);
+        gap: calc(var(--grid) * 2);
+      }
+      nav .nav-links.open { display: flex; }
+      .privacy-hero { padding: calc(var(--grid) * 7) calc(var(--grid) * 3) calc(var(--grid) * 6); }
+      .privacy-body { padding: calc(var(--grid) * 6) calc(var(--grid) * 3) calc(var(--grid) * 10); }
+      .site-footer .inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="/assets/What_Comes_Next.svg" alt="WCN" width="36" height="36">
+      <span class="wordmark">whatcomesnextllc<span class="ai">.ai</span></span>
+    </a>
+    <button class="mobile-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/#evolutions">Evolutions</a></li>
+      <li><a href="/#100days">100 Days to Summer</a></li>
+      <li><a href="https://calendar.whatcomesnextllc.ai">Calendar</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="privacy-hero">
+    <div class="inner">
+      <p class="label">Legal</p>
+      <h1>Privacy Policy</h1>
+      <p class="subhead">The Spark by What Comes Next? LLC</p>
+      <p class="dates">Effective date: April 28, 2026 &nbsp;&middot;&nbsp; Last updated: April 28, 2026</p>
+    </div>
+  </header>
+
+  <main class="privacy-body">
+    <div class="inner">
+
+      <div class="callout">
+        <p class="callout-label">The short version</p>
+        <p>Your health data is processed on hardware What Comes Next controls. It does not go to OpenAI, Google, Anthropic, or any other third-party AI provider.</p>
+        <p>We do not sell your data. We do not have an advertising model. We do not share your information with data brokers.</p>
+        <p>This is not a typical privacy policy. We mean it.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Who we are</h2>
+        <p>What Comes Next? LLC is a technology company based in Ardmore, Pennsylvania. We build AI-powered personal development tools that run on infrastructure we control.</p>
+        <p>Contact: <a href="mailto:coach@whatcomesnextllc.ai">coach@whatcomesnextllc.ai</a><br>
+        Website: <a href="https://whatcomesnextllc.ai">whatcomesnextllc.ai</a></p>
+      </div>
+
+      <div class="policy-section">
+        <h2>What we collect</h2>
+        <p>When you use The Spark, you provide:</p>
+        <ul>
+          <li>Your name, age, and occupation</li>
+          <li>A description of your personal wellness goal</li>
+          <li>A description of your daily routine</li>
+          <li>Daily habit check-ins and journal entries during your 7-day Evolution cycle</li>
+        </ul>
+        <p>We also collect:</p>
+        <ul>
+          <li>A push notification token to deliver reminders to your device (iOS via Apple APNs, Android via Google FCM)</li>
+          <li>Basic usage data sufficient to operate the service</li>
+        </ul>
+        <p>We do not collect location data, biometric data, financial information, or any data beyond what you explicitly provide.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>How your data is processed</h2>
+        <p>This is the part that is different.</p>
+        <p>When you submit a wellness intake through The Spark, your data travels over an encrypted connection to an API endpoint operated by What Comes Next. It is then processed by a locally-hosted AI model running on hardware What Comes Next physically controls. At no point does your intake data touch OpenAI, Anthropic, Google, or any other third-party AI provider's infrastructure.</p>
+        <p>Your Evolution data — your check-ins, journal entries, and habit progress — is stored as plain text files on What Comes Next-controlled servers. It is not stored in a third-party cloud database. It is not processed by external AI services.</p>
+        <p>We use <a href="https://resend.com" target="_blank" rel="noopener">Resend</a> to deliver your wellness snapshot by email. Your email address and snapshot content are transmitted to Resend for this purpose only. Resend's privacy policy is available at <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">resend.com/legal/privacy-policy</a>.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>How we use your data</h2>
+        <p>We use your data to:</p>
+        <ul>
+          <li>Generate your personalized wellness snapshot</li>
+          <li>Store your Evolution progress so you can access it across sessions</li>
+          <li>Send you habit reminders and check-in prompts via push notification</li>
+          <li>Deliver your wellness snapshot by email if you request it</li>
+        </ul>
+        <p>We do not use your data to train AI models. We do not sell your data. We do not share your data with advertisers.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Data retention</h2>
+        <p>Your Evolution data is retained on our servers for as long as you use the service. We do not currently offer automatic deletion on a fixed schedule, but you can request deletion at any time (see below).</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Your rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+          <li>Know what data we hold about you</li>
+          <li>Request a copy of your data</li>
+          <li>Request correction of inaccurate data</li>
+          <li>Request deletion of your data</li>
+        </ul>
+        <p>To exercise any of these rights, email us at <a href="mailto:coach@whatcomesnextllc.ai?subject=Data Request">coach@whatcomesnextllc.ai</a> with the subject line "Data Request". We will respond within 30 days.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Data deletion requests</h2>
+        <p>To request deletion of your account and all associated data:</p>
+        <div class="deletion-highlight">
+          <p>Email <a href="mailto:coach@whatcomesnextllc.ai?subject=Delete My Data">coach@whatcomesnextllc.ai</a> with the subject line <strong>"Delete My Data"</strong> and include the name you used when creating your account. We will confirm deletion within 30 days.</p>
+          <p>This is the data deletion link provided to Google Play and the Apple App Store.</p>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2>Push notifications</h2>
+        <p>We use push notifications to send habit reminders and check-in prompts. You can disable push notifications at any time through your device's notification settings. Disabling notifications does not delete your account or data.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Children's privacy</h2>
+        <p>The Spark is intended for users 18 and older. We do not knowingly collect data from anyone under 18.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Changes to this policy</h2>
+        <p>We will update this page if our practices change and will note the updated date at the top. We will not reduce your rights under this policy without explicit notice.</p>
+      </div>
+
+      <div class="policy-section">
+        <h2>Contact</h2>
+        <div class="contact-block">
+          What Comes Next? LLC<br>
+          40 E. Montgomery Ave<br>
+          Ardmore, PA 19003<br>
+          <a href="mailto:coach@whatcomesnextllc.ai">coach@whatcomesnextllc.ai</a><br>
+          <a href="https://whatcomesnextllc.ai">whatcomesnextllc.ai</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <span>&copy; 2026 What Comes Next? LLC. All rights reserved.</span>
+      <a href="/">Back to whatcomesnextllc.ai</a>
+    </div>
+  </footer>
+
+</body>
+</html>
