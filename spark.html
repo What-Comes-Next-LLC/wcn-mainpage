@@ -555,11 +555,22 @@
               Set up time with a coach
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
-            <div style="margin-top:1rem;">
+            <div style="margin-top:1.25rem;">
+              <a href="#" style="display:block; text-align:center; padding:0.85rem 1.5rem; border:2px solid rgba(255,255,255,0.35); border-radius:8px; font-size:0.95rem; font-weight:600; color:rgba(255,255,255,0.85); text-decoration:none; cursor:default;" title="Coming soon">
+                Enter the 100 Days of Summer Challenge
+                <span style="font-size:0.75rem; display:block; font-weight:400; margin-top:0.2rem; color:rgba(255,255,255,0.5);">Coming soon</span>
+              </a>
+            </div>
+            <div id="demo-entry" style="margin-top:1rem; display:none;">
               <a href="#" onclick="goToHabitSelection(); return false;" style="font-size:0.82rem; color:rgba(255,255,255,0.65); text-decoration:underline;">
                 or try the habit tracker demo &rarr;
               </a>
             </div>
+            <script>
+              if (window.location.hostname === 'preview.whatcomesnextllc.ai') {
+                document.getElementById('demo-entry').style.display = 'block';
+              }
+            </script>
           </div>
         </div>
       </div>
