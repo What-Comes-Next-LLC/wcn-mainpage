@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Comes Next — Calendar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --font: 'Raleway', sans-serif; }
+
+    /* ── Light theme (default) ───────────────────────────── */
+    :root[data-theme="light"] {
+      --teal:       #216869;
+      --sage:       #49a078;
+      --coral:      #e76f51;
+      --gold:       #EAAA00;
+      --purple:     #312b7a;
+      --bg:         #f0eeeb;
+      --surface:    #ffffff;
+      --surface2:   #f7f6f3;
+      --border:     #e4e1dc;
+      --text:       #2d3436;
+      --muted:      #6b7280;
+      --amber:      #f4a261;
+      --teal-dark:  #1a5354;
+      --header-bg:  #216869;
+      --header-text:#ffffff;
+      --today-bg:   rgba(33,104,105,0.08);
+      --other-num:  #c8c4be;
+    }
+
+    /* ── Dark theme ──────────────────────────────────────── */
+    :root[data-theme="dark"] {
+      --teal:       #3ecfb2;
+      --sage:       #7db89a;
+      --coral:      #e07a5f;
+      --gold:       #d4a853;
+      --purple:     #8b7bb5;
+      --bg:         #0e1614;
+      --surface:    #162220;
+      --surface2:   #1c2c29;
+      --border:     #2a3d38;
+      --text:       #d4e8e2;
+      --muted:      #6b8f84;
+      --amber:      #d4956a;
+      --teal-dark:  #0d1f1c;
+      --header-bg:  #162220;
+      --header-text:#d4e8e2;
+      --today-bg:   #152523;
+      --other-num:  #3a4e49;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────── */
+    nav {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      padding: calc(8px * 1.5) calc(8px * 4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { width: 36px; height: 36px; }
+    .wordmark { color: #fff; font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+    .wordmark .ai { color: var(--amber); }
+
+    nav .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      align-items: center;
+    }
+
+    nav .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    nav .nav-links a:hover,
+    nav .nav-links a[aria-current="page"] { color: #fff; }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .mobile-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      margin: 5px 0;
+      border-radius: 1px;
+    }
+
+    .nav-team-sep {
+      width: 1px;
+      height: 16px;
+      background: rgba(255,255,255,0.2);
+      margin: 0 12px;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    .nav-team-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--amber) !important;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s;
+    }
+
+    .nav-team-link:hover { opacity: 0.8; color: var(--amber) !important; }
+    .nav-team-link img { width: 22px; height: 22px; object-fit: contain; }
+
+    .nav-theme-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 0.3rem 0.8rem;
+      font-family: var(--font);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .nav-theme-btn:hover { background: rgba(255,255,255,0.25); }
+
+    @media (max-width: 768px) {
+      nav { padding: 12px 24px; }
+      .mobile-toggle { display: block; }
+      nav .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--teal-dark);
+        flex-direction: column;
+        padding: 16px 24px;
+        gap: 16px;
+      }
+      nav .nav-links.open { display: flex; }
+      .nav-team-sep { display: none; }
+    }
+
+    /* ── Hero / countdown ────────────────────────────────── */
+    .hero {
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    [data-theme="light"] .hero { background: linear-gradient(135deg, #eaf4f4 0%, #f0eeeb 100%); }
+    [data-theme="dark"]  .hero { background: linear-gradient(135deg, var(--surface) 0%, #0f1e1b 100%); }
+
+    .transformation-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .transformation-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 2rem;
+      min-height: 2.2rem;
+    }
+
+    .countdown-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 0.6rem;
+    }
+
+    .countdown-event-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+      min-height: 1.3rem;
+    }
+
+    .countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .countdown-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 4rem;
+    }
+
+    .countdown-digits {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--teal);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+    }
+
+    .countdown-unit-label {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    .countdown-sep {
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--border);
+      line-height: 1;
+      align-self: flex-start;
+    }
+
+    .no-events { color: var(--muted); font-size: 1rem; font-style: italic; }
+
+    /* ── Calendar nav bar ────────────────────────────────── */
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem 0.5rem;
+    }
+
+    .nav-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.4rem 1rem;
+      font-family: var(--font);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--teal);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      min-width: 2.5rem;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--teal);
+      color: #fff;
+      border-color: var(--teal);
+    }
+
+    .nav-btn:disabled { color: var(--border); cursor: not-allowed; }
+
+    .nav-range {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* ── Calendar grid ───────────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem 4rem;
+    }
+
+    .months-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 860px) { .months-row { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) {
+      .countdown-digits { font-size: 2rem; }
+      .countdown-sep    { font-size: 2rem; }
+      .hero             { padding: 1.75rem 1rem; }
+    }
+
+    .month-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .month-card.current-month {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 1px var(--teal);
+    }
+
+    .month-header {
+      background: var(--surface2);
+      padding: 0.6rem 1rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .month-header.current-month-header { color: var(--teal); }
+
+    [data-theme="light"] .month-header.current-month-header { background: rgba(33,104,105,0.06); }
+    [data-theme="dark"]  .month-header.current-month-header { background: #1a2e2a; }
+
+    .dow-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dow-cell {
+      text-align: center;
+      padding: 0.32rem 0;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .day-cell {
+      background: var(--surface);
+      min-height: 4.5rem;
+      padding: 0.3rem;
+    }
+
+    .day-cell.other-month { background: var(--surface2); }
+    .day-cell.today       { background: var(--today-bg); }
+
+    .day-num {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--muted);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .day-cell.today .day-num     { color: var(--teal); font-weight: 700; }
+    .day-cell.other-month .day-num { color: var(--other-num); }
+
+    /* ── Event pills ─────────────────────────────────────── */
+    .event-pill {
+      display: block;
+      font-size: 0.58rem;
+      font-weight: 600;
+      padding: 0.15rem 0.3rem;
+      border-radius: 3px;
+      margin-bottom: 0.15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: default;
+      line-height: 1.4;
+    }
+
+    .evt-alignment  { background: rgba(33,104,105,0.12);  color: var(--teal);   border-left: 2px solid var(--teal); }
+    .evt-sword      { background: rgba(73,160,120,0.12);   color: var(--sage);   border-left: 2px solid var(--sage); }
+    .evt-milestone  { background: rgba(234,170,0,0.12);    color: var(--gold);   border-left: 2px solid var(--gold); }
+    .evt-appearance { background: rgba(231,111,81,0.12);   color: var(--coral);  border-left: 2px solid var(--coral); }
+    .evt-general    { background: rgba(49,43,122,0.10);    color: var(--purple); border-left: 2px solid var(--purple); }
+    .evt-tabling    { background: rgba(231,111,81,0.12);   color: #e76f51;       border-left: 2px solid #e76f51; }
+
+    [data-theme="dark"] .evt-alignment  { background: rgba(62,207,178,0.18); }
+    [data-theme="dark"] .evt-milestone  { background: rgba(212,168,83,0.18); }
+    [data-theme="dark"] .evt-general    { background: rgba(139,123,181,0.18); }
+
+    /* ── Status / loading ────────────────────────────────── */
+    .status-bar {
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 0.72rem;
+      height: 0.72rem;
+      border: 2px solid var(--border);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.4rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Legend ──────────────────────────────────────────── */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.2rem;
+      justify-content: center;
+      padding: 1.1rem 1.5rem 0.4rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    .legend-dot {
+      width: 0.48rem;
+      height: 0.48rem;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://whatcomesnextllc.ai" class="nav-logo">
+    <img src="https://whatcomesnextllc.ai/assets/What_Comes_Next.svg" alt="WCN" width="36" height="36">
+    <span class="wordmark">whatcomesnextllc<span class="ai">.ai</span></span>
+  </a>
+  <button class="mobile-toggle" aria-label="Toggle navigation"
+    onclick="document.querySelector('.nav-links').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="https://whatcomesnextllc.ai/#evolutions">Evolutions</a></li>
+    <li><a href="https://whatcomesnextllc.ai/#100days">100 Days to Summer</a></li>
+    <li><a href="https://calendar.whatcomesnextllc.ai" aria-current="page">Calendar</a></li>
+    <li><a href="https://pressroom.whatcomesnextllc.ai">Pressroom</a></li>
+    <li><a href="https://whatcomesnextllc.ai/#about">About</a></li>
+    <li><a href="https://whatcomesnextllc.ai/#contact">Contact</a></li>
+    <li style="display:flex;align-items:center;">
+      <span class="nav-team-sep" aria-hidden="true"></span>
+      <a href="https://admin.whatcomesnextllc.ai" class="nav-team-link" title="Coach's Clipboard — WCN Team">
+        <img src="https://whatcomesnextllc.ai/assets/Coach_s_Clipboard.svg" alt="" aria-hidden="true">
+        WCN Team
+      </a>
+    </li>
+    <li style="display:flex;align-items:center;margin-left:8px;">
+      <button class="nav-theme-btn" id="theme-toggle" aria-label="Toggle theme">☾ Dark</button>
+    </li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="transformation-label">Current Transformation</div>
+  <div class="transformation-name" id="transformation-name">—</div>
+  <div class="countdown-label">Countdown to Next Evolution</div>
+  <div class="countdown-event-name" id="countdown-event-name">&nbsp;</div>
+  <div id="countdown-display">
+    <div class="countdown-timer">
+      <div class="countdown-unit">
+        <span class="countdown-digits" id="cd-days">—</span>
+        <span class="countdown-unit-label">Days</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit">
+        <span class="countdown-digits" id="cd-hours">—</span>
+        <span class="countdown-unit-label">Hours</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit">
+        <span class="countdown-digits" id="cd-mins">—</span>
+        <span class="countdown-unit-label">Minutes</span>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit">
+        <span class="countdown-digits" id="cd-secs">—</span>
+        <span class="countdown-unit-label">Seconds</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="calendar-nav">
+  <button class="nav-btn" id="nav-prev" aria-label="Previous month">&#8249;</button>
+  <div class="nav-range" id="nav-range"></div>
+  <button class="nav-btn" id="nav-next" aria-label="Next month">&#8250;</button>
+</div>
+
+<main>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div> Alignment Friday</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--sage)"></div> Sword Sharpening Sunday</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div> Milestone / Cohort</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--coral)"></div> Appearance</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> General</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#e76f51"></div> Ambassador Tabling</div>
+  </div>
+
+  <div class="status-bar" id="status-bar">
+    <span class="loading-spinner"></span>Loading calendar…
+  </div>
+
+  <div class="months-row" id="months-row"></div>
+</main>
+
+<script>
+'use strict';
+
+const CAL_URL    = '/dav/wcnadmin/calendar/';
+const MONTH_NAMES = ['January','February','March','April','May','June',
+                     'July','August','September','October','November','December'];
+const NAV_MIN = { y: 2026, m: 5 };   // June 2026
+const NAV_MAX = { y: 2026, m: 11 };  // December 2026
+
+// ── Theme ─────────────────────────────────────────────────
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('theme-toggle').textContent = t === 'light' ? '☾ Dark' : '☀ Light';
+  localStorage.setItem('wcn-theme', t);
+}
+
+(function() {
+  const saved = localStorage.getItem('wcn-theme');
+  applyTheme(saved === 'dark' ? 'dark' : 'light');
+})();
+
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+});
+
+// ── Month math ────────────────────────────────────────────
+function addMonths(ym, n) {
+  let m = ym.m + n, y = ym.y;
+  while (m > 11) { m -= 12; y++; }
+  while (m < 0)  { m += 12; y--; }
+  return { y, m };
+}
+
+function ymLt(a, b) { return a.y < b.y || (a.y === b.y && a.m < b.m); }
+function ymEq(a, b) { return a.y === b.y && a.m === b.m; }
+
+const maxStart = addMonths(NAV_MAX, -2);  // Oct 2026 — last valid windowStart
+
+// ── Navigation state ──────────────────────────────────────
+const today = new Date();
+let windowStart = { y: today.getFullYear(), m: today.getMonth() };
+if (ymLt(windowStart, NAV_MIN)) windowStart = { ...NAV_MIN };
+if (ymLt(maxStart, windowStart)) windowStart = { ...maxStart };
+
+// ── Event classification ──────────────────────────────────
+function classifyEvent(summary) {
+  const s = (summary || '').toLowerCase();
+  if (s.includes('alignment') || s.includes('alignment friday')) return 'alignment';
+  if (s.includes('sword') || s.includes('sharpening')) return 'sword';
+  if (s.includes('milestone') || s.includes('cohort') || s.includes('kickoff') || s.includes('graduation')) return 'milestone';
+  if (s.includes('appearance') || s.includes('podcast') || s.includes('interview') || s.includes('speaking') || s.includes('guest')) return 'appearance';
+  if (s.includes('tabling')) return 'tabling';
+  return 'general';
+}
+
+// ── iCalendar parser ──────────────────────────────────────
+function parseICS(text) {
+  const events = [];
+  const re = /BEGIN:VEVENT([\s\S]*?)END:VEVENT/g;
+  let match;
+  while ((match = re.exec(text)) !== null) {
+    const block = match[1];
+    const get = function(prop) {
+      const m = block.match(new RegExp('^' + prop + '[;:][^\r\n]*(?:\r?\n[ \t][^\r\n]*)*', 'm'));
+      if (!m) return null;
+      return m[0].replace(/\r?\n[ \t]/g, '').replace(/^[^:]+:/, '').trim();
+    };
+    const summary = get('SUMMARY') || '';
+    const dtstart = get('DTSTART') || get('DTSTART;VALUE=DATE') || get('DTSTART;TZID=[^:]+');
+    const dtend   = get('DTEND')   || get('DTEND;VALUE=DATE')   || get('DTEND;TZID=[^:]+');
+    const desc    = get('DESCRIPTION') || '';
+    if (!dtstart) continue;
+
+    const parseDate = function(s) {
+      if (!s) return null;
+      const c = s.replace(/[^0-9TZ]/g, '');
+      if (c.length === 8) return new Date(+c.slice(0,4), +c.slice(4,6)-1, +c.slice(6,8), 12, 0, 0);
+      const utc = c.endsWith('Z');
+      const [y,mo,d,h,mi,sc] = [c.slice(0,4),c.slice(4,6),c.slice(6,8),c.slice(9,11)||'00',c.slice(11,13)||'00',c.slice(13,15)||'00'];
+      return utc ? new Date(`${y}-${mo}-${d}T${h}:${mi}:${sc}Z`) : new Date(`${y}-${mo}-${d}T${h}:${mi}:${sc}`);
+    };
+
+    const start = parseDate(dtstart);
+    if (!start) continue;
+    events.push({ summary, start, end: parseDate(dtend), desc, type: classifyEvent(summary) });
+  }
+  return events;
+}
+
+// ── CalDAV fetch ──────────────────────────────────────────
+async function fetchCalendarEvents() {
+  const from = new Date(2026, 5, 1);
+  const to   = new Date(2027, 0, 1);
+  const fmt  = function(d) { return d.toISOString().replace(/[-:]/g,'').replace(/\.\d+/,''); };
+
+  const body = '<?xml version="1.0" encoding="utf-8"?>' +
+    '<C:calendar-query xmlns:D="DAV:" xmlns:C="urn:ietf:params:xml:ns:caldav">' +
+    '<D:prop><D:getetag/><C:calendar-data/></D:prop>' +
+    '<C:filter><C:comp-filter name="VCALENDAR"><C:comp-filter name="VEVENT">' +
+    '<C:time-range start="' + fmt(from) + '" end="' + fmt(to) + '"/>' +
+    '</C:comp-filter></C:comp-filter></C:filter></C:calendar-query>';
+
+  const resp = await fetch(CAL_URL, {
+    method: 'REPORT',
+    headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Depth': '1' },
+    body,
+  });
+  if (!resp.ok) throw new Error('CalDAV ' + resp.status);
+  const xml = await resp.text();
+
+  const events = [];
+  const cdRe = /<[^>]*:calendar-data[^>]*>([\s\S]*?)<\/[^>]*:calendar-data>/g;
+  let m;
+  while ((m = cdRe.exec(xml)) !== null) {
+    const ics = m[1].replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+    events.push(...parseICS(ics));
+  }
+  return events;
+}
+
+async function fetchCalendarName() {
+  const body = '<?xml version="1.0" encoding="utf-8"?>' +
+    '<D:propfind xmlns:D="DAV:"><D:prop><D:displayname/></D:prop></D:propfind>';
+  try {
+    const resp = await fetch(CAL_URL, {
+      method: 'PROPFIND',
+      headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Depth': '0' },
+      body,
+    });
+    if (!resp.ok) return null;
+    const xml = await resp.text();
+    const m = xml.match(/<[^>]*:displayname[^>]*>([\s\S]*?)<\/[^>]*:displayname>/);
+    return m ? m[1].trim() : null;
+  } catch(e) { return null; }
+}
+
+// ── Countdown ─────────────────────────────────────────────
+let countdownInterval = null;
+
+function startCountdown(targetDate, eventName) {
+  if (countdownInterval) clearInterval(countdownInterval);
+  document.getElementById('countdown-event-name').textContent = eventName;
+  function tick() {
+    const diff = targetDate.getTime() - Date.now();
+    if (diff <= 0) { clearInterval(countdownInterval); return; }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+    document.getElementById('cd-days').textContent  = days;
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+  }
+  tick();
+  countdownInterval = setInterval(tick, 1000);
+}
+
+// ── Grid builder ──────────────────────────────────────────
+function buildGrid(year, month, events, isCurrent) {
+  const todayKey   = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
+  const firstDay   = new Date(year, month, 1).getDay();
+  const daysInMonth= new Date(year, month+1, 0).getDate();
+  const daysInPrev = new Date(year, month, 0).getDate();
+  const mEnd       = new Date(year, month+1, 1);
+
+  const evMap = {};
+  for (const ev of events) {
+    const eS = new Date(ev.start.getFullYear(), ev.start.getMonth(), ev.start.getDate());
+    const evEndDate = ev.end || ev.start;
+    const eE = new Date(evEndDate.getFullYear(), evEndDate.getMonth(), evEndDate.getDate());
+    const isAllDay = ev.start.getHours() === 12 && ev.start.getMinutes() === 0;
+    if (isAllDay) {
+      const d = new Date(eS);
+      while (d < eE && d < mEnd) {
+        if (d.getMonth() === month && d.getFullYear() === year) {
+          const k = year + '-' + month + '-' + d.getDate();
+          (evMap[k] = evMap[k] || []).push(ev);
+        }
+        d.setDate(d.getDate() + 1);
+      }
+    } else {
+      if (eS.getMonth() === month && eS.getFullYear() === year) {
+        const k = year + '-' + month + '-' + eS.getDate();
+        (evMap[k] = evMap[k] || []).push(ev);
+      }
+    }
+  }
+
+  const card = document.createElement('div');
+  card.className = 'month-card' + (isCurrent ? ' current-month' : '');
+
+  const hdr = document.createElement('div');
+  hdr.className = 'month-header' + (isCurrent ? ' current-month-header' : '');
+  hdr.textContent = MONTH_NAMES[month] + ' ' + year;
+  card.appendChild(hdr);
+
+  const dowRow = document.createElement('div');
+  dowRow.className = 'dow-row';
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(function(d) {
+    const c = document.createElement('div');
+    c.className = 'dow-cell';
+    c.textContent = d;
+    dowRow.appendChild(c);
+  });
+  card.appendChild(dowRow);
+
+  const grid = document.createElement('div');
+  grid.className = 'days-grid';
+
+  for (let i = 0; i < firstDay; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'day-cell other-month';
+    const num = document.createElement('div');
+    num.className = 'day-num';
+    num.textContent = daysInPrev - firstDay + 1 + i;
+    cell.appendChild(num);
+    grid.appendChild(cell);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const k = year + '-' + month + '-' + d;
+    const cell = document.createElement('div');
+    cell.className = 'day-cell' + (k === todayKey ? ' today' : '');
+    const num = document.createElement('div');
+    num.className = 'day-num';
+    num.textContent = d;
+    cell.appendChild(num);
+    const dayEvts = evMap[k] || [];
+    dayEvts.slice(0, 3).forEach(function(ev) {
+      const pill = document.createElement('span');
+      pill.className = 'event-pill evt-' + ev.type;
+      pill.textContent = ev.summary;
+      pill.title = ev.summary + (ev.desc ? '\n' + ev.desc : '');
+      cell.appendChild(pill);
+    });
+    if (dayEvts.length > 3) {
+      const more = document.createElement('span');
+      more.className = 'event-pill evt-general';
+      more.textContent = '+' + (dayEvts.length - 3) + ' more';
+      cell.appendChild(more);
+    }
+    grid.appendChild(cell);
+  }
+
+  const remainder = (firstDay + daysInMonth) % 7;
+  const trailing  = remainder === 0 ? 0 : 7 - remainder;
+  for (let i = 1; i <= trailing; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'day-cell other-month';
+    const num = document.createElement('div');
+    num.className = 'day-num';
+    num.textContent = i;
+    cell.appendChild(num);
+    grid.appendChild(cell);
+  }
+
+  card.appendChild(grid);
+  return card;
+}
+
+// ── Render ────────────────────────────────────────────────
+let allEvents = [];
+
+function renderMonths() {
+  const monthsRow = document.getElementById('months-row');
+  monthsRow.innerHTML = '';
+
+  const slots = [windowStart, addMonths(windowStart,1), addMonths(windowStart,2)];
+  for (const {y, m} of slots) {
+    const isCurrent = y === today.getFullYear() && m === today.getMonth();
+    monthsRow.appendChild(buildGrid(y, m, allEvents, isCurrent));
+  }
+
+  const first = slots[0], last = slots[2];
+  document.getElementById('nav-range').textContent =
+    first.y === last.y
+      ? MONTH_NAMES[first.m] + ' – ' + MONTH_NAMES[last.m] + ' ' + first.y
+      : MONTH_NAMES[first.m] + ' ' + first.y + ' – ' + MONTH_NAMES[last.m] + ' ' + last.y;
+
+  document.getElementById('nav-prev').disabled = ymEq(windowStart, NAV_MIN);
+  document.getElementById('nav-next').disabled = ymEq(windowStart, maxStart);
+}
+
+// ── Navigation controls ───────────────────────────────────
+document.getElementById('nav-prev').addEventListener('click', function() {
+  if (!ymEq(windowStart, NAV_MIN)) { windowStart = addMonths(windowStart, -1); renderMonths(); }
+});
+document.getElementById('nav-next').addEventListener('click', function() {
+  if (!ymEq(windowStart, maxStart)) { windowStart = addMonths(windowStart, 1); renderMonths(); }
+});
+
+// Swipe
+(function() {
+  const el = document.getElementById('months-row');
+  let tx = null;
+  el.addEventListener('touchstart', function(e) { tx = e.changedTouches[0].clientX; }, {passive:true});
+  el.addEventListener('touchend', function(e) {
+    if (tx === null) return;
+    const delta = e.changedTouches[0].clientX - tx;
+    tx = null;
+    if (Math.abs(delta) < 40) return;
+    if (delta < 0 && !ymEq(windowStart, maxStart)) { windowStart = addMonths(windowStart,  1); renderMonths(); }
+    if (delta > 0 && !ymEq(windowStart, NAV_MIN))  { windowStart = addMonths(windowStart, -1); renderMonths(); }
+  }, {passive:true});
+})();
+
+// ── Main ──────────────────────────────────────────────────
+async function init() {
+  const statusBar = document.getElementById('status-bar');
+  const txName    = document.getElementById('transformation-name');
+  try {
+    const [calName, events] = await Promise.all([fetchCalendarName(), fetchCalendarEvents()]);
+    allEvents = events;
+    txName.textContent = calName || 'WCN Calendar';
+
+    const now = new Date();
+    const future = events.filter(function(ev) { return ev.start > now; })
+                         .sort(function(a,b) { return a.start - b.start; });
+    if (future.length > 0) {
+      startCountdown(future[0].start, future[0].summary);
+    } else {
+      document.getElementById('countdown-event-name').textContent = '';
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id) {
+        document.getElementById(id).textContent = '—';
+      });
+      const p = document.createElement('p');
+      p.className = 'no-events';
+      p.textContent = 'No upcoming events scheduled';
+      document.getElementById('countdown-display').replaceWith(p);
+    }
+
+    renderMonths();
+    statusBar.textContent = events.length > 0
+      ? events.length + ' event' + (events.length !== 1 ? 's' : '') + ' loaded'
+      : 'No events in this period';
+  } catch(err) {
+    statusBar.textContent = 'Error loading calendar: ' + err.message;
+    console.error(err);
+    txName.textContent = 'WCN Calendar';
+    renderMonths();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
