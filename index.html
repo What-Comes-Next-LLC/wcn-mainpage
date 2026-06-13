@@ -228,41 +228,24 @@
     padding: 0 calc(var(--grid) * 3);
   }
 
-  /* Kinetic typography */
-  .kinetic-words {
+  /* Hero statement */
+  .hero-statement {
     display: flex; flex-direction: column; align-items: center;
-    margin-bottom: calc(var(--grid) * 4);
-    min-height: 200px; justify-content: center;
+    margin-bottom: calc(var(--grid) * 5);
+    gap: calc(var(--grid) * 0.5);
   }
-  .kinetic-word {
-    font-size: clamp(2.5rem, 7vw, 5rem);
-    font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
-    opacity: 0; transform: translateY(20px);
-    animation: wordIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  .hero-stmt-line {
+    font-size: clamp(1.875rem, 4.5vw, 3.25rem);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+    opacity: 0;
+    animation: revealIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
-  .kinetic-word:nth-child(1) { animation-delay: 0.5s; color: rgba(255,255,255,0.95); }
-  .kinetic-word:nth-child(2) { animation-delay: 1.0s; color: rgba(255,255,255,0.65); }
-  .kinetic-word:nth-child(3) { animation-delay: 1.5s; color: rgba(255,255,255,0.40); }
-  @keyframes wordIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-  .kinetic-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--amber);
-    margin: calc(var(--grid) * 1.5) 0;
-    opacity: 0; animation: dotIn 0.4s ease forwards;
-  }
-  .kinetic-dot:nth-of-type(1) { animation-delay: 0.9s; }
-  .kinetic-dot:nth-of-type(2) { animation-delay: 1.8s; }
-  @keyframes dotIn {
-    0% { opacity: 0; transform: scale(0); }
-    100% { opacity: 0.7; transform: scale(1); }
-  }
+  .hero-stmt-line:nth-child(1) { color: rgba(255,255,255,0.95); animation-delay: 0.3s; }
+  .hero-stmt-line:nth-child(2) { color: var(--coral); animation-delay: 0.75s; }
   .hero-reveal {
     opacity: 0; transform: translateY(12px);
     animation: revealIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: 3.2s;
+    animation-delay: 1.5s;
   }
   @keyframes revealIn {
     0% { opacity: 0; transform: translateY(12px); }
@@ -412,9 +395,49 @@
   .hundred-days-grid .product-card h3 { font-size: 1rem; }
 
   /* === ABOUT === */
-  .about-text {
-    font-size: 1.0625rem; color: #636e72;
-    line-height: 1.75; margin-bottom: calc(var(--grid) * 3);
+  .about-panels-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(var(--grid) * 3);
+    margin-bottom: calc(var(--grid) * 6);
+  }
+  .about-panel {
+    background: var(--white);
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: calc(var(--grid) * 3);
+  }
+  .about-panel-label {
+    font-size: 0.6875rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--coral); margin-bottom: calc(var(--grid) * 1.5);
+  }
+  .about-panel-text {
+    font-size: 0.9375rem; color: #636e72; line-height: 1.7;
+  }
+  .about-marks-strip {
+    background: var(--teal); border-radius: 6px;
+    padding: calc(var(--grid) * 5) calc(var(--grid) * 3);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(var(--grid) * 2);
+    margin-bottom: calc(var(--grid) * 6);
+    text-align: center;
+  }
+  .about-mark-item img {
+    width: 72px; height: 72px;
+    object-fit: contain;
+    margin: 0 auto calc(var(--grid) * 1.5);
+    display: block;
+  }
+  .about-mark-name {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.75);
+  }
+  .about-mark-role {
+    font-size: 0.6875rem; color: rgba(255,255,255,0.4);
+    margin-top: 4px; line-height: 1.4;
   }
   .founder-card {
     border-top: 1px solid #e0e0e0;
@@ -428,6 +451,24 @@
   .founder-card .speaking { font-size: 0.875rem; color: #636e72; margin-top: calc(var(--grid) * 2); }
   .founder-card a { color: var(--teal); font-weight: 600; text-decoration: none; }
   .founder-card a:hover { text-decoration: underline; }
+
+  /* === NAV — TEAM LINK === */
+  .nav-team-sep {
+    width: 1px; height: 16px;
+    background: rgba(255,255,255,0.2);
+    margin: 0 calc(var(--grid) * 1.5);
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .nav-team-link {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--amber) !important;
+    text-decoration: none;
+    font-size: 0.875rem; font-weight: 600;
+    letter-spacing: 0.02em; transition: opacity 0.2s;
+  }
+  .nav-team-link:hover { opacity: 0.8; color: var(--amber) !important; }
+  .nav-team-link img { width: 22px; height: 22px; object-fit: contain; }
 
   /* === CONTACT + FOOTER === */
   .contact-footer {
@@ -545,9 +586,12 @@
       gap: calc(var(--grid) * 2);
     }
     nav .nav-links.open { display: flex; }
+    .nav-team-sep { display: none; }
     .hero { min-height: 90vh; }
-    .kinetic-word { font-size: clamp(2rem, 10vw, 3.5rem); }
+    .hero-stmt-line { font-size: clamp(1.5rem, 8vw, 2.5rem); }
     section { padding: calc(var(--grid) * 6) calc(var(--grid) * 3); }
+    .about-panels-grid { grid-template-columns: 1fr; }
+    .about-marks-strip { grid-template-columns: repeat(2, 1fr); }
     .contact-grid { grid-template-columns: 1fr; gap: calc(var(--grid) * 6); }
     .footer-bottom { flex-direction: column; gap: var(--grid); text-align: center; }
   }
@@ -568,8 +612,16 @@
     <li><a href="#evolutions">Evolutions</a></li>
     <li><a href="#100days">100 Days to Summer</a></li>
     <li><a href="https://calendar.whatcomesnextllc.ai">Calendar</a></li>
+    <li><a href="https://pressroom.whatcomesnextllc.ai">Pressroom</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li style="display:flex;align-items:center;">
+      <span class="nav-team-sep" aria-hidden="true"></span>
+      <a href="https://admin.whatcomesnextllc.ai" class="nav-team-link" title="Coach's Clipboard — WCN Team">
+        <img src="assets/Coach_s_Clipboard.svg" alt="" aria-hidden="true">
+        WCN Team
+      </a>
+    </li>
   </ul>
 </nav>
 
@@ -586,12 +638,9 @@
   <div class="hero-arc" aria-hidden="true"></div>
 
   <div class="hero-content">
-    <div class="kinetic-words" aria-label="Transformation. Iteration. Evolution.">
-      <div class="kinetic-word">Transformation</div>
-      <div class="kinetic-dot"></div>
-      <div class="kinetic-word">Iteration</div>
-      <div class="kinetic-dot"></div>
-      <div class="kinetic-word">Evolution</div>
+    <div class="hero-statement" aria-label="No judgment. Just what happened.">
+      <span class="hero-stmt-line">No judgment.</span>
+      <span class="hero-stmt-line">Just what happened.</span>
     </div>
     <div class="hero-reveal">
       <h1 class="hero-company">What Comes Next<span class="ai-dot">?</span></h1>
@@ -618,7 +667,7 @@
     <div class="product-grid">
       <div class="product-card card-spark">
         <div class="color-bar"></div>
-        <img src="assets/The_Spark.svg" alt="The Spark" class="product-icon">
+        <img src="assets/The_Spark_Alt.svg" alt="The Spark" class="product-icon">
         <h3>The Spark</h3>
         <span class="card-status">Free &middot; Available</span>
         <p>Habit logging for clients. Track daily habits, journal entries, streaks, and milestones. Standalone or coach-linked. The front door to the Evolutions ecosystem.</p>
@@ -626,14 +675,14 @@
       </div>
       <div class="product-card card-catalyst">
         <div class="color-bar"></div>
-        <img src="assets/Evolutions.svg" alt="The Catalyst" class="product-icon">
+        <img src="assets/Evolutions_Alt.svg" alt="The Catalyst" class="product-icon">
         <h3>The Catalyst</h3>
         <span class="card-status">Patent-Pending</span>
         <p>The engine. A local AI system that processes client data over time on commodity hardware. Open-source models, no cloud dependency. Your clients' data never leaves your premises.</p>
       </div>
       <div class="product-card card-clipboard">
         <div class="color-bar"></div>
-        <img src="assets/Coach_s_Clipboard.svg" alt="Coach's Clipboard" class="product-icon">
+        <img src="assets/Coach_s_Clipboard_Alt.svg" alt="Coach's Clipboard" class="product-icon">
         <h3>Coach's Clipboard</h3>
         <span class="card-status">Coming Soon</span>
         <p>AI-augmented client reporting for coaches. See patterns, generate visual lifestyle plans, and manage your practice from one dashboard. Built for independent coaches and boutique gyms.</p>
@@ -697,20 +746,57 @@
       </div>
       <div class="product-card">
         <h3>Interested?</h3>
-        <p>Use the <a href="#contact" style="color: var(--teal); font-weight: 600;">contact form below</a> and select &ldquo;100 Days to Summer&rdquo; &mdash; or email <a href="mailto:jrashaad@whatcomesnextllc.ai" style="color: var(--teal); font-weight: 600;">jrashaad@whatcomesnextllc.ai</a> directly.</p>
+        <p>Use the <a href="#contact" style="color: var(--teal); font-weight: 600;">contact form below</a> and select &ldquo;100 Days to Summer&rdquo; &mdash; or <a href="mailto:jrashaad@whatcomesnextllc.ai" style="color: var(--teal); font-weight: 600;">email us</a> directly.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about" style="background: var(--white);">
-  <div class="container" style="max-width: 680px;">
+<section id="about" style="background: var(--off-white);">
+  <div class="container">
     <div class="section-label">About</div>
-    <h2 class="section-title">Origin</h2>
-    <p class="about-text">In early 2022, founder Jason Rashaad was recovering from multiple organ failure stemming from liver cirrhosis. After requesting to be taken off dialysis, he set a single question as a framework for recovery: <em>What comes next?</em></p>
-    <p class="about-text">Three months sober and unemployed became one year sober and employed. Two years sober became the 2023 Detroit International Half Marathon. Acceptance to Drexel LeBow's DBA program led to formalizing the iterative self-improvement process into the Evolutions methodology&mdash;a coach-client paradigm that can scale.</p>
-    <p class="about-text" style="margin-bottom: calc(var(--grid) * 4);">Jason is the first successful case study. The research exists to test whether the method is replicable.</p>
+    <h2 class="section-title">What comes next<span style="color:var(--coral);">?</span></h2>
+    <div class="about-panels-grid">
+      <div class="about-panel">
+        <div class="about-panel-label">The company</div>
+        <p class="about-panel-text">AI-powered personal development tools running on hardware we control. Philadelphia. Founded 2022. Your health data never leaves our hardware. That's not marketing&mdash;it's architecture.</p>
+      </div>
+      <div class="about-panel">
+        <div class="about-panel-label">The product</div>
+        <p class="about-panel-text">The Spark&mdash;wellness coaching intake and habit-tracking. You open it when you want to log something. Friday it asks how your week went. It shows you what you actually did versus what you said you'd do.</p>
+      </div>
+      <div class="about-panel">
+        <div class="about-panel-label">The methodology</div>
+        <p class="about-panel-text">No judgment. Just what happened. Transformation. Iteration. Evolution. You said you'd do X. Here's what you actually did. Now what?</p>
+      </div>
+      <div class="about-panel">
+        <div class="about-panel-label">The summer</div>
+        <p class="about-panel-text">100 Days of Summer&mdash;a Drexel IRB-reviewed field experiment. Track habits for 100 days. Wawa gift card lottery at the end. <a href="https://wawawednesday.com" style="color:var(--teal);font-weight:600;text-decoration:none;">wawawednesday.com</a>. Fan energy, not a partnership.</p>
+      </div>
+    </div>
+    <div class="about-marks-strip">
+      <div class="about-mark-item">
+        <img src="assets/What_Comes_Next.svg" alt="What Comes Next? LLC">
+        <div class="about-mark-name">What Comes Next?</div>
+        <div class="about-mark-role">The company</div>
+      </div>
+      <div class="about-mark-item">
+        <img src="assets/The_Spark_Mobile2.svg" alt="The Spark">
+        <div class="about-mark-name">The Spark</div>
+        <div class="about-mark-role">Wellness coaching app</div>
+      </div>
+      <div class="about-mark-item">
+        <img src="assets/Coach_s_Clipboard_Alt.svg" alt="Coach's Clipboard">
+        <div class="about-mark-name">Coach's Clipboard</div>
+        <div class="about-mark-role">Administration layer</div>
+      </div>
+      <div class="about-mark-item">
+        <img src="assets/Evolutions.svg" alt="Evolutions">
+        <div class="about-mark-name">Evolutions</div>
+        <div class="about-mark-role">The methodology</div>
+      </div>
+    </div>
     <div class="founder-card">
       <p class="name">Jason Rashaad</p>
       <p class="credentials">
