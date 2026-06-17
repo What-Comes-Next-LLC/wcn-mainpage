@@ -347,6 +347,30 @@
     .selection-page { padding: 1rem; }
   }
 
+  /* ── INTAKE TIER COPY ── */
+  .intake-trade {
+    font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.8);
+    line-height: 1.5; margin-bottom: calc(var(--grid) * 3);
+  }
+  .intake-tier2 { margin-bottom: calc(var(--grid) * 2.5); }
+  .intake-tier2 p {
+    font-size: 0.8125rem; color: rgba(255,255,255,0.42); line-height: 1.55;
+    margin-bottom: calc(var(--grid) * 0.75);
+  }
+  .intake-tier3 { margin-bottom: calc(var(--grid) * 3); }
+  .intake-tier3 summary {
+    font-size: 0.75rem; color: rgba(255,255,255,0.3); cursor: pointer;
+    user-select: none; list-style: none; display: inline-flex; align-items: center; gap: 4px;
+  }
+  .intake-tier3 summary::-webkit-details-marker { display: none; }
+  .intake-tier3 summary::before { content: '+\00a0'; font-weight: 700; }
+  .intake-tier3[open] summary::before { content: '\2212\00a0'; }
+  .intake-tier3 p {
+    font-size: 0.75rem; color: rgba(255,255,255,0.38); line-height: 1.55;
+    margin-top: calc(var(--grid) * 1.5); padding-left: calc(var(--grid) * 1.5);
+    border-left: 1px solid rgba(255,255,255,0.12);
+  }
+
   /* ── TOAST ── */
   .toast {
     position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(12px);
@@ -379,7 +403,7 @@
       <img src="assets/What_Comes_Next.svg" alt="WCN" width="36" height="36">
       <span class="wordmark">whatcomesnextllc<span class="ai">.ai</span></span>
     </a>
-    <span class="nav-product">The Spark &mdash; Demo</span>
+    <span class="nav-product">The Spark</span>
   </nav>
   <div class="progress-bar-wrap">
     <div class="progress-bar-fill" id="progress-bar"></div>
@@ -411,6 +435,15 @@
     <div class="prompt-card">
       <div class="step-label">Step 1 of 3</div>
       <h1 class="prompt-question">What's your <em>name?</em></h1>
+      <p class="intake-trade">Answer a few honest questions, get a personalized wellness snapshot back &mdash; about a minute.</p>
+      <div class="intake-tier2">
+        <p>Runs on hardware we own. Your answers never leave it &mdash; no cloud, no list.</p>
+        <p>You&rsquo;ll get what we noticed, a game plan, and a few quick wins you can start today.</p>
+      </div>
+      <details class="intake-tier3">
+        <summary>Why &ldquo;never leaves it&rdquo;</summary>
+        <p>The AI runs on our own server, not a cloud provider &mdash; no third party ever processes what you write.</p>
+      </details>
       <div class="input-wrap">
         <label class="input-label" for="input-name">Name</label>
         <input type="text" id="input-name" placeholder="e.g. Alex" autocomplete="name" autocapitalize="words">
@@ -555,12 +588,6 @@
               Set up time with a coach
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
-            <div style="margin-top:1.25rem;">
-              <a href="#" style="display:block; text-align:center; padding:0.85rem 1.5rem; border:2px solid rgba(255,255,255,0.35); border-radius:8px; font-size:0.95rem; font-weight:600; color:rgba(255,255,255,0.85); text-decoration:none; cursor:default;" title="Coming soon">
-                Enter the 100 Days of Summer Challenge
-                <span style="font-size:0.75rem; display:block; font-weight:400; margin-top:0.2rem; color:rgba(255,255,255,0.5);">Coming soon</span>
-              </a>
-            </div>
             <div id="demo-entry" style="margin-top:1rem; display:none;">
               <a href="#" onclick="goToHabitSelection(); return false;" style="font-size:0.82rem; color:rgba(255,255,255,0.65); text-decoration:underline;">
                 or try the habit tracker demo &rarr;
