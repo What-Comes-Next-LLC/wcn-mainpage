@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Back the Build — What Comes Next? LLC</title>
+  <meta name="description" content="What Comes Next? LLC is building privacy-first AI coaching infrastructure. $90K funds 18 months of work. Here's the case.">
+  <meta property="og:title" content="Back the Build — What Comes Next? LLC">
+  <meta property="og:description" content="Privacy-first AI coaching. Live IRB study. Local inference. $90K funds the final leg.">
+  <meta property="og:url" content="https://whatcomesnextllc.ai/invest">
+  <meta property="og:image" content="https://whatcomesnextllc.ai/assets/og-image.png">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!--
+  ═══════════════════════════════════════════════════════════
+  STRIPE SETUP
+  ───────────────────────────────────────────────────────────
+  Option A — Payment Link (simplest, no JS required):
+  1. Go to dashboard.stripe.com → Products → Payment Links
+  2. Create a link, enable "Let customers choose amount"
+  3. Copy the URL (https://buy.stripe.com/xxxxx)
+  4. Replace STRIPE_PAYMENT_LINK_URL in the button below
+
+  Option B — Buy Button (embedded, stays on page):
+  1. Go to dashboard.stripe.com → Products → Payment Links → Buy Button
+  2. Get the embed snippet
+  3. Replace the <a> button below with:
+     <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+     <stripe-buy-button buy-button-id="YOUR_ID" publishable-key="YOUR_KEY"></stripe-buy-button>
+  ═══════════════════════════════════════════════════════════
+  -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #216869;
+      --coral: #e76f51;
+      --sage: #49a078;
+      --amber: #f4a261;
+      --off-white: #f4f4f4;
+      --black-deep: #111111;
+      --black-card: #1a1a1a;
+      --black-elevated: #222222;
+      --border: rgba(255,255,255,0.08);
+      --text-muted: rgba(244,244,244,0.6);
+      --text-dim: rgba(244,244,244,0.35);
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--black-deep);
+      color: var(--off-white);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .site-nav {
+      background: var(--teal);
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--off-white);
+    }
+    .nav-logo img { width: 32px; height: 32px; }
+    .nav-wordmark {
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: -0.02em;
+    }
+    .nav-wordmark .ai { color: var(--amber); }
+    .nav-context {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(244,244,244,0.6);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── DECK SHELL ── */
+    .deck-shell {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── SLIDE NAV BAR ── */
+    .slide-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+      position: sticky;
+      top: 57px;
+      background: var(--black-deep);
+      z-index: 100;
+    }
+    .slide-dots {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      padding: 0;
+    }
+    .dot.active { background: var(--coral); transform: scale(1.3); }
+    .dot:hover:not(.active) { background: rgba(255,255,255,0.35); }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--off-white);
+      padding: 5px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .nav-btn:hover:not(:disabled) { border-color: var(--coral); color: var(--coral); }
+    .nav-btn:disabled { opacity: 0.25; cursor: default; }
+    .slide-counter {
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── SLIDES ── */
+    .slide { display: none; padding: 40px 0 32px; min-height: 480px; flex-direction: column; }
+    .slide.active { display: flex; }
+
+    .slide-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 14px;
+    }
+    .slide-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      color: var(--off-white);
+    }
+    .slide-title .accent { color: var(--coral); }
+    .slide-body {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      font-weight: 300;
+      flex: 1;
+    }
+    .slide-body strong { color: var(--off-white); font-weight: 600; }
+
+    /* ── COMPONENTS ── */
+    .teal-block {
+      background: rgba(33,104,105,0.15);
+      border: 1px solid rgba(33,104,105,0.4);
+      border-radius: 6px;
+      padding: 16px 18px;
+      margin-top: 16px;
+    }
+    .teal-block .block-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 6px;
+    }
+    .teal-block p {
+      font-size: 0.85rem;
+      color: rgba(200,230,210,0.85);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    @media (max-width: 540px) { .two-col { grid-template-columns: 1fr; } }
+
+    .stat-card {
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--coral);
+      line-height: 1;
+      font-family: 'Raleway', sans-serif;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      color: rgba(244,244,244,0.45);
+      margin-top: 4px;
+      letter-spacing: 0.03em;
+    }
+
+    .row-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .row-item { display: flex; gap: 12px; align-items: flex-start; }
+    .row-mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--coral);
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .row-mark.sage { background: var(--sage); }
+    .row-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.6;
+      padding-top: 2px;
+    }
+    .row-text strong { color: var(--off-white); font-weight: 600; }
+
+    .badge-row { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 18px; }
+    .badge {
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      color: rgba(244,244,244,0.55);
+    }
+    .badge.coral { border-color: var(--coral); color: var(--coral); }
+    .badge.sage { border-color: var(--sage); color: var(--sage); }
+
+    /* ── ASK SLIDE SPECIFICS ── */
+    .ask-hero {
+      background: var(--black-card);
+      border: 2px solid var(--coral);
+      border-radius: 8px;
+      padding: 22px 24px;
+      margin-top: 18px;
+      text-align: center;
+    }
+    .ask-amount {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--coral);
+      line-height: 1;
+    }
+    .ask-sub {
+      font-size: 0.7rem;
+      color: rgba(244,244,244,0.4);
+      margin-top: 6px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .funds-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 0.82rem;
+    }
+    .funds-table tr { border-bottom: 1px solid var(--border); }
+    .funds-table tr:last-child { border-bottom: none; }
+    .funds-table td { padding: 9px 4px; color: var(--text-muted); }
+    .funds-table td:last-child { text-align: right; color: var(--off-white); font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; }
+    .funds-table tr.total-row td { color: var(--off-white); font-weight: 700; border-top: 1px solid rgba(231,111,81,0.4); border-bottom: none; }
+    .funds-table tr.total-row td:last-child { color: var(--coral); font-size: 0.88rem; }
+
+    .graduation-note {
+      background: rgba(231,111,81,0.06);
+      border-left: 2px solid var(--coral);
+      border-radius: 0 4px 4px 0;
+      padding: 12px 14px;
+      margin-top: 14px;
+      font-size: 0.78rem;
+      color: rgba(231,111,81,0.8);
+      line-height: 1.65;
+    }
+    .graduation-note strong { color: var(--coral); }
+
+    .outcome-box {
+      background: rgba(33,104,105,0.12);
+      border: 1px solid rgba(33,104,105,0.3);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-top: 14px;
+    }
+    .outcome-box .block-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 6px;
+    }
+    .outcome-box p {
+      font-size: 0.8rem;
+      color: rgba(200,230,210,0.8);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ── MARKET SLIDE ADDITIONS ── */
+    .market-card {
+      background: var(--black-card);
+      border-radius: 6px;
+      padding: 14px 16px;
+      border-left: 3px solid var(--coral);
+    }
+    .market-card.spanish { border-left-color: var(--amber); }
+    .market-card .mc-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 5px;
+    }
+    .market-card.spanish .mc-label { color: var(--amber); }
+    .market-card .mc-title { font-size: 0.95rem; font-weight: 600; color: var(--off-white); margin-bottom: 4px; }
+    .market-card p { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; }
+
+    /* ── SUPPORT SLIDE ── */
+    .support-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+    .support-statement {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .support-statement strong { color: var(--off-white); font-weight: 600; }
+    .support-disclaimer {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.65;
+      margin-bottom: 24px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .tier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 600px) { .tier-grid { grid-template-columns: 1fr 1fr; } }
+    .tier-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 12px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(231,111,81,0.35);
+      background: rgba(231,111,81,0.05);
+      text-decoration: none;
+      transition: background 0.18s, border-color 0.18s, transform 0.12s;
+      cursor: pointer;
+    }
+    .tier-btn:hover {
+      background: rgba(231,111,81,0.15);
+      border-color: var(--coral);
+      transform: translateY(-2px);
+    }
+    .tier-name {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--off-white);
+      letter-spacing: 0.04em;
+    }
+    .tier-amount {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--coral);
+    }
+    .support-alt {
+      margin-top: 4px;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+    .support-alt a { color: var(--coral); text-decoration: none; }
+    .support-alt a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    .deck-footer {
+      border-top: 1px solid var(--border);
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .site-nav { padding: 10px 16px; }
+      .deck-shell { padding: 0 16px 60px; }
+      .slide { padding: 28px 0 24px; min-height: 400px; }
+      .slide-nav { top: 50px; }
+      .ask-amount { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── SITE NAV ── -->
+<nav class="site-nav">
+  <a href="https://whatcomesnextllc.ai" class="nav-logo">
+    <img src="https://whatcomesnextllc.ai/assets/What_Comes_Next.svg" alt="WCN" width="32" height="32">
+    <span class="nav-wordmark">whatcomesnextllc<span class="ai">.ai</span></span>
+  </a>
+  <span class="nav-context">Back the Build</span>
+</nav>
+
+<!-- ── DECK ── -->
+<div class="deck-shell">
+
+  <!-- slide navigation -->
+  <div class="slide-nav">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>← prev</button>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="slide-dots" id="dots"></div>
+      <span class="slide-counter" id="counter">01 / 10</span>
+    </div>
+    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">next →</button>
+  </div>
+
+  <!-- SLIDE 1: TITLE -->
+  <div id="slide-0" class="slide active">
+    <div class="slide-label">What Comes Next? LLC</div>
+    <div class="slide-title">The AI that runs<br><span class="accent">in your building.</span></div>
+    <div class="slide-body">
+      <p>Privacy-first AI wellness coaching. Local inference on WCN-controlled hardware. No cloud AI vendor touching your data. No third-party data processing. The architecture is the product.</p>
+      <div class="teal-block">
+        <div class="block-label">The Catalyst Pipeline</div>
+        <p>Production LLM inference running on WCN hardware. User health data never leaves our infrastructure. Verifiable by architecture — not by policy.</p>
+      </div>
+      <div class="badge-row">
+        <span class="badge coral">Live in production</span>
+        <span class="badge coral">IRB-approved study underway</span>
+        <span class="badge">Provisional patent filed 2025</span>
+        <span class="badge">Ardmore, PA</span>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 2: PROBLEM -->
+  <div id="slide-1" class="slide">
+    <div class="slide-label">The Problem</div>
+    <div class="slide-title">Every wellness app<br><span class="accent">owns your data.</span></div>
+    <div class="slide-body">
+      <p>Whoop. Fitbit. Oura. Apple Watch. AI is being embedded into every fitness and wellness platform on the market. They are all, without exception, cloud-dependent. Your biometric data is processed on servers you don't control, under terms of service written to maximize the company's options for that data.</p>
+      <div class="teal-block">
+        <div class="block-label">The customer is already here</div>
+        <p>Location services off by default. VPN-paying. Shares recipes with friends, not algorithms. Wants AI-assisted personal development — and is increasingly unwilling to pay for it with their health data. <strong>No product in this market credibly addresses them.</strong></p>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 3: SOLUTION -->
+  <div id="slide-2" class="slide">
+    <div class="slide-label">The Solution</div>
+    <div class="slide-title">Local inference.<br><span class="accent">Real sovereignty.</span></div>
+    <div class="slide-body">
+      <p>The Spark is a wellness coaching and habit-tracking application that runs entirely on WCN-controlled infrastructure. When a user submits an intake, the data travels over an encrypted Cloudflare tunnel, is processed on our hardware, and the result is returned. At no point does it touch OpenAI, Anthropic, Google, or any third-party AI provider.</p>
+      <div class="row-list">
+        <div class="row-item">
+          <div class="row-mark">!</div>
+          <div class="row-text"><strong>The Spark</strong> — wellness intake, habit selection, daily logging, weekly retrospective. Free to users.</div>
+        </div>
+        <div class="row-item">
+          <div class="row-mark">%</div>
+          <div class="row-text"><strong>The Catalyst</strong> — local LLM inference pipeline, Llama 3.1 8B, NVIDIA RTX 5060 Ti, WCN-controlled hardware.</div>
+        </div>
+        <div class="row-item">
+          <div class="row-mark">#</div>
+          <div class="row-text"><strong>Coach's Clipboard</strong> — coach-facing admin layer, lead management, prompt workbench. Future B2B offering.</div>
+        </div>
+        <div class="row-item">
+          <div class="row-mark" style="background:var(--amber);">¿</div>
+          <div class="row-text"><strong>espanol.whatcomesnextllc.ai</strong> — Spanish-language product in development. Same architecture. Your words back to you in the language you spoke them.</div>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 4: TRACTION -->
+  <div id="slide-3" class="slide">
+    <div class="slide-label">Traction</div>
+    <div class="slide-title">Production system.<br><span class="accent">Live study.</span></div>
+    <div class="slide-body">
+      <div class="two-col">
+        <div class="stat-card"><div class="stat-number">100</div><div class="stat-label">Days — study duration</div></div>
+        <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">Cohorts — rolling enrollment Summer 2026</div></div>
+        <div class="stat-card"><div class="stat-number">210</div><div class="stat-label">Max participants, IRB-approved</div></div>
+        <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Experimental conditions — RCT design</div></div>
+      </div>
+      <div class="teal-block" style="margin-top:16px;">
+        <div class="block-label">What's live today</div>
+        <p>Full production platform: intake, habit tracking, daily logging, AI-generated Look Back, PDF delivery, lead capture, CardDAV storage, coach admin UI, native iOS app. Ambassador tabling program active. wawawednesday.com live. Spanish product in design.</p>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 5: RESEARCH -->
+  <div id="slide-4" class="slide">
+    <div class="slide-label">The Research</div>
+    <div class="slide-title">Dissertation-grade<br><span class="accent">validation built in.</span></div>
+    <div class="slide-body">
+      <p>The 100 Days of Summer study is a Drexel IRB-approved randomized controlled trial examining whether AI-personalized behavioral nudges improve habit adherence over 100 days — and whether personalization provides incremental benefit beyond generic nudging.</p>
+      <div class="row-list">
+        <div class="row-item"><div class="row-mark">1</div><div class="row-text"><strong>Control</strong> — platform access, in-app Coach's Note, no push notifications</div></div>
+        <div class="row-item"><div class="row-mark">2</div><div class="row-text"><strong>Generic nudge</strong> — standardized push notifications, identical across group</div></div>
+        <div class="row-item"><div class="row-mark">3</div><div class="row-text"><strong>AI-personalized nudge</strong> — notifications generated from participant's own logged behavioral data</div></div>
+      </div>
+      <div class="teal-block">
+        <div class="block-label">NSF SBIR eligibility</div>
+        <p>This study structure is the feasibility documentation NSF Phase I requires. DH5 — Physical, Mental and Behavioral Health. $275K non-dilutive. No match requirement. Project Pitch deadline July 27, 2026.</p>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 6: MARKET -->
+  <div id="slide-5" class="slide">
+    <div class="slide-label">Market</div>
+    <div class="slide-title">Privacy is the<br><span class="accent">emerging expectation.</span></div>
+    <div class="slide-body">
+      <p>The global digital health market exceeds $200B. AI-enabled wellness is a fast-growing segment. The differentiator this market does not have: a platform built on privacy-preserving local infrastructure with a published longitudinal study to back it.</p>
+      <div class="row-list" style="margin-top:14px;">
+        <div class="row-item">
+          <div class="row-mark">B</div>
+          <div class="row-text">
+            <div class="market-card">
+              <div class="mc-label">B2C English</div>
+              <div class="mc-title">The Spark + 100 Days</div>
+              <p>Direct consumer, subscription model. Privacy-conscious early adopters who want AI coaching without surrendering health data to Big Tech.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="row-mark" style="background:var(--amber);">Es</div>
+          <div class="row-text">
+            <div class="market-card spanish">
+              <div class="mc-label">B2C Spanish — espanol.whatcomesnextllc.ai</div>
+              <div class="mc-title">Your words back to you. In the language you spoke them.</div>
+              <p>Same local inference stack. Spanish intake form, Spanish wellness snapshot, Spanish Coach's Note. Not translated English — the participant's actual language, preserved and returned. Independent commercial revenue path. No IRB entanglement.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row-item">
+          <div class="row-mark">#</div>
+          <div class="row-text">
+            <div class="market-card" style="border-left-color:var(--sage);">
+              <div class="mc-label" style="color:var(--sage);">B2B</div>
+              <div class="mc-title">Coach's Clipboard</div>
+              <p>Coaches, gyms, corporate wellness programs. Low CAC, recurring revenue, natural upsell from The Spark relationship. The growth layer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 7: FOUNDER -->
+  <div id="slide-6" class="slide">
+    <div class="slide-label">The Founder</div>
+    <div class="slide-title">20 years of enterprise.<br><span class="accent">Built this himself.</span></div>
+    <div class="slide-body">
+      <p>Jason Rashaad, MBA, PMP. Senior technical program leader — Ford, GM, Amazon, State of Michigan, Intelligence Community. Currently leading AWS/GCP security audit remediation at Comcast. Drexel DBA candidate; dissertation on AI-mediated behavioral coaching. NASM-certified trainer and nutrition coach.</p>
+      <div class="teal-block">
+        <div class="block-label">Why this founder</div>
+        <p>Architected and shipped the entire platform solo. Navigated federal IRB approval. Running a live research study while on contract at Comcast. Filed a provisional patent. The enterprise background isn't incidental — it's why the infrastructure is production-grade and the compliance posture is defensible.</p>
+      </div>
+      <div class="badge-row">
+        <span class="badge">PMP — 15 years</span>
+        <span class="badge">Previously CISSP</span>
+        <span class="badge">Previously TS/SCI</span>
+        <span class="badge coral">Drexel DBA 2027</span>
+        <span class="badge coral">NASM CPT + CNC</span>
+        <span class="badge sage">Harrisburg University Faculty</span>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 8: ASK -->
+  <div id="slide-7" class="slide">
+    <div class="slide-label">The Ask</div>
+    <div class="slide-title">18 months of runway.<br><span class="accent">One clear number.</span></div>
+    <div class="slide-body">
+      <div class="ask-hero">
+        <div class="ask-amount">$90,000</div>
+        <div class="ask-sub">seed contribution · 18-month runway · July 2026 – December 2027</div>
+      </div>
+      <div class="graduation-note">
+        <strong>On the Drexel line:</strong> The Executive DBA is not separable from the research. The 100 Days of Summer study is the dissertation. Without the final two quarters of tuition, there is no experiment, no data, no published research. That line item funds the existence of this work — not a credential.
+      </div>
+      <table class="funds-table">
+        <tr><td>Personal operating — Jan through Dec 2027</td><td>$38,400</td></tr>
+        <tr><td>Drexel LeBow Executive DBA — final 2 quarters</td><td>$26,000</td></tr>
+        <tr><td>Spanish outreach coordinator — Aug through Dec 2026</td><td>$4,000</td></tr>
+        <tr><td>Infrastructure operating cost — PECO + VPS + Cloudflare</td><td>$4,500</td></tr>
+        <tr><td>Study execution — Wawa lottery, materials, contingency</td><td>$3,000</td></tr>
+        <tr><td>Reserve</td><td>$14,100</td></tr>
+        <tr class="total-row"><td>Total</td><td>$90,000</td></tr>
+      </table>
+      <div class="outcome-box">
+        <div class="block-label">By December 2027</div>
+        <p>DBA completed. Longitudinal RCT data published. Production platform validated at 100+ participant scale. espanol.whatcomesnextllc.ai live. Coach's Clipboard ready for B2B licensing. NSF SBIR Phase II eligible.</p>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 9: FUNDING PATHS -->
+  <div id="slide-8" class="slide">
+    <div class="slide-label">Funding Paths</div>
+    <div class="slide-title">No match required.<br><span class="accent">Multiple doors open.</span></div>
+    <div class="slide-body">
+      <div class="row-list">
+        <div class="row-item">
+          <div class="row-mark sage">1</div>
+          <div class="row-text"><strong>NSF SBIR Phase I — $275K non-dilutive.</strong> DH5 (Behavioral Health) + AI. Project Pitch due July 27, 2026. The IRB study is the feasibility doc. No match, no equity.</div>
+        </div>
+        <div class="row-item">
+          <div class="row-mark sage">2</div>
+          <div class="row-text"><strong>Drexel Startups Fund (Baiada Institute) — non-dilutive grant.</strong> Twice yearly. Explicitly for enrolled Drexel students. Graduate student preference. Includes investor introductions from Drexel alumni network.</div>
+        </div>
+        <div class="row-item">
+          <div class="row-mark sage">3</div>
+          <div class="row-text"><strong>Dreamit Ventures Healthtech — accelerator, no match requirement.</strong> Philadelphia-based. Drexel Close School alumni on staff. Wants startups with traction ready to scale.</div>
+        </div>
+        <div class="row-item">
+          <div class="row-mark">4</div>
+          <div class="row-text"><strong>Direct contribution — this page.</strong> $90K seed. 18 months. Study data + DBA completion is the milestone. Clean path to NSF SBIR Phase II and B2B licensing post-graduation.</div>
+        </div>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 10: SUPPORT -->
+  <div id="slide-9" class="slide">
+    <div class="slide-label">Back the Build</div>
+    <div class="slide-title" style="margin-bottom:24px;">The only way out<br><span class="accent">is through.</span></div>
+    <div class="support-body">
+      <p class="support-statement">
+        The research is real. The system is live. The study is running.<br>
+        The Spanish product is designed. The dissertation is in progress.<br><br>
+        <strong>What Comes Next is either going to work or it isn't.</strong><br>
+        The only way to find out is to finish building it.
+      </p>
+      <div class="support-disclaimer">
+        This is not an equity offering. Contributions are gifts in support of independent research and product development. No ownership stake. No expected return. Just helping something real get built and published.
+      </div>
+
+      <div class="tier-grid">
+        <a href="https://donate.stripe.com/3cI00le7ccMHfkleqxcwg06" class="tier-btn" target="_blank" rel="noopener">
+          <span class="tier-name">Transformation</span>
+          <span class="tier-amount">$1,000</span>
+        </a>
+        <a href="https://donate.stripe.com/eVqbJ3d382832xz5U1cwg05" class="tier-btn" target="_blank" rel="noopener">
+          <span class="tier-name">Evolution</span>
+          <span class="tier-amount">$500</span>
+        </a>
+        <a href="https://donate.stripe.com/aFadRb0gmcMH4FH3LTcwg04" class="tier-btn" target="_blank" rel="noopener">
+          <span class="tier-name">Alignment</span>
+          <span class="tier-amount">$250</span>
+        </a>
+        <a href="https://donate.stripe.com/7sY28t4wCcMHgopfuBcwg03" class="tier-btn" target="_blank" rel="noopener">
+          <span class="tier-name">Pivot</span>
+          <span class="tier-amount">$100</span>
+        </a>
+        <a href="https://donate.stripe.com/dRmcN73sy7snc8996dcwg02" class="tier-btn" target="_blank" rel="noopener">
+          <span class="tier-name">Building Momentum</span>
+          <span class="tier-amount">$50</span>
+        </a>
+        <a href="https://donate.stripe.com/dRm7sN8MS3c75JL6Y5cwg01" class="tier-btn" target="_blank" rel="noopener">
+          <span class="tier-name">First Step</span>
+          <span class="tier-amount">$10</span>
+        </a>
+      </div>
+
+      <p class="support-alt">
+        For investment conversations: <a href="mailto:coach@whatcomesnextllc.ai">coach@whatcomesnextllc.ai</a> &nbsp;·&nbsp;
+        For the full research prospectus, email the same address.
+      </p>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+</div><!-- /deck-shell -->
+
+<script>
+  let current = 0;
+  const total = 10;
+  const dotsEl = document.getElementById('dots');
+
+  // Build dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(n) {
+    document.getElementById('slide-' + current).classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, n));
+    document.getElementById('slide-' + current).classList.add('active');
+    dotsEl.children[current].classList.add('active');
+    document.getElementById('counter').textContent =
+      String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function changeSlide(dir) { goTo(current + dir); }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
+  });
+</script>
+</body>
+</html>

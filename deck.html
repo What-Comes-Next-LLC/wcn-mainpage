@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Comes Next? LLC — What We're Building</title>
+  <meta name="description" content="What Comes Next? LLC builds privacy-first AI coaching infrastructure. Here's what we're building and why.">
+  <meta property="og:title" content="What We're Building — What Comes Next? LLC">
+  <meta property="og:description" content="Privacy-first AI wellness coaching. Local inference. Live IRB study. No cloud. Here's the full picture.">
+  <meta property="og:url" content="https://whatcomesnextllc.ai/deck">
+  <meta property="og:image" content="https://whatcomesnextllc.ai/assets/og-image.png">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #216869; --coral: #e76f51; --sage: #49a078; --amber: #f4a261;
+      --off-white: #f4f4f4; --black-deep: #111111; --black-card: #1a1a1a;
+      --border: rgba(255,255,255,0.08); --text-muted: rgba(244,244,244,0.6);
+      --text-dim: rgba(244,244,244,0.35);
+    }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'Raleway', sans-serif; background: var(--black-deep); color: var(--off-white); line-height: 1.6; min-height: 100vh; }
+    .site-nav { background: var(--teal); padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200; border-bottom: 1px solid rgba(0,0,0,0.2); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--off-white); }
+    .nav-logo img { width: 32px; height: 32px; }
+    .nav-wordmark { font-weight: 700; font-size: 0.9rem; letter-spacing: -0.02em; }
+    .nav-wordmark .ai { color: var(--amber); }
+    .nav-context { font-size: 0.75rem; font-weight: 500; color: rgba(244,244,244,0.6); letter-spacing: 0.1em; text-transform: uppercase; }
+    .deck-shell { max-width: 860px; margin: 0 auto; padding: 0 24px 80px; }
+    .slide-nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--border); position: sticky; top: 57px; background: var(--black-deep); z-index: 100; }
+    .slide-dots { display: flex; gap: 5px; align-items: center; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.15); cursor: pointer; transition: background 0.2s, transform 0.2s; border: none; padding: 0; }
+    .dot.active { background: var(--coral); transform: scale(1.3); }
+    .dot:hover:not(.active) { background: rgba(255,255,255,0.35); }
+    .nav-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--off-white); padding: 5px 16px; border-radius: 4px; cursor: pointer; font-family: 'Raleway', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; transition: border-color 0.2s, color 0.2s; }
+    .nav-btn:hover:not(:disabled) { border-color: var(--coral); color: var(--coral); }
+    .nav-btn:disabled { opacity: 0.25; cursor: default; }
+    .slide-counter { font-size: 0.7rem; font-weight: 300; color: var(--text-dim); letter-spacing: 0.12em; font-family: 'JetBrains Mono', monospace; }
+    .slide { display: none; padding: 40px 0 32px; min-height: 480px; flex-direction: column; }
+    .slide.active { display: flex; }
+    .slide-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--coral); margin-bottom: 14px; }
+    .slide-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; line-height: 1.15; margin-bottom: 12px; color: var(--off-white); }
+    .slide-title .accent { color: var(--coral); }
+    .slide-body { font-size: 0.9rem; line-height: 1.75; color: var(--text-muted); font-weight: 300; flex: 1; }
+    .slide-body strong { color: var(--off-white); font-weight: 600; }
+    .teal-block { background: rgba(33,104,105,0.15); border: 1px solid rgba(33,104,105,0.4); border-radius: 6px; padding: 16px 18px; margin-top: 16px; }
+    .teal-block .block-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage); margin-bottom: 6px; }
+    .teal-block p { font-size: 0.85rem; color: rgba(200,230,210,0.85); font-weight: 300; line-height: 1.65; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    @media (max-width: 540px) { .two-col { grid-template-columns: 1fr; } }
+    .stat-card { background: var(--black-card); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; }
+    .stat-number { font-size: 1.8rem; font-weight: 700; color: var(--coral); line-height: 1; }
+    .stat-label { font-size: 0.7rem; color: rgba(244,244,244,0.45); margin-top: 4px; }
+    .row-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .row-item { display: flex; gap: 12px; align-items: flex-start; }
+    .row-mark { width: 22px; height: 22px; border-radius: 50%; background: var(--coral); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; color: #fff; }
+    .row-mark.sage { background: var(--sage); }
+    .row-text { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; padding-top: 2px; }
+    .row-text strong { color: var(--off-white); font-weight: 600; }
+    .badge-row { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 18px; }
+    .badge { background: var(--black-card); border: 1px solid var(--border); border-radius: 4px; padding: 4px 10px; font-size: 0.7rem; color: rgba(244,244,244,0.55); }
+    .badge.coral { border-color: var(--coral); color: var(--coral); }
+    .badge.sage { border-color: var(--sage); color: var(--sage); }
+    .market-card { background: var(--black-card); border-radius: 6px; padding: 14px 16px; border-left: 3px solid var(--coral); margin-bottom: 10px; }
+    .market-card.spanish { border-left-color: var(--amber); }
+    .market-card .mc-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--coral); margin-bottom: 5px; }
+    .market-card.spanish .mc-label { color: var(--amber); }
+    .market-card .mc-title { font-size: 0.95rem; font-weight: 600; color: var(--off-white); margin-bottom: 4px; }
+    .market-card p { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; }
+    .contact-block { background: var(--black-card); border: 1px solid var(--border); border-radius: 8px; padding: 28px 24px; margin-top: 20px; text-align: center; }
+    .contact-block p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.7; }
+    .contact-btn { display: inline-block; border: 1px solid var(--coral); color: var(--coral); text-decoration: none; font-family: 'Raleway', sans-serif; font-size: 0.85rem; font-weight: 600; padding: 10px 24px; border-radius: 4px; transition: background 0.2s, color 0.2s; }
+    .contact-btn:hover { background: var(--coral); color: #fff; }
+    .deck-footer { border-top: 1px solid var(--border); padding: 18px 0; display: flex; align-items: center; justify-content: space-between; font-size: 0.68rem; color: var(--text-dim); letter-spacing: 0.08em; }
+    @media (max-width: 600px) { .site-nav { padding: 10px 16px; } .deck-shell { padding: 0 16px 60px; } .slide { padding: 28px 0 24px; min-height: 400px; } .slide-nav { top: 50px; } }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="https://whatcomesnextllc.ai" class="nav-logo">
+    <img src="https://whatcomesnextllc.ai/assets/What_Comes_Next.svg" alt="WCN" width="32" height="32">
+    <span class="nav-wordmark">whatcomesnextllc<span class="ai">.ai</span></span>
+  </a>
+  <span class="nav-context">What We're Building</span>
+</nav>
+
+<div class="deck-shell">
+  <div class="slide-nav">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>← prev</button>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="slide-dots" id="dots"></div>
+      <span class="slide-counter" id="counter">01 / 09</span>
+    </div>
+    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">next →</button>
+  </div>
+
+  <!-- SLIDE 1 -->
+  <div id="slide-0" class="slide active">
+    <div class="slide-label">What Comes Next? LLC</div>
+    <div class="slide-title">The AI that runs<br><span class="accent">in your building.</span></div>
+    <div class="slide-body">
+      <p>Privacy-first AI wellness coaching. Local inference on WCN-controlled hardware. No cloud AI vendor. No third-party data processing. The architecture is the product.</p>
+      <div class="teal-block">
+        <div class="block-label">The Catalyst Pipeline</div>
+        <p>Production LLM inference running on WCN hardware. User health data never leaves our infrastructure. Verifiable by architecture — not by policy.</p>
+      </div>
+      <div class="badge-row">
+        <span class="badge coral">Live in production</span>
+        <span class="badge coral">IRB-approved study underway</span>
+        <span class="badge">Provisional patent filed 2025</span>
+        <span class="badge">Ardmore, PA</span>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div id="slide-1" class="slide">
+    <div class="slide-label">The Problem</div>
+    <div class="slide-title">Every wellness app<br><span class="accent">owns your data.</span></div>
+    <div class="slide-body">
+      <p>Whoop. Fitbit. Oura. Apple Watch. AI is being embedded into every fitness and wellness platform on the market. All of them cloud-dependent. Your biometric data processed on servers you don't control.</p>
+      <div class="teal-block">
+        <div class="block-label">The customer is already here</div>
+        <p>Location services off by default. VPN-paying. Wants AI-assisted personal development — and is increasingly unwilling to pay for it with their health data. <strong>No product in this market credibly addresses them.</strong></p>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div id="slide-2" class="slide">
+    <div class="slide-label">The Solution</div>
+    <div class="slide-title">Local inference.<br><span class="accent">Real sovereignty.</span></div>
+    <div class="slide-body">
+      <p>The Spark processes everything on WCN hardware. At no point does intake data touch OpenAI, Anthropic, Google, or any third-party AI provider.</p>
+      <div class="row-list">
+        <div class="row-item"><div class="row-mark">!</div><div class="row-text"><strong>The Spark</strong> — wellness intake, habit selection, daily logging, weekly retrospective. Free to users.</div></div>
+        <div class="row-item"><div class="row-mark">%</div><div class="row-text"><strong>The Catalyst</strong> — local LLM inference pipeline on WCN-controlled hardware. No cloud dependency.</div></div>
+        <div class="row-item"><div class="row-mark">#</div><div class="row-text"><strong>Coach's Clipboard</strong> — coach-facing admin layer. Future B2B offering.</div></div>
+        <div class="row-item"><div class="row-mark" style="background:var(--amber);">¿</div><div class="row-text"><strong>espanol.whatcomesnextllc.ai</strong> — Spanish-language product in development. Same architecture. Your words back to you in the language you spoke them.</div></div>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div id="slide-3" class="slide">
+    <div class="slide-label">Traction</div>
+    <div class="slide-title">Production system.<br><span class="accent">Live study.</span></div>
+    <div class="slide-body">
+      <div class="two-col">
+        <div class="stat-card"><div class="stat-number">100</div><div class="stat-label">Days — study duration</div></div>
+        <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">Cohorts — rolling enrollment Summer 2026</div></div>
+        <div class="stat-card"><div class="stat-number">210</div><div class="stat-label">Max participants, IRB-approved</div></div>
+        <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Experimental conditions — RCT design</div></div>
+      </div>
+      <div class="teal-block" style="margin-top:16px;">
+        <div class="block-label">What's live today</div>
+        <p>Full production platform: intake, habit tracking, daily logging, AI Look Back, PDF delivery, lead capture, coach admin UI, native iOS app. Ambassador tabling active. wawawednesday.com live.</p>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 5 -->
+  <div id="slide-4" class="slide">
+    <div class="slide-label">The Research</div>
+    <div class="slide-title">Dissertation-grade<br><span class="accent">validation built in.</span></div>
+    <div class="slide-body">
+      <p>The 100 Days of Summer study is a Drexel IRB-approved randomized controlled trial. Three conditions. 100 days. Does AI personalization improve habit adherence beyond generic nudging?</p>
+      <div class="row-list">
+        <div class="row-item"><div class="row-mark">1</div><div class="row-text"><strong>Control</strong> — platform access, in-app Coach's Note, no push notifications</div></div>
+        <div class="row-item"><div class="row-mark">2</div><div class="row-text"><strong>Generic nudge</strong> — standardized push notifications, identical across group</div></div>
+        <div class="row-item"><div class="row-mark">3</div><div class="row-text"><strong>AI-personalized nudge</strong> — notifications generated from participant's own logged behavioral data</div></div>
+      </div>
+      <div class="teal-block">
+        <div class="block-label">NSF SBIR DH5 eligible</div>
+        <p>This study structure qualifies as feasibility documentation for an NSF Phase I application. Non-dilutive funding path active in parallel.</p>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 6 -->
+  <div id="slide-5" class="slide">
+    <div class="slide-label">Market</div>
+    <div class="slide-title">Privacy is the<br><span class="accent">emerging expectation.</span></div>
+    <div class="slide-body">
+      <p>Global digital health market exceeds $200B. The differentiator this market does not have: privacy-preserving local infrastructure with longitudinal study data behind it.</p>
+      <div style="margin-top:16px;">
+        <div class="market-card"><div class="mc-label">B2C English</div><div class="mc-title">The Spark + 100 Days</div><p>Direct consumer. Privacy-conscious early adopters. Subscription model.</p></div>
+        <div class="market-card spanish"><div class="mc-label">B2C Spanish — espanol.whatcomesnextllc.ai</div><div class="mc-title">Your words back to you. In the language you spoke them.</div><p>Same local inference stack. Spanish intake, Spanish output — not translated English. Independent commercial revenue path. No IRB entanglement.</p></div>
+        <div class="market-card" style="border-left-color:var(--sage);"><div class="mc-label" style="color:var(--sage);">B2B</div><div class="mc-title">Coach's Clipboard</div><p>Coaches, gyms, corporate wellness. Low CAC, recurring revenue. The growth layer.</p></div>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 7 -->
+  <div id="slide-6" class="slide">
+    <div class="slide-label">The Founder</div>
+    <div class="slide-title">20 years of enterprise.<br><span class="accent">Built this himself.</span></div>
+    <div class="slide-body">
+      <p>Jason Rashaad, MBA, PMP. Senior technical program leader — Ford, GM, Amazon, State of Michigan, Intelligence Community. Currently on contract at Comcast. Drexel DBA candidate. NASM CPT + CNC. Corporate Faculty, Harrisburg University (Entrepreneurship & Innovation).</p>
+      <div class="teal-block">
+        <div class="block-label">Why this founder</div>
+        <p>Architected and shipped the entire platform solo. Federal IRB approval navigated. Live research study running. Provisional patent filed. Enterprise background is why the infrastructure is production-grade and the compliance posture is defensible.</p>
+      </div>
+      <div class="badge-row">
+        <span class="badge">PMP — 15 years</span>
+        <span class="badge">Previously CISSP</span>
+        <span class="badge">Previously TS/SCI</span>
+        <span class="badge coral">Drexel DBA 2027</span>
+        <span class="badge coral">NASM CPT + CNC</span>
+        <span class="badge sage">Harrisburg University Faculty</span>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 8: ASK — REDACTED -->
+  <div id="slide-7" class="slide">
+    <div class="slide-label">The Ask</div>
+    <div class="slide-title">18 months of runway.<br><span class="accent">A defined finish line.</span></div>
+    <div class="slide-body">
+      <p>The ask is clearly scoped, clearly justified, and the use-of-funds breakdown is specific down to the line item. The Drexel Executive DBA tuition is not separable from the research — without the final two quarters, there is no experiment, no published data, and no degree. That cost funds the existence of this work.</p>
+      <div class="teal-block">
+        <div class="block-label">By December 2027</div>
+        <p>DBA completed. Longitudinal RCT data published. Platform validated at 100+ participant scale. espanol.whatcomesnextllc.ai live. Coach's Clipboard ready for B2B licensing. NSF SBIR Phase II eligible.</p>
+      </div>
+      <div class="contact-block">
+        <p>The full prospectus — including the complete use-of-funds breakdown and funding path details — is at <strong>whatcomesnextllc.ai/invest</strong>.<br>For direct conversation:</p>
+        <a href="mailto:coach@whatcomesnextllc.ai" class="contact-btn">coach@whatcomesnextllc.ai</a>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+  <!-- SLIDE 9: PATHS — REDACTED -->
+  <div id="slide-8" class="slide">
+    <div class="slide-label">Funding Paths</div>
+    <div class="slide-title">No match required.<br><span class="accent">Multiple doors open.</span></div>
+    <div class="slide-body">
+      <div class="row-list">
+        <div class="row-item"><div class="row-mark sage">1</div><div class="row-text"><strong>NSF SBIR Phase I — non-dilutive grant.</strong> DH5 (Behavioral Health) + AI. The IRB study is the feasibility documentation. No match, no equity. Active application in progress.</div></div>
+        <div class="row-item"><div class="row-mark sage">2</div><div class="row-text"><strong>Drexel Startups Fund (Baiada Institute).</strong> Non-dilutive. Explicitly for enrolled Drexel students. Graduate student preference. Includes Drexel alumni investor introductions.</div></div>
+        <div class="row-item"><div class="row-mark sage">3</div><div class="row-text"><strong>Dreamit Ventures Healthtech.</strong> Philadelphia-based accelerator. No match requirement. Drexel alumni on staff. Traction-ready requirement: met.</div></div>
+        <div class="row-item"><div class="row-mark">4</div><div class="row-text"><strong>Direct contribution.</strong> 18 months. Study data + DBA completion is the milestone. Full details at whatcomesnextllc.ai/invest.</div></div>
+      </div>
+      <div class="contact-block" style="margin-top:20px;">
+        <p>Full prospectus including financials at <strong>whatcomesnextllc.ai/invest</strong>.</p>
+        <a href="mailto:coach@whatcomesnextllc.ai" class="contact-btn">coach@whatcomesnextllc.ai</a>
+      </div>
+    </div>
+    <div class="deck-footer">WHAT COMES NEXT? LLC &nbsp;·&nbsp; TRANSFORMATION ITERATION EVOLUTION &nbsp;·&nbsp; EST. 2022</div>
+  </div>
+
+</div>
+
+<script>
+  let current = 0;
+  const total = 9;
+  const dotsEl = document.getElementById('dots');
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+  function goTo(n) {
+    document.getElementById('slide-' + current).classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, n));
+    document.getElementById('slide-' + current).classList.add('active');
+    dotsEl.children[current].classList.add('active');
+    document.getElementById('counter').textContent = String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function changeSlide(dir) { goTo(current + dir); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   changeSlide(-1);
+  });
+</script>
+</body>
+</html>
