@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- This page exists to be the answer to "who is Jason Rashaad?" — for a Vietnamese
+     professor, a department chair weighing an adjunct inquiry, and whatever reads the
+     page on their behalf. Name first in the title, because the query is the name. -->
+<title>Jason Rashaad — CV · What Comes Next? LLC</title>
+<meta name="description" content="Jason Rashaad — doctoral researcher in habit formation and AI-personalized behavior change. DBA candidate, Drexel LeBow. Twenty years of portfolio-scale technical program management. Available for speaking, guest lectures, and adjunct appointments.">
+
+<link rel="canonical" href="https://whatcomesnextllc.ai/cv">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Jason Rashaad — CV">
+<meta property="og:description" content="Doctoral researcher studying how AI-personalized feedback changes habit formation — on a system he built, and ran on himself first.">
+<meta property="og:url" content="https://whatcomesnextllc.ai/cv">
+<meta property="og:image" content="https://whatcomesnextllc.ai/assets/og-image.png">
+<meta property="og:site_name" content="What Comes Next? LLC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jason Rashaad — CV">
+<meta name="twitter:description" content="Doctoral researcher in habit formation and AI-personalized behavior change. DBA candidate, Drexel LeBow.">
+<meta name="twitter:image" content="https://whatcomesnextllc.ai/assets/og-image.png">
+<meta name="theme-color" content="#216869">
+
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/raleway-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- Same @id as the homepage and the ILBTYD site, deliberately: three pages describing
+     one entity rather than three unrelated people. Do not renumber casually. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://ilookbetterthanyourdad.com/#person",
+      "name": "Jason Rashaad",
+      "jobTitle": "Founder & Principal Researcher",
+      "url": "https://whatcomesnextllc.ai/cv",
+      "description": "Doctoral researcher studying how AI-personalized feedback changes habit formation. Twenty years of portfolio-scale technical program management before turning the same discipline on individual behavior change.",
+      "email": "coach@whatcomesnextllc.ai",
+      "worksFor": { "@id": "https://whatcomesnextllc.ai/#organization" },
+      "knowsAbout": [
+        "Habit formation",
+        "Behavior change",
+        "Applied large language models",
+        "Field experiment design",
+        "Research protocol authoring",
+        "Technical program management",
+        "Privacy-preserving research infrastructure"
+      ],
+      "sameAs": [
+        "https://ilookbetterthanyourdad.com/",
+        "https://www.linkedin.com/in/jasonrashaad",
+        "https://github.com/jasonrashaad"
+      ],
+      "alumniOf": [
+        { "@type": "EducationalOrganization", "name": "Michigan State University" },
+        { "@type": "EducationalOrganization", "name": "Drexel University LeBow College of Business" }
+      ],
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "degree",
+          "name": "MBA",
+          "recognizedBy": { "@type": "Organization", "name": "Michigan State University" }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "certification",
+          "name": "NASM Certified Personal Trainer (CPT)",
+          "url": "https://credentials.nasm.org/f233f3cd-80ab-4408-baed-84b58874c902",
+          "recognizedBy": { "@type": "Organization", "name": "National Academy of Sports Medicine" }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "certification",
+          "name": "NASM Certified Nutrition Coach (CNC)",
+          "recognizedBy": { "@type": "Organization", "name": "National Academy of Sports Medicine" }
+        }
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://whatcomesnextllc.ai/#organization",
+      "name": "What Comes Next? LLC",
+      "url": "https://whatcomesnextllc.ai/",
+      "foundingDate": "2022-02-17",
+      "founder": { "@id": "https://ilookbetterthanyourdad.com/#person" }
+    }
+  ]
+}
+</script>
+
+<style>
+  @font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/assets/fonts/raleway-latin-var.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Raleway Fallback';
+    src: local('Helvetica Neue'), local('Arial');
+    size-adjust: 102%;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #216869;
+    --fg: #f4f4f4;
+    --muted: rgba(244, 244, 244, 0.82);
+    --muted-dim: rgba(244, 244, 244, 0.6);
+    --hairline: rgba(244, 244, 244, 0.16);
+    --amber: #f4a261;
+    --pad: clamp(1.75rem, 5vw, 4.5rem);
+  }
+
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+  body {
+    background: var(--teal);
+    color: var(--fg);
+    font-family: 'Raleway', 'Raleway Fallback', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    padding: var(--pad);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .watermark {
+    position: fixed;
+    left: -8vmin;
+    bottom: -18vmin;
+    height: min(120vh, 160vw);
+    width: auto;
+    fill: var(--fg);
+    opacity: 0.05;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .sheet { position: relative; z-index: 1; max-width: 46rem; margin-inline: auto; }
+
+  a { color: var(--fg); }
+  a:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; border-radius: 2px; }
+
+  .back {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: clamp(2rem, 6vh, 3.5rem);
+    transition: color 180ms ease;
+  }
+  .back:hover { color: var(--fg); }
+
+  /* 700 to match the homepage hero. Same reason: amber on teal is 3.14:1 and a
+     light stroke reads washed out there. */
+  h1 {
+    font-weight: 700;
+    font-size: clamp(2.25rem, 7vw, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.032em;
+    color: var(--amber);
+  }
+  .role {
+    margin-top: 0.85rem;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    color: var(--fg);
+    max-width: 34rem;
+  }
+
+  .meta {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .meta a { text-decoration: none; border-bottom: 1px solid var(--hairline); }
+  .meta a:hover { border-bottom-color: var(--fg); }
+
+  .summary {
+    margin-top: clamp(2rem, 5vh, 3rem);
+    padding-top: clamp(2rem, 5vh, 3rem);
+    border-top: 1px solid var(--hairline);
+    font-size: clamp(1rem, 2vw, 1.15rem);
+  }
+  .summary p + p { margin-top: 1.1rem; }
+
+  section { margin-top: clamp(2.5rem, 6vh, 4rem); }
+  h2 {
+    font-size: 0.68rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--hairline);
+    margin-bottom: 1.5rem;
+  }
+
+  .entry { margin-bottom: 1.6rem; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.85rem;
+  }
+  .entry-title { font-weight: 400; font-size: 1.02rem; }
+  .entry-where { color: var(--muted); font-size: 0.95rem; }
+  .entry-when {
+    margin-left: auto;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .entry p { margin-top: 0.5rem; color: var(--muted); font-size: 0.95rem; max-width: 40rem; }
+
+  .highlight {
+    border-left: 2px solid var(--amber);
+    padding: 0.15rem 0 0.15rem 1.1rem;
+  }
+
+  ul.plain { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  ul.plain li { padding-left: 1.15rem; position: relative; font-size: 0.95rem; }
+  ul.plain li::before { content: "—"; position: absolute; left: 0; color: var(--muted); }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .tags span {
+    font-size: 0.78rem;
+    color: var(--muted);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    padding: 0.3rem 0.65rem;
+  }
+
+  footer {
+    margin-top: clamp(3rem, 8vh, 5rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--hairline);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  footer a { text-decoration: none; color: var(--muted); }
+  footer a:hover { color: var(--fg); }
+  footer .domain { margin-left: auto; }
+
+  @media print {
+    :root { --teal: #ffffff; --fg: #2d3436; --muted: #5b6465; --hairline: #cfd4d4; --amber: #8a4b18; }
+    body { padding: 0; font-size: 10.5pt; }
+    .watermark, .back, footer .domain { display: none; }
+    h1 { font-size: 24pt; }
+    section { margin-top: 1.4rem; page-break-inside: avoid; }
+    a { text-decoration: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <svg class="watermark" viewBox="0 -108 83 108" aria-hidden="true" focusable="false">
+    <path d="M 38.734375 -108 C 42.859375 -108 47.175781 -107.707031 51.6875 -107.125 C 56.207031 -106.550781 60.484375 -105.453125 64.515625 -103.828125 C 69.890625 -101.710938 74.179688 -98.585938 77.390625 -94.453125 C 80.609375 -90.328125 82.363281 -85.816406 82.65625 -80.921875 C 82.84375 -76.503906 82.117188 -72.710938 80.484375 -69.546875 C 78.859375 -66.378906 76.65625 -63.570312 73.875 -61.125 C 71.09375 -58.675781 68.019531 -56.394531 64.65625 -54.28125 C 61.289062 -52.175781 57.976562 -50.039062 54.71875 -47.875 C 51.457031 -45.71875 48.550781 -43.367188 46 -40.828125 C 43.457031 -38.285156 41.585938 -35.285156 40.390625 -31.828125 C 39.191406 -28.367188 39.023438 -24.285156 39.890625 -19.578125 L 37.734375 -19.578125 C 35.710938 -25.535156 35.0625 -30.578125 35.78125 -34.703125 C 36.5 -38.828125 38.054688 -42.351562 40.453125 -45.28125 C 42.859375 -48.21875 45.691406 -50.882812 48.953125 -53.28125 C 52.222656 -55.675781 55.441406 -58.097656 58.609375 -60.546875 C 61.773438 -62.992188 64.460938 -65.753906 66.671875 -68.828125 C 68.878906 -71.898438 70.078125 -75.644531 70.265625 -80.0625 C 70.554688 -84.476562 69.550781 -88.601562 67.25 -92.4375 C 64.945312 -96.28125 61.726562 -99.453125 57.59375 -101.953125 C 53.46875 -104.453125 48.71875 -105.75 43.34375 -105.84375 C 37.875 -106.03125 32.570312 -105.234375 27.4375 -103.453125 C 22.300781 -101.679688 18.289062 -98.925781 15.40625 -95.1875 C 13.289062 -92.40625 11.894531 -89.1875 11.21875 -85.53125 C 10.550781 -81.882812 10.941406 -78.046875 12.390625 -74.015625 C 8.359375 -73.921875 5.285156 -74.953125 3.171875 -77.109375 C 1.054688 -79.273438 0 -81.988281 0 -85.25 C 0 -88.03125 0.8125 -90.597656 2.4375 -92.953125 C 4.070312 -95.304688 6.113281 -97.367188 8.5625 -99.140625 C 11.007812 -100.921875 13.390625 -102.335938 15.703125 -103.390625 C 19.347656 -105.023438 23.113281 -106.203125 27 -106.921875 C 30.882812 -107.640625 34.796875 -108 38.734375 -108 Z M 38.734375 -11.953125 C 37.097656 -11.953125 35.703125 -11.375 34.546875 -10.21875 C 33.398438 -9.070312 32.828125 -7.679688 32.828125 -6.046875 C 32.828125 -4.410156 33.398438 -2.992188 34.546875 -1.796875 C 35.703125 -0.597656 37.097656 0 38.734375 0 C 40.367188 0 41.785156 -0.597656 42.984375 -1.796875 C 44.179688 -2.992188 44.78125 -4.410156 44.78125 -6.046875 C 44.78125 -7.679688 44.179688 -9.070312 42.984375 -10.21875 C 41.785156 -11.375 40.367188 -11.953125 38.734375 -11.953125 Z M 38.734375 -11.953125"/>
+  </svg>
+
+  <div class="sheet">
+
+    <a class="back" href="/">&larr; What Comes Next? LLC</a>
+
+    <h1>Jason Rashaad</h1>
+    <p class="role">
+      Doctoral researcher — habit formation and AI-personalized behavior change.
+    </p>
+
+    <p class="meta">
+      <span>Ardmore, PA</span>
+      <a href="mailto:coach@whatcomesnextllc.ai">coach@whatcomesnextllc.ai</a>
+      <a href="tel:4848403699">484.840.3699</a>
+      <a href="https://linkedin.com/in/jasonrashaad">LinkedIn</a>
+      <a href="https://github.com/jasonrashaad">GitHub</a>
+    </p>
+
+    <div class="summary">
+      <p>
+        DBA candidate at Drexel University&rsquo;s LeBow College of Business studying how
+        AI-personalized feedback changes habit formation. Twenty years of portfolio-scale
+        technical program management — General Motors, Ford, Amazon, State of Michigan —
+        turned on a question those disciplines rarely ask: whether the methods that deliver
+        a $2M enterprise program also work on one person&rsquo;s behavior. I built the
+        platform that tests it, wrote the protocol that governs it, and am running the
+        experiment on it.
+      </p>
+      <p>
+        Health and fitness practitioners do not do project management. Project managers are
+        not known for being healthy and fit. My work sits in that intersection, with a
+        delivery record on one side and a doctorate in progress on the other.
+      </p>
+    </div>
+
+    <section>
+      <h2>Current research</h2>
+      <div class="entry highlight">
+        <div class="entry-head">
+          <span class="entry-title">100 Days of Summer</span>
+          <span class="entry-when">Aug 10 &ndash; Nov 18, 2026</span>
+        </div>
+        <p>
+          A 100-day minimal-risk field experiment on AI-personalized habit feedback, under
+          Drexel University IRB review (HRP-504, study 2605011824). Dissertation chair:
+          Dr.&nbsp;Mark Stehr, Director, School of Economics, Drexel LeBow.
+        </p>
+        <p>
+          I designed the protocol, built the intervention, and operate the infrastructure it
+          runs on. The system delivers personalized behavioral feedback from a locally hosted
+          language model — no cloud inference, no third-party processing, and no participant
+          health data leaving hardware I control. The instrument is a React Native
+          application; the analysis layer runs retrieval over longitudinal,
+          participant-authored text.
+        </p>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Dissertation writing residency</span>
+          <span class="entry-where">Da Nang, Vietnam</span>
+          <span class="entry-when">Nov 2026 &ndash; Jan 2027</span>
+        </div>
+        <p>Defense targeted March 2027. Available for spring 2027 engagements.</p>
+      </div>
+      <div class="tags" style="margin-top:1.25rem;">
+        <span>Habit formation &amp; maintenance</span>
+        <span>Personalized behavioral intervention</span>
+        <span>Applied LLM systems in health behavior</span>
+        <span>Privacy-preserving research infrastructure</span>
+        <span>Practitioner-scholar methodology</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Doctor of Business Administration — candidate</span>
+          <span class="entry-when">2024 &ndash; expected 2027</span>
+        </div>
+        <p>Drexel University, LeBow College of Business — Executive DBA.</p>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Master of Business Administration</span>
+        </div>
+        <p>Michigan State University, Broad College of Business.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Teaching &amp; speaking</h2>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Corporate Faculty, Entrepreneurship &amp; Innovation</span>
+          <span class="entry-when">through Winter 2026</span>
+        </div>
+        <p>
+          Harrisburg University of Science and Technology — graduate instruction in
+          entrepreneurship and innovation.
+        </p>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Available for</span>
+        </div>
+        <p>
+          Adjunct and lecturer appointments (business, management, entrepreneurship, applied
+          AI), guest lectures, and invited talks. Spring 2027 for semester commitments;
+          earlier for one-off and remote sessions.
+        </p>
+        <ul class="plain" style="margin-top:1rem;">
+          <li><em>Evolutions: Personal Project Management</em> — program-management discipline applied to individual behavior change</li>
+          <li>Running a private LLM in production on owned hardware</li>
+          <li>Designing an IRB-reviewed field experiment as a solo researcher-operator</li>
+          <li>What twenty years of enterprise delivery does &mdash; and does not &mdash; transfer to personal change</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Selected professional record</h2>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Founder</span>
+          <span class="entry-where">What Comes Next? LLC</span>
+          <span class="entry-when">2022 &ndash; present</span>
+        </div>
+        <p>
+          Built and operate a production local-inference platform for behavioral analysis:
+          Llama-class model serving, FastAPI backend, React Native client, and the
+          Debian/ZFS fleet underneath. Authored the IRB protocol. Formalized a personal
+          behavior-change methodology into a delivered product.
+        </p>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Technical Program Manager</span>
+          <span class="entry-where">Comcast (contract)</span>
+          <span class="entry-when">2025 &ndash; 2026</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Program Manager</span>
+          <span class="entry-where">General Motors</span>
+          <span class="entry-when">through 2019</span>
+        </div>
+        <p>500+ application migrations to private cloud; $1.5M annual run-rate savings.</p>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Program Manager</span>
+          <span class="entry-where">Ford Motor Company</span>
+        </div>
+        <p>4,600+ data-source integrations across North America, Europe, and Asia-Pacific.</p>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Program Manager</span>
+          <span class="entry-where">State of Michigan</span>
+        </div>
+        <p>
+          $2M+ statewide modernization spanning 200+ applications across executive
+          departments. Delivered 14% under budget.
+        </p>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Technical Program Manager</span>
+          <span class="entry-where">Amazon</span>
+        </div>
+        <p>Seven concurrent programs supporting the Prime international platform.</p>
+      </div>
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">Federal consulting</span>
+          <span class="entry-where">Booz Allen Hamilton · Oracle · Deloitte</span>
+          <span class="entry-when">2009 &ndash; 2014</span>
+        </div>
+        <p>
+          Compliance and accreditation delivery: FedRAMP, FISMA, DIACAP. TS/SCI cleared,
+          2009&ndash;2014.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Technical</h2>
+      <div class="tags">
+        <span>Local LLM deployment end to end</span>
+        <span>Prompt engineering &amp; evaluation</span>
+        <span>LLM-as-judge</span>
+        <span>Structured decoding</span>
+        <span>Python / FastAPI</span>
+        <span>React Native / Expo</span>
+        <span>Debian fleet operations</span>
+        <span>ZFS · NFS · Docker</span>
+        <span>nginx · systemd · TLS · DNS</span>
+        <span>Privacy-preserving architecture</span>
+        <span>Log-based analytics</span>
+        <span>Research protocol authoring</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Credentials</h2>
+      <ul class="plain">
+        <li>Project Management Professional (PMP), Project Management Institute &mdash; held continuously 2010&ndash;2025</li>
+        <li>NASM Certified Personal Trainer (CPT)</li>
+        <li>NASM Certified Nutrition Coach (CNC)</li>
+      </ul>
+    </section>
+
+    <footer>
+      <span>&copy; 2026 What Comes Next? LLC</span>
+      <a href="/">Home</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://ilookbetterthanyourdad.com/">Personally</a>
+      <span class="domain">whatcomesnextllc.ai</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>
