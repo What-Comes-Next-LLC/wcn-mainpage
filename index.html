@@ -942,7 +942,7 @@
              width="128" height="128" loading="lazy">
         <div>
           <h3>A Day In The Life</h3>
-          <p class="price-note">One-off purchase · No subscription · In development</p>
+          <p class="price-note">Live now, free · Hevy exports today · No subscription</p>
 
           <div class="body-copy">
             <p>
@@ -951,20 +951,47 @@
               how you actually live. A Day In The Life reads it and tells you what it
               says.
             </p>
+            <p>
+              <strong>It is running today at
+              <a class="inline" href="https://ilookbetterthanyourdad.com/ask/?ref=main">ilookbetterthanyourdad.com/ask</a></strong>
+              &mdash; free, no account, and it reads a Hevy export right now. Garmin and
+              Apple Health are next, and the list below is how they get prioritised.
+            </p>
           </div>
 
           <ul class="contract">
-            <li class="pending">
+            <li>
               Bring your own export — no new tracking, no new app to remember.
-              <span class="status-tag">Not built yet</span>
+              <span class="status-tag">Hevy live · Garmin &amp; Apple Health next</span>
             </li>
             <li>The report is generated on hardware we own and operate — no cloud model, no third-party processing.</li>
-            <li>We store what was <em>derived</em>, never the file you uploaded. The PDF is built in memory, sent, and gone.</li>
+            <!-- Corrected 2026-08-26. This said "The PDF is built in memory, sent, and
+                 gone", which is true of THE SPARK — spark_api.py renders with WeasyPrint
+                 and never touches disk — and false of A Day In The Life, which has no PDF
+                 at all and deliberately keeps the report so a later edition can diff
+                 against it. Verified in wcn-ilbtyd/src/app.py: the upload is read into
+                 memory at :185 and never written; edition.md, intake.md, activity.json and
+                 an archived copy under subjects/ are written at :212-297.
+                 Do not "restore" the old wording — it was a claim about a different
+                 product, and this one is a privacy claim on a public page. -->
+            <li>The export you upload is parsed in memory and never written to disk. What we keep is your answers, the analysis derived from them, and the report itself — so a later edition can tell you what changed.</li>
             <li>Sparse input earns a tight report; a rich history earns a fuller one. Sections are earned, not padded.</li>
           </ul>
 
-          <!-- Honest about state: the product is not built. This captures intent and
-               says so, rather than taking money for something that does not exist. -->
+          <!-- Honest about state, and the state changed on 2026-08-19: A Day In The Life
+               SHIPPED. It runs at ilookbetterthanyourdad.com/ask, free, and reads a Hevy
+               export end to end. This section said "In development" and "Not built yet"
+               for a week after that, which meant the front page was running a waitlist
+               for a product that already existed.
+
+               So the form's job changed rather than disappeared. It is no longer "tell me
+               when this is built" — it is "tell me when MY export format is supported",
+               which is a better question and the one the format picker below already
+               asks. Hevy is live; everything else in that list genuinely is not.
+
+               Do not re-add purchase language here. /api/adl/checkout is still a 501 stub
+               in wcn-ilbtyd, so there is nothing to buy yet, and saying otherwise would
+               repeat this same mistake in the other direction. -->
           <form id="waitlist-form" novalidate>
             <div class="field">
               <label for="wl-name">Name</label>
@@ -978,15 +1005,19 @@
               <label for="wl-data">What are you bringing?</label>
               <!-- The optgroups do real work: they keep the import formats on the page
                    (which format people pick is the whole point of asking) while making
-                   it unmistakable that importing is not live yet. -->
+                   it unmistakable which ones actually run today.
+
+                   Updated 2026-08-26. Hevy moved up to "Available now" because it is —
+                   /ask/ reads a Hevy export end to end. The old "Available now" option
+                   was "start me on The Spark", which pointed at the web funnel that was
+                   retired the same day; there is no web Spark to start anyone on. -->
               <select id="wl-data" name="data" required>
                 <option value="" disabled selected>Select one</option>
                 <optgroup label="Available now">
-                  <option value="nothing-yet">Nothing yet — start me on The Spark</option>
+                  <option value="hevy">Hevy — read my export today</option>
                 </optgroup>
-                <optgroup label="Import — in development">
+                <optgroup label="Import — not built yet">
                   <option value="garmin">Garmin</option>
-                  <option value="hevy">Hevy</option>
                   <option value="apple-health">Apple Health</option>
                   <option value="strava">Strava</option>
                   <option value="whoop-oura">Whoop or Oura</option>
@@ -995,15 +1026,17 @@
                 </optgroup>
               </select>
             </div>
-            <button type="submit" class="submit" id="wl-submit">Walk me through my day</button>
+            <!-- Was "Walk me through my day", which is the phrase /ask/ uses for its own
+                 intake screen. This form no longer starts anything — it records which
+                 export format to build next — so the label says that instead. -->
+            <button type="submit" class="submit" id="wl-submit">Tell me when my format lands</button>
             <div class="feedback" id="wl-feedback" role="alert"></div>
             <p class="form-note">
-              Not a purchase and not a charge. Importing your own data is designed but
-              not built — today this is the list that gets told first, and what you pick
-              decides which export format gets built first. If you want to start now and
-              you already track in Hevy,
-              <a class="inline" href="https://ilookbetterthanyourdad.com/ask/?ref=main">A Day
-              In The Life is live today</a> &mdash; free, and it reads your export.
+              Not a purchase and not a charge. <strong>Hevy works today</strong> &mdash; if
+              that is what you track, skip this form and
+              <a class="inline" href="https://ilookbetterthanyourdad.com/ask/?ref=main">run
+              it now</a>. Everything else on that list is not built yet, and what you pick
+              here decides which one gets built next.
             </p>
           </form>
         </div>
