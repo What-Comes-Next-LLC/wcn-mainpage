@@ -667,6 +667,63 @@
   .feedback.success { color: var(--fg); }
   .form-note { margin-top: 1rem; font-size: 0.8rem; color: var(--muted); }
 
+  /* ── Support tiers ───────────────────────────────────────────
+     Ported from invest.html's slide 10, which was the only slide worth keeping when
+     the pitch deck came down on 2026-08-29. The buttons are the .submit treatment
+     (off-white hairline, inverts on hover) rather than anything new — a tip jar that
+     styles itself louder than the product would be reading the room wrong.
+
+     auto-fit + minmax means three across on a wide viewport and one column on a
+     phone with no media query. */
+  .tiers {
+    margin-top: clamp(1.75rem, 4vh, 2.5rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 0.75rem;
+    max-width: 44rem;
+  }
+  .tier {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    color: var(--fg);
+    text-decoration: none;
+    transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .tier:hover,
+  .tier:focus-visible { background: var(--fg); color: var(--teal); border-color: var(--fg); }
+  .tier-name {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 400;
+  }
+  .tier-amount { font-size: 1.5rem; font-weight: 300; line-height: 1.1; }
+
+  /* The open-amount link is the floor. With Pivot at $100 as the lowest fixed tier,
+     this is the only way someone gives $5, so it spans the full grid rather than
+     sitting in the row as a fourth equal card. */
+  .tier.open {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .tier.open .tier-amount { font-size: 0.9rem; letter-spacing: 0.04em; }
+
+  .support-note {
+    margin-top: 1.25rem;
+    max-width: 44rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
   /* ── Contact detail columns ─────────────────────────────────── */
   .cols {
     margin-top: clamp(2rem, 5vh, 3rem);
@@ -771,11 +828,18 @@
     <path d="M 38.734375 -108 C 42.859375 -108 47.175781 -107.707031 51.6875 -107.125 C 56.207031 -106.550781 60.484375 -105.453125 64.515625 -103.828125 C 69.890625 -101.710938 74.179688 -98.585938 77.390625 -94.453125 C 80.609375 -90.328125 82.363281 -85.816406 82.65625 -80.921875 C 82.84375 -76.503906 82.117188 -72.710938 80.484375 -69.546875 C 78.859375 -66.378906 76.65625 -63.570312 73.875 -61.125 C 71.09375 -58.675781 68.019531 -56.394531 64.65625 -54.28125 C 61.289062 -52.175781 57.976562 -50.039062 54.71875 -47.875 C 51.457031 -45.71875 48.550781 -43.367188 46 -40.828125 C 43.457031 -38.285156 41.585938 -35.285156 40.390625 -31.828125 C 39.191406 -28.367188 39.023438 -24.285156 39.890625 -19.578125 L 37.734375 -19.578125 C 35.710938 -25.535156 35.0625 -30.578125 35.78125 -34.703125 C 36.5 -38.828125 38.054688 -42.351562 40.453125 -45.28125 C 42.859375 -48.21875 45.691406 -50.882812 48.953125 -53.28125 C 52.222656 -55.675781 55.441406 -58.097656 58.609375 -60.546875 C 61.773438 -62.992188 64.460938 -65.753906 66.671875 -68.828125 C 68.878906 -71.898438 70.078125 -75.644531 70.265625 -80.0625 C 70.554688 -84.476562 69.550781 -88.601562 67.25 -92.4375 C 64.945312 -96.28125 61.726562 -99.453125 57.59375 -101.953125 C 53.46875 -104.453125 48.71875 -105.75 43.34375 -105.84375 C 37.875 -106.03125 32.570312 -105.234375 27.4375 -103.453125 C 22.300781 -101.679688 18.289062 -98.925781 15.40625 -95.1875 C 13.289062 -92.40625 11.894531 -89.1875 11.21875 -85.53125 C 10.550781 -81.882812 10.941406 -78.046875 12.390625 -74.015625 C 8.359375 -73.921875 5.285156 -74.953125 3.171875 -77.109375 C 1.054688 -79.273438 0 -81.988281 0 -85.25 C 0 -88.03125 0.8125 -90.597656 2.4375 -92.953125 C 4.070312 -95.304688 6.113281 -97.367188 8.5625 -99.140625 C 11.007812 -100.921875 13.390625 -102.335938 15.703125 -103.390625 C 19.347656 -105.023438 23.113281 -106.203125 27 -106.921875 C 30.882812 -107.640625 34.796875 -108 38.734375 -108 Z M 38.734375 -11.953125 C 37.097656 -11.953125 35.703125 -11.375 34.546875 -10.21875 C 33.398438 -9.070312 32.828125 -7.679688 32.828125 -6.046875 C 32.828125 -4.410156 33.398438 -2.992188 34.546875 -1.796875 C 35.703125 -0.597656 37.097656 0 38.734375 0 C 40.367188 0 41.785156 -0.597656 42.984375 -1.796875 C 44.179688 -2.992188 44.78125 -4.410156 44.78125 -6.046875 C 44.78125 -7.679688 44.179688 -9.070312 42.984375 -10.21875 C 41.785156 -11.375 40.367188 -11.953125 38.734375 -11.953125 Z M 38.734375 -11.953125"/>
   </svg>
 
+  <!-- Nav order follows document order, so the scrollspy's active mark travels left to
+       right as the page scrolls instead of jumping backwards. It did not before: Contact
+       sat ahead of About while appearing after it, which was invisible while /invest was
+       an external link that could never take an active state. Adding a real hash link in
+       that slot made the mismatch legible, so it was fixed on 2026-08-29.
+       #waitlist is deliberately absent — the hero art is its entry point. -->
   <nav class="nav" aria-label="Sections">
     <a href="#evolutions">Evolutions</a>
-    <a href="/invest">Invest</a>
-    <a href="#contact">Contact</a>
     <a href="#about">About</a>
+    <!-- Was /invest — the pitch deck, retired 2026-08-29. -->
+    <a href="#support">Support</a>
+    <a href="#contact">Contact</a>
   </nav>
 
   <!-- ══ HERO ══════════════════════════════════════════════════
@@ -1099,6 +1163,81 @@
     </div>
   </section>
 
+  <!-- ══ SUPPORT ═══════════════════════════════════════════════
+       Replaces /invest and /deck, both retired 2026-08-29 and archived to
+       wcn-projectdocsarchive/pitch-deck-2026-08/.
+
+       The decision behind this section: WCN has products and no customers. It is a
+       solopreneurship, not an investment opportunity, and a posted pitch deck asserted
+       otherwise on every page load. The ability to give money stays; the framing that
+       says "this is a round" goes.
+
+       Three tiers, not the six that were on slide 10. Transformation and Evolution are
+       rows in the mapping table up in #evolutions — they are the methodology's own
+       vocabulary, which is why they survived and First Step / Building Momentum /
+       Alignment did not. All six Stripe links are still live in the dashboard; the
+       other three are simply unlinked. URLs are in the archive README.
+
+       The disclaimer is carried over verbatim from slide 10 and is the reason this
+       section can exist at all — it is what makes this a gift and not a security. Do
+       not soften it, and do not add language about returns, equity, or ownership.
+
+       This is placed AFTER #about deliberately: a visitor should meet the researcher
+       before meeting the tip jar. -->
+  <section id="support">
+    <div class="wrap">
+      <p class="section-label">Support</p>
+      <h2>Back the build.</h2>
+      <p class="lede">
+        No pitch, no round, no equity. If the work is useful to you and you want to put
+        something behind it, this is the door.
+      </p>
+
+      <div class="body-copy">
+        <p>
+          The research is real, the system is live, and the study is running. What Comes
+          Next is either going to work or it isn&rsquo;t &mdash; the only way to find out
+          is to finish building it. Everything here is free to use; nothing behind this
+          section is gated.
+        </p>
+      </div>
+
+      <div class="tiers">
+        <a class="tier" href="https://donate.stripe.com/7sY28t4wCcMHgopfuBcwg03" target="_blank" rel="noopener">
+          <span class="tier-name">Pivot</span>
+          <span class="tier-amount">$100</span>
+        </a>
+        <a class="tier" href="https://donate.stripe.com/eVqbJ3d382832xz5U1cwg05" target="_blank" rel="noopener">
+          <span class="tier-name">Evolution</span>
+          <span class="tier-amount">$500</span>
+        </a>
+        <a class="tier" href="https://donate.stripe.com/3cI00le7ccMHfkleqxcwg06" target="_blank" rel="noopener">
+          <span class="tier-name">Transformation</span>
+          <span class="tier-amount">$1,000</span>
+        </a>
+        <a class="tier open" href="https://donate.stripe.com/14A7sN3sy7sndcd3LTcwg00" target="_blank" rel="noopener">
+          <span class="tier-name">Name your own amount</span>
+          <span class="tier-amount">Any amount &rarr;</span>
+        </a>
+      </div>
+
+      <p class="support-note">
+        This is not an equity offering. Contributions are gifts in support of independent
+        research and product development. No ownership stake. No expected return. Just
+        helping something real get built and published. Payments are handled by Stripe
+        &mdash; nothing about them touches this site.
+      </p>
+
+      <div class="body-copy muted">
+        <p>
+          If you are asking a different question &mdash; investment, licensing, or the
+          research itself &mdash; <a class="inline" href="#contact">say so directly</a>
+          and it lands in the same inbox.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- ══ CONTACT ═══════════════════════════════════════════════ -->
   <section id="contact">
     <div class="wrap">
@@ -1186,6 +1325,7 @@
           <li><a href="#evolutions">Evolutions</a></li>
           <li><a href="#waitlist">A Day In The Life</a></li>
           <li><a href="#about">About</a></li>
+          <li><a href="#support">Support</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -1196,7 +1336,7 @@
           <li><a href="https://6ix2success.whatcomesnextllc.ai">Six Week Success Story</a></li>
           <li><a href="/the-spark/">The Spark</a></li>
           <li><a href="/cv/">CV</a></li>
-          <li><a href="/invest">Invest</a></li>
+          <li><a href="#support">Support the work</a></li>
         </ul>
       </div>
 
@@ -1333,7 +1473,7 @@
      IntersectionObserver, not a scroll listener: the browser does the work off the
      main thread and there is nothing to throttle. Purely presentational — if it
      never runs, the nav simply has no active state. */
-  const sections = ['hero', 'evolutions', 'waitlist', 'about', 'contact']
+  const sections = ['hero', 'evolutions', 'waitlist', 'about', 'support', 'contact']
     .map((id) => document.getElementById(id))
     .filter(Boolean);
 

@@ -12,16 +12,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  <url>
-    <loc>https://whatcomesnextllc.ai/invest</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://whatcomesnextllc.ai/deck</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- /invest and /deck were here until 2026-08-29. Both pages are gone and both URLs
+       now 301 to /#contact; a redirecting URL does not belong in a sitemap. The tip jar
+       that replaced them is a section on / and is covered by the entry above. -->
 </urlset>
