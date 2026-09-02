@@ -720,23 +720,27 @@ footer .domain{margin-left:auto;}
 /* ══════════════════════════════════════════════════════════════════
    ▶ THE ONE THING YOU EDIT ON THIS PAGE
 
-   Paste the TestFlight join URL between the quotes. Every download
-   button on the page turns on at once.
+   The two store URLs below. Each drives its own button; empty either
+   one and only that button disappears.
 
-   Leave it empty and no button renders anywhere — deliberately. A
-   placeholder href is a live broken CTA the moment it ships, and the
-   walkthrough is a complete story with no download attached. The
-   fallback line explains the absence instead.
+   Leave both empty and no download button renders anywhere —
+   deliberately. A placeholder href is a live broken CTA the moment it
+   ships, and the walkthrough is a complete story with no download
+   attached. The fallback line explains the absence instead.
 
-   The label names TestFlight because the link opens TestFlight. This
-   is a beta, and the button should not read like the App Store.
+   APP STORE DAY — 2026-09-02. TestFlight is retired: The Spark is
+   publicly listed on the App Store and shipped to Google Play's
+   production track, so there is no beta, no invite, and no review wait.
 
-   App Store day: swap the URL, change the label. Nothing else moves.
-   The same pair of constants exists in wcn-intake/spark.html — two
-   files, and they will drift.
+   THIS FILE IS PUBLIC. Three other surfaces carry the same two
+   constants and will drift from this one; they live in the private
+   funnel repo and are deliberately not enumerated here. The idiom is
+   identical everywhere — APPSTORE_URL / PLAY_URL, data-app-ios /
+   data-app-android — so `grep -r APPSTORE_URL ~/Projects` finds all
+   four. The full list is in that repo's own notes and in WCN-TODO.md.
    ══════════════════════════════════════════════════════════════════ */
-window.TESTFLIGHT_URL   = "https://testflight.apple.com/join/amYgQTVS";
-window.TESTFLIGHT_LABEL = "Get the Beta on TestFlight";
+window.APPSTORE_URL = "https://apps.apple.com/app/id6764123559";
+window.PLAY_URL     = "https://play.google.com/store/apps/details?id=ai.whatcomesnextllc.spark";
 </script>
 
 <header class="topbar">
@@ -766,11 +770,11 @@ window.TESTFLIGHT_LABEL = "Get the Beta on TestFlight";
   </p>
 
   <div class="cta-row">
-    <a class="cta" data-tf hidden href="#">Get the Beta on TestFlight</a>
+    <a class="cta" data-app-ios hidden href="#">Get The Spark &mdash; App Store</a>
+    <a class="cta" data-app-android hidden href="#">Get The Spark &mdash; Google Play</a>
     <a class="cta ghost" data-promote href="#first-run">See it work &darr;</a>
-    <p class="cta-note" data-tf-empty>
-      No account, no subscription, no trial with a date on it. Downloads are
-      invite-only while the research build is under review &mdash; everything
+    <p class="cta-note" data-app-empty>
+      No account, no subscription, no trial with a date on it &mdash; everything
       below is the app itself, screen by screen.
     </p>
   </div>
@@ -1786,24 +1790,29 @@ fit();
 openFromHash();
 
 /* ══════════════════════════════════════════════════════════════════════
-   App CTA wiring — see TESTFLIGHT_URL at the top of the document.
+   App CTA wiring — see APPSTORE_URL / PLAY_URL at the top of the document.
    Buttons are removed rather than hidden: a focusable invisible CTA is
-   worse than no CTA.
+   worse than no CTA. Each store link stands on its own constant, so one
+   store going dark does not take the other down with it.
    ══════════════════════════════════════════════════════════════════════ */
 (function(){
-  const url   = (window.TESTFLIGHT_URL || '').trim();
-  const label = window.TESTFLIGHT_LABEL || 'Get the Beta on TestFlight';
-  document.querySelectorAll('[data-tf]').forEach(a => {
-    if(!url){ a.remove(); return; }
-    a.href = url; a.hidden = false; a.rel = 'noopener';
-    a.textContent = label;
-  });
-  if(url) document.querySelectorAll('[data-tf-empty]').forEach(el => el.remove());
+  const wireStore = (attr, url) => {
+    const u = (url || '').trim();
+    document.querySelectorAll('[' + attr + ']').forEach(a => {
+      if(!u){ a.remove(); return; }
+      a.href = u; a.hidden = false; a.rel = 'noopener';
+    });
+    return !!u;
+  };
+  const ios = wireStore('data-app-ios', window.APPSTORE_URL);
+  const and = wireStore('data-app-android', window.PLAY_URL);
+  const url = ios || and;   /* drives the promote-the-secondary logic below */
+  if(url) document.querySelectorAll('[data-app-empty]').forEach(el => el.remove());
 
   /* With no download link the secondary button is the only action in the hero,
      and a page whose whole argument is "this is real" should not open with a
      hairline outline as its loudest element. Promote it to the solid treatment
-     until the TestFlight URL exists, then step it back down. */
+     until at least one store URL exists, then step it back down. */
   document.querySelectorAll('[data-promote]').forEach(a => a.classList.toggle('ghost', !!url));
 })();
 
