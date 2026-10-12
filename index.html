@@ -265,7 +265,7 @@
   .nav a:hover,
   .nav a:focus-visible,
   .nav a[aria-current="true"] { opacity: 1; }
-  /* Five links since #speaking joined (2026-09-24). Pinned right, a phone ran the
+  /* Three links since 2026-10-12 (five from 2026-09-24). Pinned right, a phone ran the
      row off the LEFT edge, where nothing can scroll to it. On narrow screens the nav
      spans the width and centers; tighter tracking keeps it to one line at 360px+. */
   @media (max-width: 34rem) {
@@ -631,6 +631,8 @@
 
      auto-fit + minmax means three across on a wide viewport and one column on a
      phone with no media query. */
+  .support-block { margin-top: 3.5rem; }
+  .support-block h3 { margin-bottom: 0.8rem; }
   .tiers {
     margin-top: clamp(1.75rem, 4vh, 2.5rem);
     display: grid;
@@ -791,12 +793,12 @@
        that slot made the mismatch legible, so it was fixed on 2026-08-29.
        #speaking replaced #waitlist on 2026-09-24 (A Day In The Life retired) and, unlike
        the waitlist, it IS in the nav: it is the page's buy surface now. -->
+  <!-- Three links since 2026-10-12: Evolutions (the method), Founder (was About + Speaking),
+       Contact (was Support + Contact). The old anchors #about, #speaking and #support still
+       land, as ids inside the merged sections. -->
   <nav class="nav" aria-label="Sections">
     <a href="#evolutions">Evolutions</a>
-    <a href="#speaking">Speaking</a>
-    <a href="#about">About</a>
-    <!-- Was /invest — the pitch deck, retired 2026-08-29. -->
-    <a href="#support">Support</a>
+    <a href="#founder">Founder</a>
     <a href="#contact">Contact</a>
   </nav>
 
@@ -826,7 +828,7 @@
 
       <p class="hero-actions">
         <a class="cta" href="https://cal.com/jasonrashaad/speaking-inquiry" target="_blank" rel="noopener">Book a talk or a consultation</a>
-        <a class="inline" href="#speaking">What I speak on &rarr;</a>
+        <a class="inline" href="#founder">What I speak on &rarr;</a>
       </p>
     </div>
 
@@ -882,10 +884,14 @@
 
       <div class="body-copy muted">
         <p>
-          It is currently under test. <strong>Six Week Success Story</strong> is a
-          six-week minimal-risk field experiment under Drexel University IRB review
-          — the evidence base for the dissertation behind this methodology.
+          It is under test now. <strong>Six Week Success Story</strong>, a six-week field
+          experiment at Drexel University, is the evidence base for the dissertation behind
+          this method. Enrollment closed September 29 and the study runs through November 8.
           <a class="inline" href="https://6ix2success.whatcomesnextllc.ai">Read about the study &rarr;</a>
+        </p>
+        <p>
+          Participants: the gift card drawing is November 11.
+          <a class="inline" href="https://wawawednesday.com">Check back at Wawa Wednesday &rarr;</a>
         </p>
         <!-- The Spark is the free instrument the study runs on. No nav entry, no
              footer entry beyond the Research column — the page's paid offer is
@@ -903,95 +909,15 @@
     </div>
   </section>
 
-  <!-- ══ SPEAKING & CONSULTING — the buy surface ════════════════
-       Replaced #waitlist (A Day In The Life, retired) on 2026-09-24. This is the page's
-       paid offer now: talks, workshops, and consulting, booked through one Cal.com
-       inquiry and invoiced through Stripe. No prices on the page on purpose — fees are
-       quoted on the call. The one term that IS public is the chapters-and-universities
-       line, because it is an invitation, not a price.
-
-       The coaching offer (Six Weeks) lives on ilookbetterthanyourdad.com and is NOT
-       named here: this page links the study, and the paid offer must stay visibly
-       separate from anything study-shaped. -->
-  <section id="speaking">
+  <!-- ══ FOUNDER — was #speaking + #about (2026-10-12) ═══════════
+       One section, trimmed: who, the record, what I'll come talk about, one booking link.
+       Fees on inquiry, no prices on the page. The coaching offer (Six Weeks) lives on
+       ilookbetterthanyourdad.com and is NOT named here: this page links the study, and the
+       paid offer stays visibly separate from anything study-shaped. -->
+  <section id="founder">
+    <span id="about"></span>
     <div class="wrap">
-      <p class="section-label">Speaking &amp; consulting</p>
-      <h2>Book the room. I&rsquo;ll bring the talk.</h2>
-      <p class="lede">
-        Two talks, one consultation, and a record behind both. Virtual now; in person
-        anywhere from January 2027.
-      </p>
-
-      <div class="talks">
-        <article class="talk">
-          <h3>The Future of Work, Revisited</h3>
-          <p class="audience">For PMOs, PMI chapters, and project leadership</p>
-          <p>
-            In 2024 I told PMI Great Lakes that the PMO should be the tip of the spear for
-            AI in the organization, because a good PMO knows where the wins are and where
-            the work is. Two years later, AI is reshaping project organizations whether or
-            not the PMO leads it.
-          </p>
-          <p>
-            This is the follow-up: where AI earns its keep in project delivery, where it
-            doesn&rsquo;t, and what a PMO that intends to still exist in 2028 does next.
-          </p>
-        </article>
-
-        <article class="talk">
-          <h3>Evolutions: Personal Project Management</h3>
-          <p class="audience">For teams, employee groups, wellness programs, and classrooms</p>
-          <p>
-            Twenty years of program discipline, pointed at one person: fixed-length
-            sprints, a weekly look back at what happened against what you said would
-            happen, and scope negotiated against the twenty minutes a day you actually have.
-          </p>
-          <p>
-            Where the method came from, how it runs week to week, and what the field
-            study behind it is testing.
-          </p>
-        </article>
-      </div>
-
-      <div class="body-copy">
-        <p>
-          <strong>Consulting:</strong> AI adoption for PMOs and project teams &mdash;
-          where AI earns its keep, where it doesn&rsquo;t, and why the PMO should lead it.
-        </p>
-      </div>
-
-      <ul class="contract">
-        <li>Virtual &mdash; 45 to 60 minutes, anywhere.</li>
-        <li>In person &mdash; the Philadelphia region, or wherever you are: fee plus travel and lodging.</li>
-        <li>Workshops &mdash; half a day, hands-on, for PMOs and project teams.</li>
-        <li>PMI chapters and universities &mdash; travel and a room.</li>
-      </ul>
-
-      <p class="hero-actions">
-        <a class="cta" href="https://cal.com/jasonrashaad/speaking-inquiry" target="_blank" rel="noopener">Book a 20-minute call</a>
-        <a class="inline" href="#contact" data-intent="speaking">Or write instead &rarr;</a>
-      </p>
-
-      <div class="body-copy muted">
-        <p>
-          Fees on inquiry. Previously: PMI Great Lakes Chapter (Professional Development
-          Day, October 2024; chapter meeting, May 2024) &middot; Project Management
-          Innovation Conference, Harrisburg University (May 2024) &middot; PMI Washington
-          DC Chapter (2014) &middot; Growing Leaders Detroit (2024) &middot; Life Time Work
-          Ardmore (2026) &middot; graduate entrepreneurship, Harrisburg University
-          (2025&ndash;2026). <a class="inline" href="/cv/">Full CV &rarr;</a>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ ABOUT ═════════════════════════════════════════════════
-       Researcher-first, per the narrative decision. The old site had no
-       researcher-facing surface at all — nothing a professor or department chair
-       could land on and conclude "this is a researcher." -->
-  <section id="about">
-    <div class="wrap">
-      <p class="section-label">About</p>
+      <p class="section-label">Founder</p>
       <h2>Jason Rashaad</h2>
       <p class="lede">
         Doctoral researcher studying how AI-personalized feedback changes habit
@@ -1000,120 +926,60 @@
 
       <div class="body-copy">
         <p>
-          DBA candidate at Drexel University&rsquo;s LeBow College of Business.
-          Before that, twenty years of portfolio-scale technical program management
-          at General Motors, Ford, Amazon, and the State of Michigan, and federal
-          compliance work at Booz Allen, Oracle, and Deloitte.
-        </p>
-        <p>
-          What Comes Next? was built out of a practice that already existed — daily
-          progress files, weekly planning sessions, retrospectives — kept for years
-          before there was a company. The personal practice and the platform converged
-          on the same structure because the same person built both.
+          DBA candidate at Drexel LeBow, after twenty years of technical program management
+          at General Motors, Ford, Amazon, and the State of Michigan. What Comes Next? grew out
+          of a practice kept for years before there was a company: daily progress files,
+          weekly planning, and a look back at the end of every stretch.
         </p>
       </div>
 
       <ul class="contract">
         <li>DBA candidate, Drexel LeBow &middot; MBA, Michigan State (Broad)</li>
-        <li>Corporate Faculty, Entrepreneurship &amp; Innovation, Harrisburg University of Science and Technology, 2025&ndash;2026 &middot; Adjunct, Davenport University, 2023&ndash;2025</li>
-        <li>Invited speaker at PMI chapters since 2014 &mdash; Washington DC, Great Lakes</li>
+        <li>Corporate Faculty, Harrisburg University, 2025&ndash;2026 &middot; Adjunct, Davenport University, 2023&ndash;2025</li>
         <li>NASM Certified Personal Trainer &middot; NASM Certified Nutrition Coach</li>
-        <li>Writing the dissertation in Da Nang, Vietnam, November 2026 &ndash; January 2027. Defense targeted March 2027.</li>
       </ul>
 
-      <div class="body-copy">
+      <div class="talks" id="speaking">
+        <article class="talk">
+          <h3>The Future of Work, Revisited</h3>
+          <p class="audience">For PMOs, PMI chapters, and project leadership</p>
+          <p>
+            Where AI earns its keep in project delivery, where it doesn&rsquo;t, and why the
+            PMO should lead it. The follow-up to my 2024 talk at PMI Great Lakes.
+          </p>
+        </article>
+        <article class="talk">
+          <h3>Evolutions: Personal Project Management</h3>
+          <p class="audience">For teams, employee groups, wellness programs, and classrooms</p>
+          <p>
+            Fixed-length sprints, a weekly look back at what happened against what you said
+            would happen, and scope that fits the twenty minutes a day you actually have.
+          </p>
+        </article>
+      </div>
+
+      <p class="hero-actions">
+        <a class="cta" href="https://cal.com/jasonrashaad/speaking-inquiry" target="_blank" rel="noopener">Book a talk or a consultation</a>
+        <a class="inline" href="/cv/">Full CV &rarr;</a>
+      </p>
+
+      <div class="body-copy muted">
         <p>
-          Available for speaking, guest lectures, adjunct appointments, and academic
-          collaboration.
-          <a class="inline" href="/cv/">Full CV &rarr;</a>
-          &nbsp;&middot;&nbsp;
-          <!-- Was a Calendly link, then the contact form with the speaking intent
-               preselected. Now hosted Cal.com (2026-09-24) — the self-hosted scheduler
-               was dropped: see WCN-TODO, "Not self-hosted". -->
-          <a class="inline" href="https://cal.com/jasonrashaad/speaking-inquiry" target="_blank" rel="noopener">Book a conversation &rarr;</a>
-          &nbsp;&middot;&nbsp;
+          Virtual now; in person from January 2027. Fees on inquiry. Previously: PMI Great
+          Lakes Chapter (2024) &middot; Project Management Innovation Conference, Harrisburg
+          University (2024) &middot; PMI Washington DC Chapter (2014) &middot; Growing Leaders
+          Detroit (2024) &middot; Life Time Work Ardmore (2026).
           <a class="inline" href="https://ilookbetterthanyourdad.com/">Personally &rarr;</a>
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ══ SUPPORT ═══════════════════════════════════════════════
-       Replaces /invest and /deck, both retired 2026-08-29 and archived to
-       wcn-projectdocsarchive/pitch-deck-2026-08/.
-
-       The decision behind this section: WCN has products and no customers. It is a
-       solopreneurship, not an investment opportunity, and a posted pitch deck asserted
-       otherwise on every page load. The ability to give money stays; the framing that
-       says "this is a round" goes.
-
-       Three tiers, not the six that were on slide 10. Transformation and Evolution are
-       rows in the mapping table up in #evolutions — they are the methodology's own
-       vocabulary, which is why they survived and First Step / Building Momentum /
-       Alignment did not. All six Stripe links are still live in the dashboard; the
-       other three are simply unlinked. URLs are in the archive README.
-
-       The disclaimer is carried over verbatim from slide 10 and is the reason this
-       section can exist at all — it is what makes this a gift and not a security. Do
-       not soften it, and do not add language about returns, equity, or ownership.
-
-       This is placed AFTER #about deliberately: a visitor should meet the researcher
-       before meeting the tip jar. -->
-  <section id="support">
-    <div class="wrap">
-      <p class="section-label">Support</p>
-      <h2>Back the build.</h2>
-      <p class="lede">
-        No pitch, no round, no equity. If the work is useful to you and you want to put
-        something behind it, this is the door.
-      </p>
-
-      <div class="body-copy">
-        <p>
-          The research is real, the system is live, and the study is running. What Comes
-          Next is either going to work or it isn&rsquo;t &mdash; the only way to find out
-          is to finish building it. Everything here is free to use; nothing behind this
-          section is gated.
-        </p>
-      </div>
-
-      <div class="tiers">
-        <a class="tier" href="https://donate.stripe.com/7sY28t4wCcMHgopfuBcwg03" target="_blank" rel="noopener">
-          <span class="tier-name">Pivot</span>
-          <span class="tier-amount">$100</span>
-        </a>
-        <a class="tier" href="https://donate.stripe.com/eVqbJ3d382832xz5U1cwg05" target="_blank" rel="noopener">
-          <span class="tier-name">Evolution</span>
-          <span class="tier-amount">$500</span>
-        </a>
-        <a class="tier" href="https://donate.stripe.com/3cI00le7ccMHfkleqxcwg06" target="_blank" rel="noopener">
-          <span class="tier-name">Transformation</span>
-          <span class="tier-amount">$1,000</span>
-        </a>
-        <a class="tier open" href="https://donate.stripe.com/14A7sN3sy7sndcd3LTcwg00" target="_blank" rel="noopener">
-          <span class="tier-name">Name your own amount</span>
-          <span class="tier-amount">Any amount &rarr;</span>
-        </a>
-      </div>
-
-      <p class="support-note">
-        This is not an equity offering. Contributions are gifts in support of independent
-        research and product development. No ownership stake. No expected return. Just
-        helping something real get built and published. Payments are handled by Stripe
-        &mdash; nothing about them touches this site.
-      </p>
-
-      <div class="body-copy muted">
-        <p>
-          If you are asking a different question &mdash; investment, licensing, or the
-          research itself &mdash; <a class="inline" href="#contact">say so directly</a>
-          and it lands in the same inbox.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ CONTACT ═══════════════════════════════════════════════ -->
+  <!-- ══ CONTACT — was #support + #contact (2026-10-12) ══════════
+       The form first; the tip jar under it as a quieter second door. The disclaimer is
+       carried over verbatim from slide 10 and is what keeps the tip jar a gift and not a
+       security: do not soften it, and do not add language about returns, equity, or
+       ownership. /invest and /deck still 301 to #contact. -->
   <section id="contact">
     <div class="wrap">
       <p class="section-label">Contact</p>
@@ -1152,6 +1018,38 @@
         <div class="feedback" id="c-feedback" role="alert"></div>
         <p class="form-note">Response within 1&ndash;2 business days. Your information stays between us.</p>
       </form>
+
+      <div id="support" class="support-block">
+        <h3>Back the build.</h3>
+        <p class="body-copy">
+          No pitch, no round, no equity. If the work is useful to you and you want to put
+          something behind it, this is the door. Everything here is free to use.
+        </p>
+        <div class="tiers">
+          <a class="tier" href="https://donate.stripe.com/7sY28t4wCcMHgopfuBcwg03" target="_blank" rel="noopener">
+            <span class="tier-name">Pivot</span>
+            <span class="tier-amount">$100</span>
+          </a>
+          <a class="tier" href="https://donate.stripe.com/eVqbJ3d382832xz5U1cwg05" target="_blank" rel="noopener">
+            <span class="tier-name">Evolution</span>
+            <span class="tier-amount">$500</span>
+          </a>
+          <a class="tier" href="https://donate.stripe.com/3cI00le7ccMHfkleqxcwg06" target="_blank" rel="noopener">
+            <span class="tier-name">Transformation</span>
+            <span class="tier-amount">$1,000</span>
+          </a>
+          <a class="tier open" href="https://donate.stripe.com/14A7sN3sy7sndcd3LTcwg00" target="_blank" rel="noopener">
+            <span class="tier-name">Name your own amount</span>
+            <span class="tier-amount">Any amount &rarr;</span>
+          </a>
+        </div>
+        <p class="support-note">
+          This is not an equity offering. Contributions are gifts in support of independent
+          research and product development. No ownership stake. No expected return. Just
+          helping something real get built and published. Payments are handled by Stripe
+          &mdash; nothing about them touches this site.
+        </p>
+      </div>
 
       <div class="cols">
         <div>
@@ -1198,9 +1096,7 @@
         <ul>
           <li><a href="#hero">Home</a></li>
           <li><a href="#evolutions">Evolutions</a></li>
-          <li><a href="#speaking">Speaking</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#support">Support</a></li>
+          <li><a href="#founder">Founder</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -1330,7 +1226,7 @@
      IntersectionObserver, not a scroll listener: the browser does the work off the
      main thread and there is nothing to throttle. Purely presentational — if it
      never runs, the nav simply has no active state. */
-  const sections = ['hero', 'evolutions', 'speaking', 'about', 'support', 'contact']
+  const sections = ['hero', 'evolutions', 'founder', 'contact']
     .map((id) => document.getElementById(id))
     .filter(Boolean);
 
