@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Up Next — Evolutions, one app at a time · What Comes Next? LLC</title>
+<meta name="description" content="Twenty years of project management, pointed at one person. The Evolutions method as a loop, and the tools What Comes Next has built for each turn of it. Nothing to sign up for.">
+<link rel="canonical" href="https://whatcomesnextllc.ai/upnext/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Up Next: Evolutions, one app at a time">
+<meta property="og:description" content="The method as a loop, and the tools built for each turn of it. Nothing to sign up for. Click around.">
+<meta property="og:url" content="https://whatcomesnextllc.ai/upnext/">
+<meta property="og:site_name" content="What Comes Next? LLC">
+<meta property="og:locale" content="en_US">
+<!-- Own card, dated filename: /assets/ is served immutable for a year, and social platforms cache
+     OG images by URL, so a new path is what forces a refetch. Source: assets/upnext/og-src.html. -->
+<meta property="og:image" content="https://whatcomesnextllc.ai/assets/upnext/upnext-og-2026-10.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Splat, the coral mark, beside the words: Up next. Evolutions, one app at a time.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://whatcomesnextllc.ai/assets/upnext/upnext-og-2026-10.png">
+<meta name="theme-color" content="#216869">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/assets/favicon-16x16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/raleway-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<!-- /upnext/ (2026-10-15): the product outlook. Evolutions as a loop, a tool at each station, every
+     tool labelled with its real status. It asks for nothing: no form, no email field. The one next
+     step is the free 20-minute intro. Written so it doubles as the agenda for a paid session.
+     The Spark is shown as its 2.0 screens (Note to Self), with no download button for now.
+     The Keeper is drawn, not screenshotted: its prototype reads a real vault.
+     Zero third-party requests: Raleway and splat-v1.js are self-hosted. -->
+<style>
+  @font-face { font-family: 'Raleway'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('/assets/fonts/raleway-latin-var.woff2') format('woff2'); }
+  @font-face { font-family: 'Raleway Fallback'; src: local('Helvetica Neue'), local('Arial'); size-adjust: 102%; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Tokens as index.html (the design system of record); derivations live there. */
+    --teal: #216869; --teal-deep: #1a5354; --fg: #f4f4f4;
+    --muted: rgba(244,244,244,0.82); --muted-dim: rgba(244,244,244,0.6); --hairline: rgba(244,244,244,0.16);
+    --amber: #f4a261; --coral: #e76f51; --gold: #EAAA00; --sage: #49a078; --ink: #0e1614;
+    --pad: clamp(1.75rem, 5vw, 4.5rem);
+  }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { background: var(--teal); color: var(--fg); font-family: 'Raleway', 'Raleway Fallback', system-ui, -apple-system, sans-serif;
+         font-weight: 300; line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  .watermark { position: fixed; left: -8vmin; bottom: -18vmin; height: min(120vh, 160vw); width: auto; fill: var(--fg);
+               opacity: 0.045; pointer-events: none; user-select: none; z-index: 0; }
+  .nav { position: fixed; top: 0; right: 0; z-index: 10; display: flex; gap: clamp(1.1rem, 2.6vw, 2.25rem); padding: var(--pad); pointer-events: none; }
+  .nav a { pointer-events: auto; color: var(--fg); text-decoration: none; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; opacity: 0.5; transition: opacity 200ms; white-space: nowrap; }
+  .nav a:hover, .nav a:focus-visible, .nav a[aria-current="page"] { opacity: 1; }
+  main { position: relative; z-index: 1; padding: calc(var(--pad) * 1.6) var(--pad) var(--pad); }
+  .wrap { max-width: 72rem; margin-inline: auto; }
+  section + section { margin-top: clamp(4rem, 11vh, 7rem); }
+  .eyebrow { font-size: 0.68rem; font-weight: 400; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); }
+  h1 { font-weight: 200; font-size: clamp(2.6rem, 7.5vw, 5.4rem); line-height: 1.02; letter-spacing: -0.02em; margin-top: 1rem; text-wrap: balance; }
+  h2 { font-weight: 200; font-size: clamp(1.7rem, 4vw, 2.7rem); line-height: 1.1; letter-spacing: -0.015em; text-wrap: balance; }
+  .lede { font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--muted); max-width: 42rem; margin-top: 1.1rem; }
+  a { color: var(--fg); }
+  .pill { display: inline-block; padding: 0.16rem 0.6rem; border-radius: 999px; border: 1px solid var(--muted-dim); font-size: 0.64rem; font-weight: 600;
+          letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); vertical-align: 0.15em; }
+  .pill.live { background: var(--sage); } .pill.use { background: var(--amber); } .pill.build { background: var(--gold); }
+  .pill.soon { background: transparent; color: var(--fg); }
+  .tools span.pill { display: inline-block; margin: 0 0 0 0.4rem; font-size: 0.6rem; }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1fr auto; gap: clamp(1.5rem, 5vw, 4rem); align-items: center; min-height: 62vh; }
+  .hero svg[data-splat] { width: clamp(8rem, 22vw, 15rem); height: auto; overflow: visible; filter: drop-shadow(0 0.8rem 1.6rem rgba(14,22,20,0.35)); }
+  .legend { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
+
+  /* the loop */
+  .loop-wrap { display: grid; grid-template-columns: minmax(0, 30rem) 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; margin-top: 2rem; }
+  .loop { width: 100%; height: auto; overflow: visible; }
+  .loop text { font-family: 'Raleway', sans-serif; fill: var(--fg); }
+  .loop a:hover circle.st, .loop a:focus circle.st { fill: var(--fg); }
+  .loop a:hover text.n, .loop a:focus text.n { fill: var(--teal); }
+  .pm { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  .pm th { text-align: left; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding: 0 0 0.6rem; }
+  .pm td { padding: 0.7rem 0; border-top: 1px solid var(--hairline); vertical-align: top; }
+  .pm td:first-child { font-weight: 500; padding-right: 1.2rem; white-space: nowrap; }
+  .pm td:last-child { color: var(--muted); }
+
+  /* stations */
+  .station { display: grid; grid-template-columns: 1fr minmax(0, 26rem); gap: clamp(2rem, 6vw, 5rem); align-items: start;
+             padding-top: clamp(2.5rem, 6vh, 3.5rem); border-top: 1px solid var(--hairline); }
+  .station .num { font-weight: 200; font-size: clamp(3rem, 7vw, 4.6rem); line-height: 1; color: var(--amber); }
+  .station h2 { margin-top: 0.6rem; }
+  .station .construct { margin-top: 0.5rem; font-size: 0.85rem; color: var(--muted); letter-spacing: 0.04em; }
+  .station p.do { margin-top: 1.1rem; font-size: 1.08rem; max-width: 34rem; }
+  .tools { list-style: none; margin-top: 1.6rem; display: grid; gap: 0.9rem; max-width: 34rem; }
+  .tools li { border: 1px solid var(--hairline); padding: 1rem 1.15rem; }
+  .tools b { font-weight: 500; }
+  .tools span { display: block; color: var(--muted); font-size: 0.93rem; margin-top: 0.3rem; }
+  .phones { display: flex; gap: 1rem; justify-content: center; }
+  .phone { margin: 0; width: min(13rem, 42vw); border-radius: 1.6rem; overflow: hidden; background: #000; padding: 0.45rem;
+           box-shadow: 0 0 0 1px rgba(244,244,244,0.12), 0 1.4rem 2.8rem rgba(14,22,20,0.45); }
+  .phone img { display: block; width: 100%; height: auto; border-radius: 1.2rem; }
+  .phones.two .phone { width: min(11.5rem, 40vw); }
+  .phones.two .phone:nth-child(2) { margin-top: 2.5rem; }
+  figcaption.cap { text-align: center; color: var(--muted-dim); font-size: 0.78rem; margin-top: 0.9rem; }
+
+  /* the Keeper, drawn: a binder of folders, one per Transformation */
+  .binder { position: relative; width: min(24rem, 86vw); aspect-ratio: 4 / 3.1; margin: 0 auto; }
+  .binder .folder { position: absolute; left: 0; right: 0; height: 74%; border-radius: 0.35rem; border: 1px solid rgba(14,22,20,0.25); }
+  .binder .folder i { position: absolute; top: -1.55rem; height: 1.6rem; width: 38%; border-radius: 0.4rem 0.4rem 0 0; font-style: normal;
+                      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; color: var(--ink); padding: 0.32rem 0.7rem; white-space: nowrap; overflow: hidden; }
+  .binder .f1 { top: 6%; background: #d8c3a5; } .binder .f1 i { left: 4%; background: #d8c3a5; }
+  .binder .f2 { top: 16%; background: #e6d5b8; } .binder .f2 i { left: 33%; background: #e6d5b8; }
+  .binder .f3 { top: 26%; background: #f3e9d6; padding: 1.1rem 1.2rem; color: var(--ink); } .binder .f3 i { left: 62%; background: #f3e9d6; }
+  .binder .f3 b { display: block; font-weight: 600; font-size: 0.95rem; }
+  .binder .f3 span { display: block; font-size: 0.8rem; margin-top: 0.35rem; color: #3c4a47; }
+  .binder .f3 u { display: block; text-decoration: none; margin-top: 0.7rem; height: 0.45rem; border-radius: 0.2rem; background: rgba(33,104,105,0.25); }
+  .binder .f3 u + u { width: 72%; } .binder .f3 u + u + u { width: 54%; }
+
+  /* receipts */
+  .receipts { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin-top: 1.8rem; }
+  .receipts li { border: 1px solid var(--hairline); padding: 1.2rem 1.25rem; }
+  .receipts b { display: block; font-weight: 200; font-size: 2.2rem; line-height: 1.05; color: var(--amber); }
+  .receipts span { display: block; margin-top: 0.5rem; color: var(--muted); font-size: 0.93rem; }
+  .receipts a { color: var(--fg); }
+
+  /* the one next step */
+  .next { display: grid; grid-template-columns: auto 1fr; gap: clamp(1.4rem, 4vw, 3rem); align-items: center; border: 1px solid var(--hairline);
+          padding: clamp(1.5rem, 4vw, 2.6rem); }
+  .next svg[data-splat] { width: clamp(5rem, 12vw, 7.5rem); height: auto; overflow: visible; }
+  .btn { display: inline-block; margin-top: 1.3rem; padding: 0.85rem 1.6rem; border: 1px solid var(--fg); color: var(--fg); text-decoration: none;
+         font-size: 0.78rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; transition: background 180ms, color 180ms; }
+  .btn:hover, .btn:focus-visible { background: var(--fg); color: var(--teal); }
+  .small { margin-top: 1rem; font-size: 0.88rem; color: var(--muted); }
+  footer { position: relative; z-index: 1; border-top: 1px solid var(--hairline); margin-top: clamp(4rem, 10vh, 6rem); padding: 2rem var(--pad);
+           display: flex; justify-content: space-between; gap: 1rem; font-size: 0.8rem; color: var(--muted); }
+  footer a { color: var(--muted); }
+  a:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+  @media (max-width: 56rem) {
+    .hero { grid-template-columns: 1fr; min-height: 0; }
+    .hero svg[data-splat] { width: 7rem; order: -1; }
+    .loop-wrap, .station { grid-template-columns: 1fr; }
+    .loop { max-width: 26rem; margin: 0 auto; }
+    .next { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 34rem) { .nav { left: 0; justify-content: center; gap: 1rem; } .nav a { letter-spacing: 0.12em; } }
+</style>
+</head>
+<body>
+<svg class="watermark" viewBox="0 -108 83 108" aria-hidden="true" focusable="false">
+    <path d="M 38.734375 -108 C 42.859375 -108 47.175781 -107.707031 51.6875 -107.125 C 56.207031 -106.550781 60.484375 -105.453125 64.515625 -103.828125 C 69.890625 -101.710938 74.179688 -98.585938 77.390625 -94.453125 C 80.609375 -90.328125 82.363281 -85.816406 82.65625 -80.921875 C 82.84375 -76.503906 82.117188 -72.710938 80.484375 -69.546875 C 78.859375 -66.378906 76.65625 -63.570312 73.875 -61.125 C 71.09375 -58.675781 68.019531 -56.394531 64.65625 -54.28125 C 61.289062 -52.175781 57.976562 -50.039062 54.71875 -47.875 C 51.457031 -45.71875 48.550781 -43.367188 46 -40.828125 C 43.457031 -38.285156 41.585938 -35.285156 40.390625 -31.828125 C 39.191406 -28.367188 39.023438 -24.285156 39.890625 -19.578125 L 37.734375 -19.578125 C 35.710938 -25.535156 35.0625 -30.578125 35.78125 -34.703125 C 36.5 -38.828125 38.054688 -42.351562 40.453125 -45.28125 C 42.859375 -48.21875 45.691406 -50.882812 48.953125 -53.28125 C 52.222656 -55.675781 55.441406 -58.097656 58.609375 -60.546875 C 61.773438 -62.992188 64.460938 -65.753906 66.671875 -68.828125 C 68.878906 -71.898438 70.078125 -75.644531 70.265625 -80.0625 C 70.554688 -84.476562 69.550781 -88.601562 67.25 -92.4375 C 64.945312 -96.28125 61.726562 -99.453125 57.59375 -101.953125 C 53.46875 -104.453125 48.71875 -105.75 43.34375 -105.84375 C 37.875 -106.03125 32.570312 -105.234375 27.4375 -103.453125 C 22.300781 -101.679688 18.289062 -98.925781 15.40625 -95.1875 C 13.289062 -92.40625 11.894531 -89.1875 11.21875 -85.53125 C 10.550781 -81.882812 10.941406 -78.046875 12.390625 -74.015625 C 8.359375 -73.921875 5.285156 -74.953125 3.171875 -77.109375 C 1.054688 -79.273438 0 -81.988281 0 -85.25 C 0 -88.03125 0.8125 -90.597656 2.4375 -92.953125 C 4.070312 -95.304688 6.113281 -97.367188 8.5625 -99.140625 C 11.007812 -100.921875 13.390625 -102.335938 15.703125 -103.390625 C 19.347656 -105.023438 23.113281 -106.203125 27 -106.921875 C 30.882812 -107.640625 34.796875 -108 38.734375 -108 Z M 38.734375 -11.953125 C 37.097656 -11.953125 35.703125 -11.375 34.546875 -10.21875 C 33.398438 -9.070312 32.828125 -7.679688 32.828125 -6.046875 C 32.828125 -4.410156 33.398438 -2.992188 34.546875 -1.796875 C 35.703125 -0.597656 37.097656 0 38.734375 0 C 40.367188 0 41.785156 -0.597656 42.984375 -1.796875 C 44.179688 -2.992188 44.78125 -4.410156 44.78125 -6.046875 C 44.78125 -7.679688 44.179688 -9.070312 42.984375 -10.21875 C 41.785156 -11.375 40.367188 -11.953125 38.734375 -11.953125 Z M 38.734375 -11.953125"/>
+  </svg>
+
+  <nav class="nav" aria-label="Sections">
+    <a href="/#evolutions">Evolutions</a>
+    <a href="/upnext/" aria-current="page">Up next</a>
+    <a href="/#contact">Contact</a>
+  </nav>
+
+  <main>
+  <div class="wrap">
+
+    <section class="hero" aria-labelledby="title">
+      <div>
+        <span class="eyebrow">What Comes Next? LLC &middot; Up next</span>
+        <h1 id="title">Evolutions, one app at a time.</h1>
+        <p class="lede">Twenty years of project management, pointed at one person. Here is the method as a loop, and the tools we have built for each turn of it. Nothing to sign up for. Click around.</p>
+        <div class="legend" aria-label="What the labels mean">
+          <span><span class="pill live">Live</span> anyone can use it</span>
+          <span><span class="pill use">In use</span> we run it daily</span>
+          <span><span class="pill build">Being built</span> working, not public</span>
+          <span><span class="pill soon">Next</span> designed</span>
+        </div>
+      </div>
+      <svg data-splat viewBox="-50 -50 100 100" role="img" aria-label="Splat, the face of Note to Self"></svg>
+    </section>
+
+    <section aria-labelledby="loop-h">
+      <span class="eyebrow">The method</span>
+      <h2 id="loop-h">A project plan, for a person.</h2>
+      <p class="lede">Every piece is a project-management construct, renamed. Pick a station.</p>
+      <div class="loop-wrap">
+        <svg class="loop" viewBox="-70 0 540 400" role="img" aria-label="The Evolutions loop: 1 Transformation, 2 Evolution, 3 Every day, 4 Look Back, 5 What Comes Next, which leads back to the next Evolution.">
+          <defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="rgba(244,244,244,0.55)"/></marker></defs>
+          <circle cx="200" cy="200" r="138" fill="none" stroke="rgba(244,244,244,0.22)" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round"/>
+          <path d="M 276 82 A 138 138 0 0 1 336 170" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
+          <path d="M 330 248 A 138 138 0 0 1 262 323" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
+          <path d="M 152 330 A 138 138 0 0 1 76 262" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
+          <path d="M 64 168 A 138 138 0 0 1 120 88" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
+          <svg x="150" y="150" width="100" height="100" viewBox="-50 -50 100 100" overflow="visible" data-splat aria-hidden="true"></svg>
+          <a href="#s1"><circle class="st" cx="200" cy="62" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="200" y="70" text-anchor="middle" font-size="22" font-weight="300">1</text><text x="200" y="22" text-anchor="middle" font-size="15">Transformation</text></a>
+          <a href="#s2"><circle class="st" cx="331" cy="157" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="331" y="165" text-anchor="middle" font-size="22" font-weight="300">2</text><text x="364" y="163" text-anchor="start" font-size="15">Evolution</text></a>
+          <a href="#s3"><circle class="st" cx="281" cy="312" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="281" y="320" text-anchor="middle" font-size="22" font-weight="300">3</text><text x="322" y="360" text-anchor="middle" font-size="15">Every day</text></a>
+          <a href="#s4"><circle class="st" cx="119" cy="312" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="119" y="320" text-anchor="middle" font-size="22" font-weight="300">4</text><text x="78" y="360" text-anchor="middle" font-size="15">Look Back</text></a>
+          <a href="#s5"><circle class="st" cx="69" cy="157" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="69" y="165" text-anchor="middle" font-size="22" font-weight="300">5</text><text x="36" y="163" text-anchor="end" font-size="15">What Comes Next?</text></a>
+        </svg>
+        <table class="pm">
+          <thead><tr><th>Evolutions</th><th>Project management</th></tr></thead>
+          <tbody>
+            <tr><td>Transformation</td><td>Program-level objective</td></tr>
+            <tr><td>Evolution</td><td>A fixed-length sprint</td></tr>
+            <tr><td>Sword Sharpening</td><td>Sprint planning</td></tr>
+            <tr><td>Pick 3 of 5</td><td>Scope negotiation against capacity</td></tr>
+            <tr><td>Look Back</td><td>Retrospective</td></tr>
+            <tr><td>Coach&rsquo;s Note</td><td>Stakeholder communication</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="station" id="s1" aria-labelledby="s1-h">
+      <div>
+        <div class="num">1</div>
+        <h2 id="s1-h">Transformation</h2>
+        <p class="construct">Program-level objective</p>
+        <p class="do">Name the goal and how long you are giving it. Choose up to three things you will actually do, and which days. Not ten. Three.</p>
+        <ul class="tools">
+          <li><b>Note to Self, on your phone</b> <span class="pill build">Being built</span><span>Goal, length, three habits and their days. No account needed.</span></li>
+          <li><b>A Day In The Life</b> <span class="pill live">Live</span><span>Tell it your day and your goal; it hands back three cards for the next six weeks, made from what you said.</span></li>
+        </ul>
+      </div>
+      <figure><div class="phones"><div class="phone"><img src="/assets/upnext/spark2-01-setup.jpg" width="540" height="960" loading="lazy" alt="Phone screen: What are you up against? Goal: Run my first 5K. Six weeks. Up to three things you'll do: Run 20 minutes on Tuesday, Thursday and Saturday; Lights out by 11."></div></div>
+        <figcaption class="cap">Note to Self &middot; setup. Sample data.</figcaption></figure>
+    </section>
+
+    <section class="station" id="s2" aria-labelledby="s2-h">
+      <div>
+        <div class="num">2</div>
+        <h2 id="s2-h">Evolution</h2>
+        <p class="construct">A fixed-length sprint, planned on Sunday</p>
+        <p class="do">One week at a time. Pick this week&rsquo;s focus, the one change that makes the rest easier, and put each habit on the days it can really happen.</p>
+        <ul class="tools">
+          <li><b>Plan the week</b> <span class="pill build">Being built</span><span>The Sunday screen in Note to Self.</span></li>
+          <li><b>Sword Sharpening</b> <span class="pill use">In use</span><span>The founder&rsquo;s own weekly planning, kept for years before there was a company.</span></li>
+        </ul>
+      </div>
+      <figure><div class="phones"><div class="phone"><img src="/assets/upnext/spark2-02-plan-the-week.jpg" width="540" height="960" loading="lazy" alt="Phone screen: Plan the week. This week's focus: Run at lunch, not after work. Which days for each of the three habits."></div></div>
+        <figcaption class="cap">Note to Self &middot; plan the week. Sample data.</figcaption></figure>
+    </section>
+
+    <section class="station" id="s3" aria-labelledby="s3-h">
+      <div>
+        <div class="num">3</div>
+        <h2 id="s3-h">Every day</h2>
+        <p class="construct">Execution, and the record of it</p>
+        <p class="do">Check off what you did. Write a line about it. When a sentence says something true, long-press it and keep it as a Note to Self. It waits for Saturday, word for word.</p>
+        <ul class="tools">
+          <li><b>Today, on your phone</b> <span class="pill build">Being built</span><span>Checks, the week&rsquo;s dots, your entries, Notes to Self in violet.</span></li>
+          <li><b>The Keeper, on your laptop</b> <span class="pill build">Being built</span><span>A binder: one folder per Transformation, everything you kept for it in one place, the open folder the only thing in view.</span></li>
+        </ul>
+      </div>
+      <figure><div class="phones two"><div class="phone"><img src="/assets/upnext/spark2-03-today.jpg" width="540" height="960" loading="lazy" alt="Phone screen: Thursday, week 2, Run my first 5K, 31 days left. Two of three habits checked; two journal entries, one sentence highlighted in violet."></div>
+        <div class="phone"><img src="/assets/upnext/spark2-04-note-to-self.jpg" width="540" height="960" loading="lazy" alt="Phone screen: Save as a Note to Self? Only this sentence. It waits for Saturday, word for word."></div></div>
+        <figcaption class="cap">Note to Self &middot; today, and keeping a sentence. Sample data.</figcaption></figure>
+    </section>
+
+    <section class="station" aria-label="The Keeper" style="border-top:none; padding-top:1rem">
+      <div></div>
+      <figure><div class="binder" role="img" aria-label="Drawing of The Keeper: three tabbed folders, the front one open.">
+          <div class="folder f1"><i>Spring</i></div><div class="folder f2"><i>No Tricks</i></div>
+          <div class="folder f3"><i>Run a 5K</i><b>Run my first 5K</b><span>Six weeks &middot; week 2 &middot; 3 habits</span><u></u><u></u><u></u></div>
+        </div>
+        <figcaption class="cap">The Keeper &middot; a drawing, not a screenshot.</figcaption></figure>
+    </section>
+
+    <section class="station" id="s4" aria-labelledby="s4-h">
+      <div>
+        <div class="num">4</div>
+        <h2 id="s4-h">Look Back</h2>
+        <p class="construct">Retrospective</p>
+        <p class="do">Saturday. What you said you would do, next to what you did, and the sentences you kept. No grade. Feelings first, then the record, then three things worth remembering.</p>
+        <ul class="tools">
+          <li><b>Your week, on your phone</b> <span class="pill build">Being built</span><span>Counts, the grid, your Notes to Self, and one button to send it.</span></li>
+          <li><b>Look Back with the Coach</b> <span class="pill live">Live</span><span>Your week, talked through on a ten-minute call. Ten dollars and six cents.</span></li>
+        </ul>
+      </div>
+      <figure><div class="phones"><div class="phone"><img src="/assets/upnext/spark2-05-look-back.jpg" width="540" height="960" loading="lazy" alt="Phone screen: Your week. Run 2 of 3, lights out 4 of 7, water first 4 of 5, wrote on 4 days. A grid of the week and one Note to Self: I skip runs when it's dark out."></div></div>
+        <figcaption class="cap">Note to Self &middot; the Look Back. Sample data.</figcaption></figure>
+    </section>
+
+    <section class="station" id="s5" aria-labelledby="s5-h">
+      <div>
+        <div class="num">5</div>
+        <h2 id="s5-h">What Comes Next?</h2>
+        <p class="construct">The next sprint, re-planned from the retrospective</p>
+        <p class="do">Keep what worked, change one thing, and go again. A Transformation is a run of these. The question in the company&rsquo;s name is the step that makes it a loop instead of a list.</p>
+        <ul class="tools">
+          <li><b>Note to Self</b> <span class="pill soon">Next</span><span>The whole loop, on your phone and your laptop, for anyone. Splat is its face. Your record stays yours: nobody looks unless you show them.</span></li>
+        </ul>
+      </div>
+      <div></div>
+    </section>
+
+    <section aria-labelledby="proof-h">
+      <span class="eyebrow">Receipts</span>
+      <h2 id="proof-h">We run it on ourselves first.</h2>
+      <ul class="receipts">
+        <li><b>31 days</b><span>October 2026 is a War Footing called No Tricks: the method, run by the founder in public, one post a day.</span></li>
+        <li><b>The company, too</b><span>What Comes Next ran a Look Back on its own year. <a href="https://pressroom.whatcomesnextllc.ai/what-comes-next-llc-company-look-back-2026.html">What we said, what we did &rarr;</a></span></li>
+        <li><b>Since May</b><span>The Spark on the Apple App Store, running against a model on hardware the company owns.</span></li>
+        <li><b>20 years</b><span>Of technical program management before any of this: General Motors, Ford, Amazon, the State of Michigan.</span></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="talk-h">
+      <div class="next">
+        <svg data-splat viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+        <div>
+          <span class="eyebrow">If you want to talk it through</span>
+          <h2 id="talk-h">Twenty minutes with the founder. Free.</h2>
+          <p class="lede">Bring a goal, or just questions about the method. No pitch you didn&rsquo;t ask for.</p>
+          <a class="btn" href="https://cal.com/jasonrashaad/six-weeks-intro" target="_blank" rel="noopener">Book the free intro</a>
+          <p class="small">Want it for a team instead? <a href="https://cal.com/jasonrashaad/speaking-inquiry" target="_blank" rel="noopener">Book a talk or a consultation</a>.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  </main>
+  <footer><span>Statuses as of October 2026.</span><a href="https://whatcomesnextllc.ai/">whatcomesnextllc.ai</a></footer>
+  <script src="/assets/upnext/splat-v1.js"></script>
+</body>
+</html>
