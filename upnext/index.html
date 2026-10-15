@@ -66,7 +66,7 @@
   .tools span.pill { display: inline-block; margin: 0 0 0 0.4rem; font-size: 0.6rem; }
 
   /* hero */
-  .hero { display: grid; grid-template-columns: 1fr auto; gap: clamp(1.5rem, 5vw, 4rem); align-items: center; min-height: 62vh; }
+  .hero { display: grid; grid-template-columns: 1fr auto; gap: clamp(1.5rem, 5vw, 4rem); align-items: center; }
   .hero svg[data-splat] { width: clamp(8rem, 22vw, 15rem); height: auto; overflow: visible; filter: drop-shadow(0 0.8rem 1.6rem rgba(14,22,20,0.35)); }
   .legend { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
 
@@ -82,54 +82,59 @@
   .pm td:first-child { font-weight: 500; padding-right: 1.2rem; white-space: nowrap; }
   .pm td:last-child { color: var(--muted); }
 
-  /* stations */
-  .station { display: grid; grid-template-columns: 1fr minmax(0, 26rem); gap: clamp(2rem, 6vw, 5rem); align-items: start;
-             padding-top: clamp(2.5rem, 6vh, 3.5rem); border-top: 1px solid var(--hairline); }
-  .station .num { font-weight: 200; font-size: clamp(3rem, 7vw, 4.6rem); line-height: 1; color: var(--amber); }
-  .station h2 { margin-top: 0.6rem; }
-  .station .construct { margin-top: 0.5rem; font-size: 0.85rem; color: var(--muted); letter-spacing: 0.04em; }
-  .station p.do { margin-top: 1.1rem; font-size: 1.08rem; max-width: 34rem; }
-  .tools { list-style: none; margin-top: 1.6rem; display: grid; gap: 0.9rem; max-width: 34rem; }
-  .tools li { border: 1px solid var(--hairline); padding: 1rem 1.15rem; }
-  .tools b { font-weight: 500; }
-  .tools span { display: block; color: var(--muted); font-size: 0.93rem; margin-top: 0.3rem; }
-  .phones { display: flex; gap: 1rem; justify-content: center; }
-  .phone { margin: 0; width: min(13rem, 42vw); border-radius: 1.6rem; overflow: hidden; background: #000; padding: 0.45rem;
-           box-shadow: 0 0 0 1px rgba(244,244,244,0.12), 0 1.4rem 2.8rem rgba(14,22,20,0.45); }
-  .phone img { display: block; width: 100%; height: auto; border-radius: 1.2rem; }
-  .phones.two .phone { width: min(11.5rem, 40vw); }
-  .phones.two .phone:nth-child(2) { margin-top: 2.5rem; }
-  figcaption.cap { text-align: center; color: var(--muted-dim); font-size: 0.78rem; margin-top: 0.9rem; }
+  /* cards: one idea per screen, settling gently on scroll (proximity, never mandatory) */
+  html { scroll-snap-type: y proximity; }
+  .card { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start;
+          padding-block: clamp(3rem, 8vh, 5rem); }
+  section.card + section.card { margin-top: 0; }
+
+  /* card 3: the phone plays the loop; the steps light up beside it */
+  .how { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(2rem, 6vw, 5rem); align-items: center; margin-top: 1.6rem; }
+  .steps { list-style: none; display: grid; gap: 0.35rem; }
+  .steps li { scroll-margin-top: 30vh; }
+  .steps button { all: unset; box-sizing: border-box; display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.2rem 0.8rem; width: 100%;
+                  padding: 0.75rem 0.9rem; border: 1px solid transparent; cursor: pointer; opacity: 0.55; transition: opacity 300ms, border-color 300ms; }
+  .steps button:hover, .steps button:focus-visible { opacity: 0.85; }
+  .steps li.on button { opacity: 1; border-color: var(--hairline); background: rgba(14,22,20,0.12); }
+  .steps .n { grid-row: span 3; font-weight: 200; font-size: 2rem; line-height: 1; color: var(--amber); }
+  .steps b { font-weight: 500; font-size: 1.05rem; }
+  .steps .d { font-size: 0.93rem; color: var(--muted); }
+  .steps .tool { font-size: 0.82rem; color: var(--muted); margin-top: 0.15rem; }
+  .stage { display: grid; grid-template-columns: auto auto; gap: clamp(1.2rem, 3vw, 2.2rem); align-items: end; }
+  .phone { position: relative; margin: 0; width: min(15rem, 44vw); aspect-ratio: 540 / 960; border-radius: 1.7rem; overflow: hidden; background: #000;
+           padding: 0.45rem; box-shadow: 0 0 0 1px rgba(244,244,244,0.12), 0 1.4rem 2.8rem rgba(14,22,20,0.45); }
+  .phone img { position: absolute; inset: 0.45rem; width: calc(100% - 0.9rem); height: calc(100% - 0.9rem); border-radius: 1.25rem;
+               object-fit: cover; opacity: 0; transition: opacity 600ms ease; }
+  .phone img.on { opacity: 1; }
+  .stage figcaption { text-align: center; color: var(--muted-dim); font-size: 0.76rem; margin-top: 0.8rem; }
+  .laptop { width: min(13rem, 40vw); }
+  .laptop .k { font-size: 0.8rem; color: var(--muted); margin-top: 0.9rem; line-height: 1.45; }
+  .laptop .k b { color: var(--fg); font-weight: 500; }
 
   /* the Keeper, drawn: a binder of folders, one per Transformation */
-  .binder { position: relative; width: min(24rem, 86vw); aspect-ratio: 4 / 3.1; margin: 0 auto; }
-  .binder .folder { position: absolute; left: 0; right: 0; height: 74%; border-radius: 0.35rem; border: 1px solid rgba(14,22,20,0.25); }
-  .binder .folder i { position: absolute; top: -1.55rem; height: 1.6rem; width: 38%; border-radius: 0.4rem 0.4rem 0 0; font-style: normal;
-                      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; color: var(--ink); padding: 0.32rem 0.7rem; white-space: nowrap; overflow: hidden; }
-  .binder .f1 { top: 6%; background: #d8c3a5; } .binder .f1 i { left: 4%; background: #d8c3a5; }
-  .binder .f2 { top: 16%; background: #e6d5b8; } .binder .f2 i { left: 33%; background: #e6d5b8; }
-  .binder .f3 { top: 26%; background: #f3e9d6; padding: 1.1rem 1.2rem; color: var(--ink); } .binder .f3 i { left: 62%; background: #f3e9d6; }
-  .binder .f3 b { display: block; font-weight: 600; font-size: 0.95rem; }
-  .binder .f3 span { display: block; font-size: 0.8rem; margin-top: 0.35rem; color: #3c4a47; }
-  .binder .f3 u { display: block; text-decoration: none; margin-top: 0.7rem; height: 0.45rem; border-radius: 0.2rem; background: rgba(33,104,105,0.25); }
+  .binder { position: relative; width: 100%; aspect-ratio: 4 / 3.3; }
+  .binder .folder { position: absolute; left: 0; right: 0; height: 72%; border-radius: 0.3rem; border: 1px solid rgba(14,22,20,0.25); }
+  .binder .folder i { position: absolute; top: -1.25rem; height: 1.3rem; width: 40%; border-radius: 0.35rem 0.35rem 0 0; font-style: normal;
+                      font-size: 0.6rem; font-weight: 600; color: var(--ink); padding: 0.25rem 0.5rem; white-space: nowrap; overflow: hidden; }
+  .binder .f1 { top: 9%; background: #d8c3a5; } .binder .f1 i { left: 3%; background: #d8c3a5; }
+  .binder .f2 { top: 19%; background: #e6d5b8; } .binder .f2 i { left: 31%; background: #e6d5b8; }
+  .binder .f3 { top: 29%; background: #f3e9d6; padding: 0.8rem 0.9rem; color: var(--ink); } .binder .f3 i { left: 59%; background: #f3e9d6; }
+  .binder .f3 b { display: block; font-weight: 600; font-size: 0.8rem; }
+  .binder .f3 span { display: block; font-size: 0.68rem; margin-top: 0.25rem; color: #3c4a47; }
+  .binder .f3 u { display: block; text-decoration: none; margin-top: 0.5rem; height: 0.35rem; border-radius: 0.2rem; background: rgba(33,104,105,0.25); }
   .binder .f3 u + u { width: 72%; } .binder .f3 u + u + u { width: 54%; }
 
-  /* receipts */
-  .receipts { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin-top: 1.8rem; }
-  .receipts li { border: 1px solid var(--hairline); padding: 1.2rem 1.25rem; }
-  .receipts b { display: block; font-weight: 200; font-size: 2.2rem; line-height: 1.05; color: var(--amber); }
-  .receipts span { display: block; margin-top: 0.5rem; color: var(--muted); font-size: 0.93rem; }
-  .receipts a { color: var(--fg); }
-
-  /* the one next step */
+  /* card 4: one line of proof, then the one next step */
+  .proof { font-size: clamp(1.05rem, 2vw, 1.25rem); color: var(--muted); max-width: 44rem; }
+  .proof a { color: var(--fg); }
   .next { display: grid; grid-template-columns: auto 1fr; gap: clamp(1.4rem, 4vw, 3rem); align-items: center; border: 1px solid var(--hairline);
-          padding: clamp(1.5rem, 4vw, 2.6rem); }
+          padding: clamp(1.5rem, 4vw, 2.6rem); margin-top: clamp(2rem, 6vh, 3rem); }
   .next svg[data-splat] { width: clamp(5rem, 12vw, 7.5rem); height: auto; overflow: visible; }
   .btn { display: inline-block; margin-top: 1.3rem; padding: 0.85rem 1.6rem; border: 1px solid var(--fg); color: var(--fg); text-decoration: none;
          font-size: 0.78rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; transition: background 180ms, color 180ms; }
   .btn:hover, .btn:focus-visible { background: var(--fg); color: var(--teal); }
   .small { margin-top: 1rem; font-size: 0.88rem; color: var(--muted); }
-  footer { position: relative; z-index: 1; border-top: 1px solid var(--hairline); margin-top: clamp(4rem, 10vh, 6rem); padding: 2rem var(--pad);
+  footer { position: relative; z-index: 1; border-top: 1px solid var(--hairline); padding: 2rem var(--pad);
            display: flex; justify-content: space-between; gap: 1rem; font-size: 0.8rem; color: var(--muted); }
   footer a { color: var(--muted); }
   a:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
@@ -137,9 +142,12 @@
   @media (max-width: 56rem) {
     .hero { grid-template-columns: 1fr; min-height: 0; }
     .hero svg[data-splat] { width: 7rem; order: -1; }
-    .loop-wrap, .station { grid-template-columns: 1fr; }
+    .loop-wrap, .how { grid-template-columns: 1fr; }
+    .stage { order: -1; justify-content: center; }
+    .card { min-height: 0; }
     .loop { max-width: 26rem; margin: 0 auto; }
     .next { grid-template-columns: 1fr; }
+    .laptop { width: min(10rem, 36vw); }
   }
   @media (max-width: 34rem) { .nav { left: 0; justify-content: center; gap: 1rem; } .nav a { letter-spacing: 0.12em; } }
 </style>
@@ -158,7 +166,7 @@
   <main>
   <div class="wrap">
 
-    <section class="hero" aria-labelledby="title">
+    <section class="card" aria-labelledby="title"><div class="hero">
       <div>
         <span class="eyebrow">What Comes Next? LLC &middot; Up next</span>
         <h1 id="title">Evolutions, one app at a time.</h1>
@@ -171,9 +179,9 @@
         </div>
       </div>
       <svg data-splat viewBox="-50 -50 100 100" role="img" aria-label="Splat, the face of Note to Self"></svg>
-    </section>
+    </div></section>
 
-    <section aria-labelledby="loop-h">
+    <section class="card" aria-labelledby="loop-h">
       <span class="eyebrow">The method</span>
       <h2 id="loop-h">A project plan, for a person.</h2>
       <p class="lede">Every piece is a project-management construct, renamed. Pick a station.</p>
@@ -186,19 +194,18 @@
           <path d="M 152 330 A 138 138 0 0 1 76 262" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
           <path d="M 64 168 A 138 138 0 0 1 120 88" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
           <svg x="150" y="150" width="100" height="100" viewBox="-50 -50 100 100" overflow="visible" data-splat aria-hidden="true"></svg>
-          <a href="#s1"><circle class="st" cx="200" cy="62" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="200" y="70" text-anchor="middle" font-size="22" font-weight="300">1</text><text x="200" y="22" text-anchor="middle" font-size="15">Transformation</text></a>
-          <a href="#s2"><circle class="st" cx="331" cy="157" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="331" y="165" text-anchor="middle" font-size="22" font-weight="300">2</text><text x="364" y="163" text-anchor="start" font-size="15">Evolution</text></a>
-          <a href="#s3"><circle class="st" cx="281" cy="312" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="281" y="320" text-anchor="middle" font-size="22" font-weight="300">3</text><text x="322" y="360" text-anchor="middle" font-size="15">Every day</text></a>
-          <a href="#s4"><circle class="st" cx="119" cy="312" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="119" y="320" text-anchor="middle" font-size="22" font-weight="300">4</text><text x="78" y="360" text-anchor="middle" font-size="15">Look Back</text></a>
-          <a href="#s5"><circle class="st" cx="69" cy="157" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="69" y="165" text-anchor="middle" font-size="22" font-weight="300">5</text><text x="36" y="163" text-anchor="end" font-size="15">What Comes Next?</text></a>
+          <a href="#step-1" data-go="1"><circle class="st" cx="200" cy="62" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="200" y="70" text-anchor="middle" font-size="22" font-weight="300">1</text><text x="200" y="22" text-anchor="middle" font-size="15">Transformation</text></a>
+          <a href="#step-2" data-go="2"><circle class="st" cx="331" cy="157" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="331" y="165" text-anchor="middle" font-size="22" font-weight="300">2</text><text x="364" y="163" text-anchor="start" font-size="15">Evolution</text></a>
+          <a href="#step-3" data-go="3"><circle class="st" cx="281" cy="312" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="281" y="320" text-anchor="middle" font-size="22" font-weight="300">3</text><text x="322" y="360" text-anchor="middle" font-size="15">Every day</text></a>
+          <a href="#step-4" data-go="4"><circle class="st" cx="119" cy="312" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="119" y="320" text-anchor="middle" font-size="22" font-weight="300">4</text><text x="78" y="360" text-anchor="middle" font-size="15">Look Back</text></a>
+          <a href="#step-5" data-go="5"><circle class="st" cx="69" cy="157" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="69" y="165" text-anchor="middle" font-size="22" font-weight="300">5</text><text x="36" y="163" text-anchor="end" font-size="15">What Comes Next?</text></a>
         </svg>
         <table class="pm">
           <thead><tr><th>Evolutions</th><th>Project management</th></tr></thead>
           <tbody>
             <tr><td>Transformation</td><td>Program-level objective</td></tr>
             <tr><td>Evolution</td><td>A fixed-length sprint</td></tr>
-            <tr><td>Sword Sharpening</td><td>Sprint planning</td></tr>
-            <tr><td>Pick 3 of 5</td><td>Scope negotiation against capacity</td></tr>
+            <tr><td>Game Plan</td><td>Sprint planning, and scope negotiated against capacity</td></tr>
             <tr><td>Look Back</td><td>Retrospective</td></tr>
             <tr><td>Coach&rsquo;s Note</td><td>Stakeholder communication</td></tr>
           </tbody>
@@ -206,101 +213,42 @@
       </div>
     </section>
 
-    <section class="station" id="s1" aria-labelledby="s1-h">
-      <div>
-        <div class="num">1</div>
-        <h2 id="s1-h">Transformation</h2>
-        <p class="construct">Program-level objective</p>
-        <p class="do">Name the goal and how long you are giving it. Choose up to three things you will actually do, and which days. Not ten. Three.</p>
-        <ul class="tools">
-          <li><b>Note to Self, on your phone</b> <span class="pill build">Being built</span><span>Goal, length, three habits and their days. No account needed.</span></li>
-          <li><b>A Day In The Life</b> <span class="pill live">Live</span><span>Tell it your day and your goal; it hands back three cards for the next six weeks, made from what you said.</span></li>
-        </ul>
-      </div>
-      <figure><div class="phones"><div class="phone"><img src="/assets/upnext/spark2-01-setup.jpg" width="540" height="960" loading="lazy" alt="Phone screen: What are you up against? Goal: Run my first 5K. Six weeks. Up to three things you'll do: Run 20 minutes on Tuesday, Thursday and Saturday; Lights out by 11."></div></div>
-        <figcaption class="cap">Note to Self &middot; setup. Sample data.</figcaption></figure>
-    </section>
-
-    <section class="station" id="s2" aria-labelledby="s2-h">
-      <div>
-        <div class="num">2</div>
-        <h2 id="s2-h">Evolution</h2>
-        <p class="construct">A fixed-length sprint, planned on Sunday</p>
-        <p class="do">One week at a time. Pick this week&rsquo;s focus, the one change that makes the rest easier, and put each habit on the days it can really happen.</p>
-        <ul class="tools">
-          <li><b>Plan the week</b> <span class="pill build">Being built</span><span>The Sunday screen in Note to Self.</span></li>
-          <li><b>Sword Sharpening</b> <span class="pill use">In use</span><span>The founder&rsquo;s own weekly planning, kept for years before there was a company.</span></li>
-        </ul>
-      </div>
-      <figure><div class="phones"><div class="phone"><img src="/assets/upnext/spark2-02-plan-the-week.jpg" width="540" height="960" loading="lazy" alt="Phone screen: Plan the week. This week's focus: Run at lunch, not after work. Which days for each of the three habits."></div></div>
-        <figcaption class="cap">Note to Self &middot; plan the week. Sample data.</figcaption></figure>
-    </section>
-
-    <section class="station" id="s3" aria-labelledby="s3-h">
-      <div>
-        <div class="num">3</div>
-        <h2 id="s3-h">Every day</h2>
-        <p class="construct">Execution, and the record of it</p>
-        <p class="do">Check off what you did. Write a line about it. When a sentence says something true, long-press it and keep it as a Note to Self. It waits for Saturday, word for word.</p>
-        <ul class="tools">
-          <li><b>Today, on your phone</b> <span class="pill build">Being built</span><span>Checks, the week&rsquo;s dots, your entries, Notes to Self in violet.</span></li>
-          <li><b>The Keeper, on your laptop</b> <span class="pill build">Being built</span><span>A binder: one folder per Transformation, everything you kept for it in one place, the open folder the only thing in view.</span></li>
-        </ul>
-      </div>
-      <figure><div class="phones two"><div class="phone"><img src="/assets/upnext/spark2-03-today.jpg" width="540" height="960" loading="lazy" alt="Phone screen: Thursday, week 2, Run my first 5K, 31 days left. Two of three habits checked; two journal entries, one sentence highlighted in violet."></div>
-        <div class="phone"><img src="/assets/upnext/spark2-04-note-to-self.jpg" width="540" height="960" loading="lazy" alt="Phone screen: Save as a Note to Self? Only this sentence. It waits for Saturday, word for word."></div></div>
-        <figcaption class="cap">Note to Self &middot; today, and keeping a sentence. Sample data.</figcaption></figure>
-    </section>
-
-    <section class="station" aria-label="The Keeper" style="border-top:none; padding-top:1rem">
-      <div></div>
-      <figure><div class="binder" role="img" aria-label="Drawing of The Keeper: three tabbed folders, the front one open.">
-          <div class="folder f1"><i>Spring</i></div><div class="folder f2"><i>No Tricks</i></div>
-          <div class="folder f3"><i>Run a 5K</i><b>Run my first 5K</b><span>Six weeks &middot; week 2 &middot; 3 habits</span><u></u><u></u><u></u></div>
+    <section class="card" id="how" aria-labelledby="how-h">
+      <span class="eyebrow">The tools</span>
+      <h2 id="how-h">The same loop, in your pocket.</h2>
+      <div class="how">
+        <ol class="steps" aria-label="The loop, step by step">
+          <li id="step-1"><button type="button" data-step="0"><span class="n">1</span><b>Transformation</b><span class="d">Name the goal and how long. Choose three things you will actually do, and which days.</span><span class="tool">Note to Self <span class="pill build">Being built</span> &middot; A Day In The Life <span class="pill live">Live</span></span></button></li>
+          <li id="step-2"><button type="button" data-step="1"><span class="n">2</span><b>Evolution &middot; Game Plan</b><span class="d">Sunday: one focus for the week, and the days each habit can really happen.</span><span class="tool">Plan the week <span class="pill build">Being built</span></span></button></li>
+          <li id="step-3"><button type="button" data-step="2"><span class="n">3</span><b>Every day</b><span class="d">Check it off, write a line. Long-press a true sentence to keep it as a Note to Self.</span><span class="tool">Today <span class="pill build">Being built</span> &middot; The Keeper, on your laptop <span class="pill build">Being built</span></span></button></li>
+          <li id="step-4"><button type="button" data-step="4"><span class="n">4</span><b>Look Back</b><span class="d">Saturday: what you said next to what you did, and the sentences you kept. No grade.</span><span class="tool">Your week <span class="pill build">Being built</span> &middot; Look Back with the Coach <span class="pill live">Live</span></span></button></li>
+          <li id="step-5"><button type="button" data-step="5"><span class="n">5</span><b>What Comes Next?</b><span class="d">Keep what worked, change one thing, go again. That step makes it a loop instead of a list.</span><span class="tool">Note to Self, the whole loop for anyone <span class="pill soon">Next</span></span></button></li>
+        </ol>
+        <div class="stage">
+          <figure>
+            <div class="phone" aria-live="polite">
+              <img class="on" src="/assets/upnext/spark2-01-setup.jpg" width="540" height="960" alt="Note to Self, setup: goal Run my first 5K, six weeks, three habits and their days.">
+              <img src="/assets/upnext/spark2-02-plan-the-week.jpg" width="540" height="960" loading="lazy" alt="Plan the week: this week's focus is Run at lunch, not after work.">
+              <img src="/assets/upnext/spark2-03-today.jpg" width="540" height="960" loading="lazy" alt="Today: two of three habits checked, two entries, one sentence highlighted.">
+              <img src="/assets/upnext/spark2-04-note-to-self.jpg" width="540" height="960" loading="lazy" alt="Save as a Note to Self? Only this sentence. It waits for Saturday, word for word.">
+              <img src="/assets/upnext/spark2-05-look-back.jpg" width="540" height="960" loading="lazy" alt="Your week: Run 2 of 3, lights out 4 of 7, and one Note to Self: I skip runs when it's dark out.">
+            </div>
+            <figcaption>Note to Self, on your phone. Sample data.</figcaption>
+          </figure>
+          <figure class="laptop">
+            <div class="binder" role="img" aria-label="Drawing of The Keeper: three tabbed folders, the front one open.">
+              <div class="folder f1"><i>Spring</i></div><div class="folder f2"><i>No Tricks</i></div>
+              <div class="folder f3"><i>Run a 5K</i><b>Run my first 5K</b><span>Six weeks &middot; week 2</span><u></u><u></u><u></u></div>
+            </div>
+            <p class="k"><b>On your laptop: The Keeper.</b> A binder, one folder per Transformation, the open one the only thing in view.</p>
+            <figcaption>A drawing, not a screenshot.</figcaption>
+          </figure>
         </div>
-        <figcaption class="cap">The Keeper &middot; a drawing, not a screenshot.</figcaption></figure>
-    </section>
-
-    <section class="station" id="s4" aria-labelledby="s4-h">
-      <div>
-        <div class="num">4</div>
-        <h2 id="s4-h">Look Back</h2>
-        <p class="construct">Retrospective</p>
-        <p class="do">Saturday. What you said you would do, next to what you did, and the sentences you kept. No grade. Feelings first, then the record, then three things worth remembering.</p>
-        <ul class="tools">
-          <li><b>Your week, on your phone</b> <span class="pill build">Being built</span><span>Counts, the grid, your Notes to Self, and one button to send it.</span></li>
-          <li><b>Look Back with the Coach</b> <span class="pill live">Live</span><span>Your week, talked through on a ten-minute call. Ten dollars and six cents.</span></li>
-        </ul>
       </div>
-      <figure><div class="phones"><div class="phone"><img src="/assets/upnext/spark2-05-look-back.jpg" width="540" height="960" loading="lazy" alt="Phone screen: Your week. Run 2 of 3, lights out 4 of 7, water first 4 of 5, wrote on 4 days. A grid of the week and one Note to Self: I skip runs when it's dark out."></div></div>
-        <figcaption class="cap">Note to Self &middot; the Look Back. Sample data.</figcaption></figure>
     </section>
 
-    <section class="station" id="s5" aria-labelledby="s5-h">
-      <div>
-        <div class="num">5</div>
-        <h2 id="s5-h">What Comes Next?</h2>
-        <p class="construct">The next sprint, re-planned from the retrospective</p>
-        <p class="do">Keep what worked, change one thing, and go again. A Transformation is a run of these. The question in the company&rsquo;s name is the step that makes it a loop instead of a list.</p>
-        <ul class="tools">
-          <li><b>Note to Self</b> <span class="pill soon">Next</span><span>The whole loop, on your phone and your laptop, for anyone. Splat is its face. Your record stays yours: nobody looks unless you show them.</span></li>
-        </ul>
-      </div>
-      <div></div>
-    </section>
-
-    <section aria-labelledby="proof-h">
-      <span class="eyebrow">Receipts</span>
-      <h2 id="proof-h">We run it on ourselves first.</h2>
-      <ul class="receipts">
-        <li><b>31 days</b><span>October 2026 is a War Footing called No Tricks: the method, run by the founder in public, one post a day.</span></li>
-        <li><b>The company, too</b><span>What Comes Next ran a Look Back on its own year. <a href="https://pressroom.whatcomesnextllc.ai/what-comes-next-llc-company-look-back-2026.html">What we said, what we did &rarr;</a></span></li>
-        <li><b>Since May</b><span>The Spark on the Apple App Store, running against a model on hardware the company owns.</span></li>
-        <li><b>20 years</b><span>Of technical program management before any of this: General Motors, Ford, Amazon, the State of Michigan.</span></li>
-      </ul>
-    </section>
-
-    <section aria-labelledby="talk-h">
+    <section class="card" aria-labelledby="talk-h">
+      <p class="proof">We run it on ourselves first. This October it is No Tricks: thirty-one days of the method, in public. And the company ran its own Look Back: <a href="https://pressroom.whatcomesnextllc.ai/what-comes-next-llc-company-look-back-2026.html">what we said, what we did &rarr;</a></p>
       <div class="next">
         <svg data-splat viewBox="-50 -50 100 100" aria-hidden="true"></svg>
         <div>
@@ -317,5 +265,32 @@
   </main>
   <footer><span>Statuses as of October 2026.</span><a href="https://whatcomesnextllc.ai/">whatcomesnextllc.ai</a></footer>
   <script src="/assets/upnext/splat-v1.js"></script>
+  <script>
+  // Card 3's player. Beats: [step, screen]. Step 3 holds two screens (today, then keeping a sentence);
+  // step 5 shows setup again, because what comes next is the loop going round. Click a step (or a
+  // station on the loop) to jump there; that stops the auto-play. Reduced motion: no auto-play.
+  (function () {
+    var BEATS = [[0, 0], [1, 1], [2, 2], [2, 3], [3, 4], [4, 0]], MS = 3800;
+    var steps = document.querySelectorAll('.steps li'), imgs = document.querySelectorAll('.phone img');
+    var still = matchMedia('(prefers-reduced-motion: reduce)').matches, i = 0, timer = null;
+    function show(b) {
+      i = b; var step = BEATS[b][0], img = BEATS[b][1];
+      steps.forEach(function (li, k) { li.classList.toggle('on', k === step); });
+      imgs.forEach(function (im, k) { im.classList.toggle('on', k === img); });
+    }
+    function play() { stop(); if (!still) timer = setInterval(function () { show((i + 1) % BEATS.length); }, MS); }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+    function jump(step) { stop(); for (var b = 0; b < BEATS.length; b++) if (BEATS[b][0] === step) { show(b); break; } }
+    document.querySelectorAll('.steps button').forEach(function (btn, k) { btn.addEventListener('click', function () { jump(k); }); });
+    document.querySelectorAll('.loop a[data-go]').forEach(function (a) {
+      a.addEventListener('click', function () { jump(+a.dataset.go - 1); });
+    });
+    // play only while the card is on screen, so it starts at 1 when someone arrives
+    var card = document.getElementById('how');
+    new IntersectionObserver(function (es) { es.forEach(function (e) {
+      if (e.isIntersecting && !timer) { show(0); play(); } else if (!e.isIntersecting) stop(); }); }, { threshold: 0.4 }).observe(card);
+    show(0);
+  })();
+  </script>
 </body>
 </html>
