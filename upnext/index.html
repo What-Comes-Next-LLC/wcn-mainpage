@@ -29,7 +29,8 @@
 <!-- /upnext/ (2026-10-15): the product outlook. Evolutions as a loop, a tool at each station, every
      tool labelled with its real status. It asks for nothing: no form, no email field. The one next
      step is the free 20-minute intro. Written so it doubles as the agenda for a paid session.
-     The Spark is shown as its 2.0 screens (Note to Self), with no download button for now.
+     The Spark is shown as its 2.0.1 screens (Note to Self), with no download button for now. Beat 6, Cookie
+     time, is a designed screen, not yet in the app: its step says Next. Source: assets/upnext/cookie-src.html.
      The Keeper is drawn, not screenshotted: its prototype reads a real vault.
      Zero third-party requests: Raleway and splat-v1.js are self-hosted. -->
 <style>
@@ -186,7 +187,7 @@
       <h2 id="loop-h">A project plan, for a person.</h2>
       <p class="lede">Every piece is a project-management construct, renamed. Pick a station.</p>
       <div class="loop-wrap">
-        <svg class="loop" viewBox="-70 0 540 400" role="img" aria-label="The Evolutions loop: 1 Transformation, 2 Evolution, 3 Every day, 4 Look Back, 5 What Comes Next, which leads back to the next Evolution.">
+        <svg class="loop" viewBox="-70 0 540 400" role="img" aria-label="The Evolutions loop: 1 Transformation, 2 Evolution, 3 Every day, 4 Look Back, 5 What Comes Next, which leads back to the next Evolution. A star between 5 and 1 marks the Cookie, the fixed date a Transformation ends.">
           <defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="rgba(244,244,244,0.55)"/></marker></defs>
           <circle cx="200" cy="200" r="138" fill="none" stroke="rgba(244,244,244,0.22)" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round"/>
           <path d="M 276 82 A 138 138 0 0 1 336 170" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
@@ -194,6 +195,7 @@
           <path d="M 152 330 A 138 138 0 0 1 76 262" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
           <path d="M 64 168 A 138 138 0 0 1 120 88" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
           <svg x="150" y="150" width="100" height="100" viewBox="-50 -50 100 100" overflow="visible" data-splat aria-hidden="true"></svg>
+          <a href="#step-5" data-go="5" aria-label="Cookie: the end of the Transformation"><polygon points="80,119 83.5,128.5 93.5,128.8 85.6,135 88.4,144.6 80,139 71.6,144.6 74.4,135 66.5,128.8 76.5,128.5" fill="#FFCD00" stroke="var(--teal)" stroke-width="2"/><text x="60" y="124" text-anchor="end" font-size="13" font-style="italic" opacity="0.8">Cookie</text></a>
           <a href="#step-1" data-go="1"><circle class="st" cx="200" cy="62" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="200" y="70" text-anchor="middle" font-size="22" font-weight="300">1</text><text x="200" y="22" text-anchor="middle" font-size="15">Transformation</text></a>
           <a href="#step-2" data-go="2"><circle class="st" cx="331" cy="157" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="331" y="165" text-anchor="middle" font-size="22" font-weight="300">2</text><text x="364" y="163" text-anchor="start" font-size="15">Evolution</text></a>
           <a href="#step-3" data-go="3"><circle class="st" cx="281" cy="312" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="281" y="320" text-anchor="middle" font-size="22" font-weight="300">3</text><text x="322" y="360" text-anchor="middle" font-size="15">Every day</text></a>
@@ -219,20 +221,21 @@
       <h2 id="how-h">The same loop, in your pocket.</h2>
       <div class="how">
         <ol class="steps" aria-label="The loop, step by step">
-          <li id="step-1"><button type="button" data-step="0"><span class="n">1</span><b>Transformation</b><span class="d">Name the goal and how long. Choose three things you will actually do, and which days.</span><span class="tool">Note to Self <span class="pill build">Being built</span> &middot; A Day In The Life <span class="pill live">Live</span></span></button></li>
+          <li id="step-1"><button type="button" data-step="0"><span class="n">1</span><b>Transformation</b><span class="d">Name the goal, and walk the Coach through your day. You get three habits that fit it, and why each one is yours.</span><span class="tool">Note to Self <span class="pill build">Being built</span> &middot; A Day In The Life <span class="pill live">Live</span></span></button></li>
           <li id="step-2"><button type="button" data-step="1"><span class="n">2</span><b>Evolution &middot; Game Plan</b><span class="d">Sunday: one focus for the week, and the days each habit can really happen.</span><span class="tool">Plan the week <span class="pill build">Being built</span></span></button></li>
           <li id="step-3"><button type="button" data-step="2"><span class="n">3</span><b>Every day</b><span class="d">Check it off, write a line. Long-press a true sentence to keep it as a Note to Self.</span><span class="tool">Today <span class="pill build">Being built</span> &middot; The Keeper, on your laptop <span class="pill build">Being built</span></span></button></li>
           <li id="step-4"><button type="button" data-step="4"><span class="n">4</span><b>Look Back</b><span class="d">Saturday: what you said next to what you did, and the sentences you kept. No grade.</span><span class="tool">Your week <span class="pill build">Being built</span> &middot; Look Back with the Coach <span class="pill live">Live</span></span></button></li>
-          <li id="step-5"><button type="button" data-step="5"><span class="n">5</span><b>What Comes Next?</b><span class="d">Keep what worked, change one thing, go again. That step makes it a loop instead of a list.</span><span class="tool">Note to Self, the whole loop for anyone <span class="pill soon">Next</span></span></button></li>
+          <li id="step-5"><button type="button" data-step="5"><span class="n">5</span><b>What Comes Next?</b><span class="d">Keep what worked, change one thing, go again. That step makes it a loop instead of a list. At the end of six weeks, the Cookie you planned.</span><span class="tool">Next week&rsquo;s three, from the Coach &middot; Cookie time <span class="pill soon">Next</span></span></button></li>
         </ol>
         <div class="stage">
           <figure>
             <div class="phone" aria-live="polite">
-              <img class="on" src="/assets/upnext/spark2-01-setup.jpg" width="540" height="960" alt="Note to Self, setup: goal Run my first 5K, six weeks, three habits and their days.">
-              <img src="/assets/upnext/spark2-02-plan-the-week.jpg" width="540" height="960" loading="lazy" alt="Plan the week: this week's focus is Run at lunch, not after work.">
-              <img src="/assets/upnext/spark2-03-today.jpg" width="540" height="960" loading="lazy" alt="Today: two of three habits checked, two entries, one sentence highlighted.">
-              <img src="/assets/upnext/spark2-04-note-to-self.jpg" width="540" height="960" loading="lazy" alt="Save as a Note to Self? Only this sentence. It waits for Saturday, word for word.">
-              <img src="/assets/upnext/spark2-05-look-back.jpg" width="540" height="960" loading="lazy" alt="Your week: Run 2 of 3, lights out 4 of 7, and one Note to Self: I skip runs when it's dark out.">
+              <img class="on" src="/assets/upnext/spark201-01-start.jpg" width="540" height="960" alt="Here's your start: why, run the whole thing. Three habits from the Coach, each with when and because you said: Run 20 minutes after work, Walk after dinner, Protein after the run.">
+              <img src="/assets/upnext/spark201-02-plan-the-week.jpg" width="540" height="960" loading="lazy" alt="Plan the week: this week's focus is Run at lunch, not after work, and the days for each habit.">
+              <img src="/assets/upnext/spark201-03-today.jpg" width="540" height="960" loading="lazy" alt="Today: two of three habits checked, two entries, one sentence highlighted.">
+              <img src="/assets/upnext/spark201-04-note-to-self.jpg" width="540" height="960" loading="lazy" alt="Save as a Note to Self? Only this sentence. It waits for Saturday, word for word.">
+              <img src="/assets/upnext/spark201-05-look-back.jpg" width="540" height="960" loading="lazy" alt="Your week: Run 2 of 3, walk after dinner 4 of 7, and one Note to Self: I skip runs when it's dark out.">
+              <img src="/assets/upnext/spark202-06-cookie.jpg" width="540" height="960" loading="lazy" alt="Cookie time, six weeks done: a yellow dragon bridge breathing fire at night. Your Cookie: a plane ticket to Da Nang.">
             </div>
             <figcaption>Note to Self, on your phone. Sample data.</figcaption>
           </figure>
@@ -268,10 +271,10 @@
   <script src="/assets/upnext/splat-v1.js"></script>
   <script>
   // Card 3's player. Beats: [step, screen]. Step 3 holds two screens (today, then keeping a sentence);
-  // step 5 shows setup again, because what comes next is the loop going round. Click a step (or a
+  // step 5 shows the Cookie at the end of six weeks, then the start again, because what comes next is the loop going round. Click a step (or a
   // station on the loop) to jump there; that stops the auto-play. Reduced motion: no auto-play.
   (function () {
-    var BEATS = [[0, 0], [1, 1], [2, 2], [2, 3], [3, 4], [4, 0]], MS = 3800;
+    var BEATS = [[0, 0], [1, 1], [2, 2], [2, 3], [3, 4], [4, 5], [4, 0]], MS = 3800;
     var steps = document.querySelectorAll('.steps li'), imgs = document.querySelectorAll('.phone img');
     var still = matchMedia('(prefers-reduced-motion: reduce)').matches, i = 0, timer = null;
     function show(b) {

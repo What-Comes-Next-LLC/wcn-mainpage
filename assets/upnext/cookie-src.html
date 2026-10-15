@@ -1,0 +1,64 @@
+<!doctype html>
+<!-- /upnext/ phone, beat 6: Cookie time, the end of six weeks. 1080x1920 (405x720 dp at 2.667, the same frame
+     as the Note to Self screens, which come from wcn-sparkmobile docs/store/2.0/src/build.py, Android set).
+     Not an app screenshot: the screen is designed, not built (wcn-sparkmobile 2.0.2 mocks, screen 12), so the
+     step carries a "Next" pill. Sample data continues the 5K week. Render with chrome-headless-shell:
+       chrome-headless-shell --headless --use-mock-keychain --hide-scrollbars --force-device-scale-factor=1 \
+         --window-size=1080,1920 --screenshot=cookie.png file://$PWD/assets/upnext/cookie-src.html
+     then downscale to 540x960 JPEG, dated or versioned filename (assets are cached immutable). -->
+<meta charset="utf-8">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:#0E1A2B}
+  .frame{width:405px;height:720px;transform:scale(2.6667);transform-origin:top left;background:#0E1A2B;color:#F4EFE6;
+    font-family:-apple-system,'SF Pro Text',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
+  .status{height:28px;padding:0 16px 4px;font-size:13px;font-weight:500;display:flex;justify-content:space-between;align-items:center}
+  .scroll{flex:1;display:flex;flex-direction:column;gap:12px;padding:0 24px}
+  .bridge{display:block;width:calc(100% + 48px);margin:0 -24px}
+  .eb{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#FFCD00}
+  h1{font-size:28px;font-weight:900;letter-spacing:-.6px;line-height:1.15;color:#fff}
+  .ld{font-size:14px;color:#C9C3BC;line-height:20px}
+  .card{background:rgba(255,255,255,.07);border:1px solid rgba(255,205,0,.35);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:3px}
+  .card .k{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#FFCD00}
+  .card .t{font-size:19px;font-weight:800;color:#fff}
+  .card .s{font-size:13px;color:#C9C3BC}
+  .wks{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;text-align:center}
+  .wks div{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:#C9C3BC;font-weight:700}
+  .wks i{width:30px;height:30px;border-radius:15px;background:#49A078;display:flex;align-items:center;justify-content:center;font-style:normal;color:#fff;font-size:11px;font-weight:900}
+  .wks div:last-child i{background:#FFCD00;color:#0E1A2B}
+  .foot{padding:8px 24px 6px;display:flex;flex-direction:column;gap:2px}
+  .btn{background:#DA251D;border-radius:999px;padding:15px;text-align:center;font-size:18px;font-weight:800;color:#fff}
+  .ghost{padding:10px;text-align:center;font-size:15px;font-weight:700;color:#FFCD00}
+  .homebar{height:24px;display:flex;justify-content:center;align-items:center}
+  .homebar i{display:block;width:108px;height:4px;border-radius:3px;background:#F4EFE6;opacity:.45}
+</style>
+<div class="frame">
+  <div class="status"><span>9:41</span><span style="display:flex;gap:5px;align-items:center">
+    <span style="display:flex;gap:2px;align-items:flex-end;height:11px"><i style="display:block;width:3px;height:4px;background:#F4EFE6;border-radius:1px"></i><i style="display:block;width:3px;height:6px;background:#F4EFE6;border-radius:1px"></i><i style="display:block;width:3px;height:8px;background:#F4EFE6;border-radius:1px"></i><i style="display:block;width:3px;height:11px;background:#F4EFE6;border-radius:1px"></i></span>
+    <span style="width:25px;height:12px;border:1.4px solid #F4EFE6;border-radius:3.5px;padding:1.4px;display:block"><i style="display:block;height:100%;width:72%;background:#F4EFE6;border-radius:1.5px"></i></span></span></div>
+  <div class="scroll">
+    <svg class="bridge" viewBox="0 0 320 150" aria-hidden="true">
+      <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E1A2B"/><stop offset="1" stop-color="#1B2D45"/></linearGradient>
+      <radialGradient id="fl" cx=".1" cy=".5" r=".9"><stop offset="0" stop-color="#FFF3B0"/><stop offset=".35" stop-color="#FFCD00"/><stop offset=".75" stop-color="#F26B1D"/><stop offset="1" stop-color="#DA251D" stop-opacity="0"/></radialGradient></defs>
+      <rect width="320" height="150" fill="url(#sky)"/>
+      <polygon points="262,18 265,26 274,26 267,31 270,40 262,34 254,40 257,31 250,26 259,26" fill="#FFCD00"/>
+      <rect y="112" width="320" height="38" fill="#0A1422"/>
+      <g opacity=".28" transform="translate(0,224) scale(1,-1)"><path d="M70 92 Q95 40 120 92 Q145 52 170 92 Q195 52 220 92 Q245 52 270 92 Q290 66 312 92" fill="none" stroke="#FFCD00" stroke-width="5"/></g>
+      <rect x="0" y="100" width="320" height="6" fill="#3A4A5E"/>
+      <g fill="#FFCD00"><rect x="94" y="92" width="3" height="10"/><rect x="144" y="92" width="3" height="10"/><rect x="194" y="92" width="3" height="10"/><rect x="244" y="92" width="3" height="10"/></g>
+      <path d="M70 92 Q95 40 120 92 Q145 52 170 92 Q195 52 220 92 Q245 52 270 92 Q290 66 312 92" fill="none" stroke="#FFCD00" stroke-width="6" stroke-linecap="round"/>
+      <path d="M70 92 Q64 80 72 74 L80 70 Q86 72 82 80 Z" fill="#FFCD00"/>
+      <path d="M72 74 L66 66 M76 72 L74 62" stroke="#FFCD00" stroke-width="2" stroke-linecap="round"/>
+      <path d="M64 80 Q30 62 6 74 Q26 80 8 92 Q34 92 62 86 Z" fill="url(#fl)"/>
+      <g fill="#FFCD00"><circle cx="20" cy="70" r="1.6"/><circle cx="34" cy="62" r="1.2"/><circle cx="12" cy="84" r="1.3"/></g>
+      <g fill="#F4EFE6" opacity=".55"><circle cx="30" cy="22" r="1"/><circle cx="120" cy="14" r=".8"/><circle cx="196" cy="30" r="1"/><circle cx="300" cy="50" r=".8"/></g>
+    </svg>
+    <div style="display:flex;flex-direction:column;gap:6px"><div class="eb">Sunday 22 Nov · Six weeks</div><h1>Cookie time.</h1>
+      <p class="ld">Run my first 5K. You planned your Cookie in week one, and the date held.</p></div>
+    <div class="card"><span class="k">Your Cookie</span><span class="t">A plane ticket to Da Nang</span><span class="s">Go get it.</span></div>
+    <div class="wks"><div><i>7</i>W1</div><div><i>8</i>W2</div><div><i>10</i>W3</div><div><i>11</i>W4</div><div><i>12</i>W5</div><div><i>12</i>W6</div></div>
+    <p class="ld" style="text-align:center;font-size:13px">60 of 78 planned · 6 Look Backs · 9 Notes to Self</p>
+  </div>
+  <div class="foot"><div class="btn">Look Back on all six weeks</div><div class="ghost">What comes next?</div></div>
+  <div class="homebar"><i></i></div>
+</div>
