@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Up Next — Evolutions, one app at a time · What Comes Next? LLC</title>
-<meta name="description" content="Twenty years of project management, pointed at one person. The Evolutions method as a loop, and the tools What Comes Next has built for each turn of it. Nothing to sign up for.">
+<meta name="description" content="Follow one runner from nine years of old fitness exports to a 10K on Thanksgiving: the Evolutions method, the tools for each step, and a coach that only reads what you hand it. Nothing to sign up for.">
 <link rel="canonical" href="https://whatcomesnextllc.ai/upnext/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Up Next: Evolutions, one app at a time">
-<meta property="og:description" content="The method as a loop, and the tools built for each turn of it. Nothing to sign up for. Click around.">
+<meta property="og:description" content="One runner, six weeks, a 10K on Thanksgiving. Old exports in, no login, and it's all a folder you keep. Nothing to sign up for.">
 <meta property="og:url" content="https://whatcomesnextllc.ai/upnext/">
 <meta property="og:site_name" content="What Comes Next? LLC">
 <meta property="og:locale" content="en_US">
@@ -26,12 +26,12 @@
 <link rel="icon" href="/assets/favicon-16x16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/raleway-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<!-- /upnext/ (2026-10-15): the product outlook. Evolutions as a loop, a tool at each station, every
-     tool labelled with its real status. It asks for nothing: no form, no email field. The one next
-     step is the free 20-minute intro. Written so it doubles as the agenda for a paid session.
-     The Spark is shown as its 2.0.1 screens (Note to Self), with no download button for now. Beat 6, Cookie
-     time, is a designed screen, not yet in the app: its step says Next. Source: assets/upnext/cookie-src.html.
-     The Keeper is drawn, not screenshotted: its prototype reads a real vault.
+<!-- /upnext/ (2026-10-15; middle rewritten 2026-10-16): the product outlook. It opens with the landing card
+     and closes with the free 20-minute intro; between them, a demonstration: Dana (made up, sample data
+     throughout) brings years of fitness exports and a six-week goal, a 10K on Thanksgiving, through the
+     whole method, scene by scene, with Splat narrating. It shows the method; it is not the build. Every
+     tool still carries its real status. It asks for nothing: no form, no email field.
+     The Spark screens are 2.0.1 (sample data), with no download button for now.
      Zero third-party requests: Raleway and splat-v1.js are self-hosted. -->
 <style>
   @font-face { font-family: 'Raleway'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('/assets/fonts/raleway-latin-var.woff2') format('woff2'); }
@@ -43,6 +43,7 @@
     --muted: rgba(244,244,244,0.82); --muted-dim: rgba(244,244,244,0.6); --hairline: rgba(244,244,244,0.16);
     --amber: #f4a261; --coral: #e76f51; --gold: #EAAA00; --sage: #49a078; --ink: #0e1614;
     --pad: clamp(1.75rem, 5vw, 4.5rem);
+    --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   }
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body { background: var(--teal); color: var(--fg); font-family: 'Raleway', 'Raleway Fallback', system-ui, -apple-system, sans-serif;
@@ -64,66 +65,198 @@
           letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); vertical-align: 0.15em; }
   .pill.live { background: var(--sage); } .pill.use { background: var(--amber); } .pill.build { background: var(--gold); }
   .pill.soon { background: transparent; color: var(--fg); }
-  .tools span.pill { display: inline-block; margin: 0 0 0 0.4rem; font-size: 0.6rem; }
 
   /* hero */
   .hero { display: grid; grid-template-columns: 1fr auto; gap: clamp(1.5rem, 5vw, 4rem); align-items: center; }
   .hero svg[data-splat] { width: clamp(8rem, 22vw, 15rem); height: auto; overflow: visible; filter: drop-shadow(0 0.8rem 1.6rem rgba(14,22,20,0.35)); }
   .legend { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; margin-top: 2rem; font-size: 0.85rem; color: var(--muted); }
 
-  /* the loop */
-  .loop-wrap { display: grid; grid-template-columns: minmax(0, 30rem) 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; margin-top: 2rem; }
-  .loop { width: 100%; height: auto; overflow: visible; }
-  .loop text { font-family: 'Raleway', sans-serif; fill: var(--fg); }
-  .loop a:hover circle.st, .loop a:focus circle.st { fill: var(--fg); }
-  .loop a:hover text.n, .loop a:focus text.n { fill: var(--teal); }
-  .pm { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-  .pm th { text-align: left; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding: 0 0 0.6rem; }
-  .pm td { padding: 0.7rem 0; border-top: 1px solid var(--hairline); vertical-align: top; }
-  .pm td:first-child { font-weight: 500; padding-right: 1.2rem; white-space: nowrap; }
-  .pm td:last-child { color: var(--muted); }
+  /* Dana's six weeks (2026-10-16): a demonstration, scene by scene, Splat narrating. Sample data throughout. */
+  .intro h2 { margin-top: 0.8rem; font-size: clamp(2rem, 5.5vw, 3.6rem); }
+  .dana { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 4rem); margin-top: 2rem; }
+  .who { display: grid; gap: 1.1rem; }
+  .who dt { font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .who dd { font-size: clamp(1.05rem, 1.8vw, 1.25rem); margin-top: 0.2rem; }
+  .doubts { list-style: none; display: grid; gap: 0.7rem; }
+  .doubts li { border: 1px solid var(--hairline); padding: 0.9rem 1.1rem; background: rgba(14,22,20,0.14); display: grid; gap: 0.25rem; }
+  .doubts b { font-weight: 500; }
+  .doubts span { color: var(--muted); font-size: 0.95rem; }
 
-  /* cards: one idea per screen, settling gently on scroll (proximity, never mandatory) */
-  html { scroll-snap-type: y proximity; }
-  .card { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start;
-          padding-block: clamp(3rem, 8vh, 5rem); }
-  section.card + section.card { margin-top: 0; }
+  /* Splat, narrating: a small live Splat and his line */
+  .say { display: flex; align-items: center; gap: 1rem; margin-top: 1.8rem; max-width: 40rem; }
+  .say svg { flex: none; width: 4.2rem; height: 4.2rem; overflow: visible; filter: drop-shadow(0 0.4rem 0.8rem rgba(14,22,20,0.35)); }
+  .say p { position: relative; background: var(--fg); color: var(--ink); padding: 0.75rem 1.05rem; border-radius: 1rem; font-weight: 500; font-size: 1rem; line-height: 1.45; }
+  .say p::before { content: ""; position: absolute; left: -0.45rem; top: 50%; width: 0.9rem; height: 0.9rem; background: var(--fg); transform: translateY(-50%) rotate(45deg); border-radius: 0.15rem; }
+  .say p b { display: block; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--coral); font-weight: 700; margin-bottom: 0.1rem; }
 
-  /* card 3: the phone plays the loop; the steps light up beside it */
-  .how { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(2rem, 6vw, 5rem); align-items: center; margin-top: 1.6rem; }
-  .steps { list-style: none; display: grid; gap: 0.35rem; }
-  .steps li { scroll-margin-top: 30vh; }
-  .steps button { all: unset; box-sizing: border-box; display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.2rem 0.8rem; width: 100%;
-                  padding: 0.75rem 0.9rem; border: 1px solid transparent; cursor: pointer; opacity: 0.55; transition: opacity 300ms, border-color 300ms; }
-  .steps button:hover, .steps button:focus-visible { opacity: 0.85; }
-  .steps li.on button { opacity: 1; border-color: var(--hairline); background: rgba(14,22,20,0.12); }
-  .steps .n { grid-row: span 3; font-weight: 200; font-size: 2rem; line-height: 1; color: var(--amber); }
-  .steps b { font-weight: 500; font-size: 1.05rem; }
-  .steps .d { font-size: 0.93rem; color: var(--muted); }
-  .steps .tool { font-size: 0.82rem; color: var(--muted); margin-top: 0.15rem; }
-  .stage { display: grid; grid-template-columns: auto auto; gap: clamp(1.2rem, 3vw, 2.2rem); align-items: end; }
-  .phone { position: relative; margin: 0; width: min(15rem, 44vw); aspect-ratio: 540 / 960; border-radius: 1.7rem; overflow: hidden; background: #000;
-           padding: 0.45rem; box-shadow: 0 0 0 1px rgba(244,244,244,0.12), 0 1.4rem 2.8rem rgba(14,22,20,0.45); }
-  .phone img { position: absolute; inset: 0.45rem; width: calc(100% - 0.9rem); height: calc(100% - 0.9rem); border-radius: 1.25rem;
-               object-fit: cover; opacity: 0; transition: opacity 600ms ease; }
-  .phone img.on { opacity: 1; }
-  .stage figcaption { text-align: center; color: var(--muted-dim); font-size: 0.76rem; margin-top: 0.8rem; }
-  .laptop { width: min(13rem, 40vw); }
-  .laptop .k { font-size: 0.8rem; color: var(--muted); margin-top: 0.9rem; line-height: 1.45; }
-  .laptop .k b { color: var(--fg); font-weight: 500; }
+  /* the story: a rail of dates beside the scenes */
+  .story { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); margin-top: clamp(3rem, 8vh, 5rem); }
+  .rail ol { position: sticky; top: 22vh; list-style: none; display: grid; gap: 0.15rem; border-left: 1px solid var(--hairline); }
+  .rail a { display: block; padding: 0.4rem 0 0.4rem 0.9rem; margin-left: -1px; border-left: 2px solid transparent; text-decoration: none; font-size: 0.86rem; opacity: 0.5; transition: opacity 250ms, border-color 250ms; }
+  .rail a span { display: block; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .rail a:hover, .rail a:focus-visible { opacity: 0.85; }
+  .rail a.on { opacity: 1; border-left-color: var(--coral); }
+  .scenes { display: grid; gap: clamp(5rem, 16vh, 9rem); }
+  .scene { scroll-margin-top: 12vh; min-width: 0; }
+  .scene h3 { font-weight: 200; font-size: clamp(1.7rem, 4vw, 2.6rem); line-height: 1.1; letter-spacing: -0.015em; margin-top: 0.7rem; text-wrap: balance; }
+  .scene > p { color: var(--muted); max-width: 40rem; margin-top: 0.9rem; font-size: 1.05rem; }
+  .scene em { font-style: normal; color: var(--fg); font-weight: 500; }
+  .scene code { font-family: var(--mono); font-size: 0.8em; background: rgba(14,22,20,0.28); padding: 0.05em 0.35em; border-radius: 0.2rem; overflow-wrap: anywhere; }
+  .tools { margin-top: 1.1rem; font-size: 0.85rem; color: var(--muted); }
+  .tools small { display: block; margin-top: 0.3rem; font-size: 0.82rem; color: var(--muted-dim); }
+  .tools .pill { margin-left: 0.3rem; font-size: 0.58rem; }
 
-  /* the Keeper, drawn: a binder of folders, one per Transformation */
-  .binder { position: relative; width: 100%; aspect-ratio: 4 / 3.3; }
-  .binder .folder { position: absolute; left: 0; right: 0; height: 72%; border-radius: 0.3rem; border: 1px solid rgba(14,22,20,0.25); }
-  .binder .folder i { position: absolute; top: -1.25rem; height: 1.3rem; width: 40%; border-radius: 0.35rem 0.35rem 0 0; font-style: normal;
-                      font-size: 0.6rem; font-weight: 600; color: var(--ink); padding: 0.25rem 0.5rem; white-space: nowrap; overflow: hidden; }
-  .binder .f1 { top: 9%; background: #d8c3a5; } .binder .f1 i { left: 3%; background: #d8c3a5; }
-  .binder .f2 { top: 19%; background: #e6d5b8; } .binder .f2 i { left: 31%; background: #e6d5b8; }
-  .binder .f3 { top: 29%; background: #f3e9d6; padding: 0.8rem 0.9rem; color: var(--ink); } .binder .f3 i { left: 59%; background: #f3e9d6; }
-  .binder .f3 b { display: block; font-weight: 600; font-size: 0.8rem; }
-  .binder .f3 span { display: block; font-size: 0.68rem; margin-top: 0.25rem; color: #3c4a47; }
-  .binder .f3 u { display: block; text-decoration: none; margin-top: 0.5rem; height: 0.35rem; border-radius: 0.2rem; background: rgba(33,104,105,0.25); }
-  .binder .f3 u + u { width: 72%; } .binder .f3 u + u + u { width: 54%; }
+  .panel { margin-top: 1.6rem; border: 1px solid var(--hairline); background: rgba(14,22,20,0.18); padding: clamp(1rem, 3vw, 1.8rem); }
+  .panel.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1rem, 3vw, 2rem); align-items: start; }
+  .scene .eyebrow, .panel .eyebrow { color: var(--muted); }
+
+  /* 1: exports */
+  .drop { border: 2px dashed rgba(244,244,244,0.35); padding: 1rem; display: grid; gap: 0.6rem; }
+  .file { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0.8rem; align-items: center; background: rgba(244,244,244,0.07); padding: 0.6rem 0.7rem; }
+  .file i { font-style: normal; font-family: var(--mono); font-size: 0.62rem; font-weight: 600; text-align: center; padding: 0.55rem 0; background: var(--amber); color: var(--ink); border-radius: 0.2rem; }
+  .file span { font-family: var(--mono); font-size: 0.82rem; overflow-wrap: anywhere; }
+  .file small { display: block; font-family: 'Raleway', sans-serif; font-size: 0.74rem; color: var(--muted); margin-top: 0.1rem; }
+  .nologin { position: relative; display: grid; place-items: center; min-height: 11rem; }
+  .fake { width: min(100%, 15rem); background: rgba(244,244,244,0.92); color: var(--ink); padding: 1.1rem; border-radius: 0.5rem; display: grid; gap: 0.55rem; opacity: 0.55; }
+  .fake b { font-weight: 600; font-size: 0.9rem; }
+  .fake u { display: block; height: 1.7rem; border: 1px solid #b9c4c2; border-radius: 0.3rem; text-decoration: none; background: #fff; }
+  .fake em { font-style: normal; text-align: center; font-size: 0.78rem; font-weight: 600; background: #3c4a47; color: #fff; padding: 0.45rem; border-radius: 0.3rem; }
+  .nologin .x { position: absolute; inset: 8% 14%; width: 72%; height: 84%; }
+  .nologin .x path { fill: none; stroke: var(--coral); stroke-width: 5; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 400; stroke-dashoffset: 0; }
+  .scene.on .nologin .x path { animation: strike 900ms 300ms ease both; }
+  @keyframes strike { from { stroke-dashoffset: 400; } to { stroke-dashoffset: 0; } }
+
+  /* 2: the clean room */
+  .ledger { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .ledger ul { list-style: none; margin-top: 0.6rem; display: grid; gap: 0.4rem; }
+  .ledger li::before { content: "+ "; color: var(--sage); font-weight: 600; }
+  .ledger .out li { color: var(--muted-dim); text-decoration: line-through; text-decoration-color: var(--coral); text-decoration-thickness: 2px; }
+  .ledger .out li::before { content: "\2212  "; color: var(--coral); }
+  .tally { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; margin-top: 1.6rem; padding-top: 1.2rem; border-top: 1px solid var(--hairline); }
+  .tally b { display: block; font-weight: 200; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; font-variant-numeric: tabular-nums; }
+  .tally span { font-size: 0.8rem; color: var(--muted); }
+
+  /* 3: the brag wall, as stickers */
+  .stickers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; background: rgba(244,244,244,0.06); }
+  .st { aspect-ratio: 1; border-radius: 50%; display: grid; place-content: center; text-align: center; gap: 0.3rem; padding: 0.6rem;
+        background: var(--fg); color: var(--ink); box-shadow: 0 0.35rem 0 rgba(14,22,20,0.35); transform: rotate(var(--r, -4deg)); max-width: 11rem; justify-self: center; width: 100%; }
+  .st:nth-child(2) { --r: 5deg; background: var(--amber); } .st:nth-child(3) { --r: -2deg; background: var(--gold); }
+  .st:nth-child(4) { --r: 3deg; } .st:nth-child(5) { --r: -6deg; background: var(--sage); } .st:nth-child(6) { --r: 4deg; background: #f3e9d6; }
+  .st.big { background: var(--coral); color: var(--fg); --r: -5deg; }
+  .st b { font-weight: 800; font-size: clamp(1.15rem, 3vw, 1.7rem); line-height: 1; }
+  .st span { font-size: clamp(0.62rem, 1.4vw, 0.74rem); font-weight: 600; line-height: 1.25; }
+  .scene.on .st { animation: stick 500ms cubic-bezier(.3,1.6,.5,1) both; }
+  .scene.on .st:nth-child(2) { animation-delay: 90ms; } .scene.on .st:nth-child(3) { animation-delay: 180ms; } .scene.on .st:nth-child(4) { animation-delay: 270ms; }
+  .scene.on .st:nth-child(5) { animation-delay: 360ms; } .scene.on .st:nth-child(6) { animation-delay: 450ms; }
+  @keyframes stick { from { transform: rotate(var(--r, -4deg)) scale(0.6); } to { transform: rotate(var(--r, -4deg)) scale(1); } }
+
+  /* 4: the Game Plan, with receipts */
+  .doc { background: rgba(244,244,244,0.94); color: var(--ink); }
+  .doc-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.3rem 1rem; font-family: var(--mono); font-size: 0.74rem; color: #5d6b6c;
+              padding-bottom: 0.7rem; border-bottom: 1px solid #cfd8d6; }
+  .habits { list-style: none; counter-reset: h; display: grid; gap: 1rem; margin-top: 1rem; }
+  .habits li { counter-increment: h; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.15rem 0.7rem; }
+  .habits li::before { content: counter(h); grid-row: span 2; font-weight: 200; font-size: 1.8rem; line-height: 1; color: var(--teal); }
+  .habits b { font-weight: 600; font-size: 1.05rem; }
+  .rcpt { font-size: 0.85rem; color: #3c4a47; border-left: 3px solid var(--coral); padding-left: 0.6rem; }
+  .doc code { background: #e3eae9; color: var(--ink); }
+
+  /* 5: sync, no cloud */
+  .sync { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1rem; }
+  .dev { display: grid; justify-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--muted); }
+  .lap { width: clamp(7rem, 16vw, 10rem); aspect-ratio: 16 / 10; border: 2px solid var(--fg); border-radius: 0.4rem 0.4rem 0 0; display: grid; place-items: center; position: relative; }
+  .lap::after { content: ""; position: absolute; left: -12%; right: -12%; bottom: -0.55rem; height: 0.45rem; background: var(--fg); border-radius: 0 0 0.4rem 0.4rem; }
+  .ph { width: clamp(3.6rem, 8vw, 4.8rem); aspect-ratio: 9 / 18; border: 2px solid var(--fg); border-radius: 0.7rem; display: grid; place-items: center; }
+  .fold { background: #e6d5b8; color: var(--ink); font-size: 0.56rem; font-weight: 700; padding: 0.5rem 0.4rem 0.35rem; border-radius: 0 0.2rem 0.2rem 0.2rem; position: relative; white-space: nowrap; }
+  .fold::before { content: ""; position: absolute; left: 0; top: -0.35rem; width: 45%; height: 0.4rem; background: #e6d5b8; border-radius: 0.2rem 0.2rem 0 0; }
+  .wire { position: relative; height: 4.5rem; display: grid; place-items: center; }
+  .wire::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 2px dashed rgba(244,244,244,0.45); }
+  .wire i { position: absolute; top: calc(50% - 0.3rem); left: 0; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--coral); animation: hop 2.4s linear infinite; }
+  .wire i:nth-child(2) { animation-delay: -0.8s; background: var(--gold); animation-direction: reverse; } .wire i:nth-child(3) { animation-delay: -1.6s; }
+  @keyframes hop { from { left: 0; } to { left: calc(100% - 0.6rem); } }
+  .cloud { position: relative; width: 3.4rem; }
+  .cloud path:first-child { fill: rgba(14,22,20,0.5); }
+  .cloud path { fill: none; stroke: var(--muted-dim); stroke-width: 2.5; }
+  .cloud .slash { stroke: var(--coral); stroke-width: 4; stroke-linecap: round; }
+
+  /* 6: phones */
+  .phones { display: flex; justify-content: center; gap: clamp(1rem, 4vw, 2.5rem); flex-wrap: wrap; }
+  .phone { margin: 0; width: min(13rem, 42%); aspect-ratio: 540 / 960; border-radius: 1.5rem; overflow: hidden; background: #000; padding: 0.4rem;
+           box-shadow: 0 0 0 1px rgba(244,244,244,0.12), 0 1.2rem 2.4rem rgba(14,22,20,0.45); }
+  .phone img { width: 100%; height: 100%; border-radius: 1.1rem; object-fit: cover; display: block; }
+  .phone + .phone { transform: translateY(1.5rem); }
+
+  /* 7: Look Back */
+  .journal { display: grid; gap: 0.8rem; font-size: 0.95rem; }
+  .journal p { line-height: 1.55; }
+  .blur { filter: blur(4px); opacity: 0.75; user-select: none; }
+  .journal mark { background: var(--fg); color: var(--ink); padding: 0.1em 0.3em; font-weight: 600; box-shadow: 0 0 0 3px var(--coral); }
+  .week { display: grid; gap: 0.85rem; }
+  .bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.3rem 1rem; font-size: 0.9rem; }
+  .bar b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bar i { grid-column: 1 / -1; height: 0.45rem; background: rgba(244,244,244,0.14); position: relative; }
+  .bar i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--k) * 100%); background: var(--sage); }
+  .coach { margin-top: 0.4rem; border-left: 3px solid var(--coral); padding: 0.2rem 0 0.2rem 0.9rem; }
+  .coach p { margin-top: 0.3rem; font-size: 0.95rem; }
+
+  /* 8: six weeks */
+  .six { display: grid; gap: 1.6rem; }
+  .climb { width: 100%; height: auto; display: block; }
+  .climb text { font-family: 'Raleway', sans-serif; font-size: 13px; fill: var(--muted); }
+  .climb .grid line { stroke: rgba(244,244,244,0.12); stroke-width: 1; }
+  .climb .bars rect { fill: var(--sage); }
+  .climb .bars rect.race { fill: var(--coral); }
+  .climb .val text { fill: var(--fg); font-weight: 600; font-size: 14px; }
+  .climb .best { stroke: var(--gold); stroke-width: 2; stroke-dasharray: 6 6; }
+  .climb .bestl { fill: var(--gold); font-size: 12px; font-weight: 600; }
+  .scene.on .climb .bars rect { animation: rise 700ms ease both; transform-box: fill-box; transform-origin: 50% 100%; }
+  .scene.on .climb .bars rect:nth-child(2) { animation-delay: 80ms; } .scene.on .climb .bars rect:nth-child(3) { animation-delay: 160ms; }
+  .scene.on .climb .bars rect:nth-child(4) { animation-delay: 240ms; } .scene.on .climb .bars rect:nth-child(5) { animation-delay: 320ms; }
+  .scene.on .climb .bars rect:nth-child(6) { animation-delay: 420ms; }
+  @keyframes rise { from { transform: scaleY(0.15); } to { transform: scaleY(1); } }
+  .heat-wrap { overflow-x: auto; }
+  .heat { border-collapse: separate; border-spacing: 4px; font-size: 0.8rem; width: 100%; }
+  .heat th { font-weight: 500; color: var(--muted); text-align: left; padding-right: 0.6rem; white-space: nowrap; }
+  .heat thead th { text-align: center; font-size: 0.66rem; letter-spacing: 0.14em; }
+  .heat td { text-align: center; padding: 0.45rem 0.2rem; font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600;
+             background: rgba(73,160,120,0.55); background: color-mix(in srgb, var(--sage) calc(var(--k) * 100%), rgba(244,244,244,0.12)); }
+
+  /* 9: Cookie */
+  .cookie { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; align-items: center; }
+  .bib { background: var(--fg); color: var(--ink); padding: 1.4rem; border-radius: 0.4rem; display: grid; gap: 0.3rem; box-shadow: 0 0 0 6px #FFCD00; transform: rotate(-2deg); }
+  .bib .eyebrow { color: var(--teal); font-weight: 600; }
+  .bib b { font-weight: 800; font-size: clamp(2.6rem, 7vw, 4rem); line-height: 1; font-variant-numeric: tabular-nums; }
+  .bib span:last-child { font-size: 0.85rem; }
+  .report { list-style: none; display: grid; gap: 0.6rem; }
+  .report li { border-top: 1px solid var(--hairline); padding-top: 0.6rem; color: var(--muted); }
+  .report b { font-weight: 300; font-size: 1.6rem; color: var(--fg); margin-right: 0.4rem; }
+
+  /* 10: the folder */
+  .files pre { font-family: var(--mono); font-size: 0.78rem; line-height: 1.7; overflow-x: auto; white-space: pre; margin: 0; }
+  .tree b { font-weight: 600; color: #e6d5b8; } .tree i { font-style: normal; color: var(--muted-dim); }
+  .tree .hl { background: var(--fg); color: var(--ink); padding: 0 0.3em; }
+  .editor { background: #0e1614; border: 1px solid var(--hairline); min-width: 0; }
+  .editor .doc-head { color: var(--muted-dim); border-color: var(--hairline); padding: 0.6rem 0.9rem; }
+  .editor pre { padding: 0.9rem; color: #d7e0de; }
+  .editor mark { background: rgba(231,111,81,0.3); color: #fff; }
+
+  @media (max-width: 56rem) {
+    .dana, .panel.two, .cookie { grid-template-columns: 1fr; }
+    .story { grid-template-columns: 1fr; }
+    .rail { display: none; }
+    .stickers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 34rem) {
+    .ledger { grid-template-columns: 1fr; }
+    .sync { gap: 0.6rem; padding-inline: 0.8rem; }
+    .lap { width: 6rem; } .ph { width: 3.2rem; }
+    .say svg { width: 3.4rem; height: 3.4rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wire i { animation: none; }
+    .wire i:nth-child(1) { left: 20%; } .wire i:nth-child(2) { left: 48%; } .wire i:nth-child(3) { left: 76%; }
+    .scene.on .st, .scene.on .climb .bars rect, .scene.on .nologin .x path { animation: none; }
+  }
 
   /* card 4: one line of proof, then the one next step */
   .proof { font-size: clamp(1.05rem, 2vw, 1.25rem); color: var(--muted); max-width: 44rem; }
@@ -143,12 +276,8 @@
   @media (max-width: 56rem) {
     .hero { grid-template-columns: 1fr; min-height: 0; }
     .hero svg[data-splat] { width: 7rem; order: -1; }
-    .loop-wrap, .how { grid-template-columns: 1fr; }
-    .stage { order: -1; justify-content: center; }
     .card { min-height: 0; }
-    .loop { max-width: 26rem; margin: 0 auto; }
     .next { grid-template-columns: 1fr; }
-    .laptop { width: min(10rem, 36vw); }
   }
   @media (max-width: 34rem) { .nav { left: 0; justify-content: center; gap: 1rem; } .nav a { letter-spacing: 0.12em; } }
 </style>
@@ -171,7 +300,7 @@
       <div>
         <span class="eyebrow">What Comes Next? LLC &middot; Up next</span>
         <h1 id="title">Evolutions, one app at a time.</h1>
-        <p class="lede">Twenty years of project management, pointed at one person. Here is the method as a loop, and the tools we have built for each turn of it. Nothing to sign up for. Click around.</p>
+        <p class="lede">Twenty years of project management, pointed at one person. Below, one runner takes it from old exports to a 10K in six weeks, and Splat shows you every step. Nothing to sign up for.</p>
         <div class="legend" aria-label="What the labels mean">
           <span><span class="pill live">Live</span> anyone can use it</span>
           <span><span class="pill use">In use</span> we run it daily</span>
@@ -182,74 +311,254 @@
       <svg data-splat viewBox="-50 -50 100 100" role="img" aria-label="Splat, the face of Note to Self"></svg>
     </div></section>
 
-    <section class="card" aria-labelledby="loop-h">
-      <span class="eyebrow">The method</span>
-      <h2 id="loop-h">A project plan, for a person.</h2>
-      <p class="lede">Every piece is a project-management construct, renamed. Pick a station.</p>
-      <div class="loop-wrap">
-        <svg class="loop" viewBox="-70 0 540 400" role="img" aria-label="The Evolutions loop: 1 Transformation, 2 Evolution, 3 Every day, 4 Look Back, 5 What Comes Next, which leads back to the next Evolution. A star between 5 and 1 marks the Cookie, the fixed date a Transformation ends.">
-          <defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="rgba(244,244,244,0.55)"/></marker></defs>
-          <circle cx="200" cy="200" r="138" fill="none" stroke="rgba(244,244,244,0.22)" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round"/>
-          <path d="M 276 82 A 138 138 0 0 1 336 170" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
-          <path d="M 330 248 A 138 138 0 0 1 262 323" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
-          <path d="M 152 330 A 138 138 0 0 1 76 262" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
-          <path d="M 64 168 A 138 138 0 0 1 120 88" fill="none" stroke="rgba(244,244,244,0.55)" stroke-width="2" marker-end="url(#ah)"/>
-          <svg x="150" y="150" width="100" height="100" viewBox="-50 -50 100 100" overflow="visible" data-splat aria-hidden="true"></svg>
-          <a href="#step-5" data-go="5" aria-label="Cookie: the end of the Transformation"><polygon points="80,119 83.5,128.5 93.5,128.8 85.6,135 88.4,144.6 80,139 71.6,144.6 74.4,135 66.5,128.8 76.5,128.5" fill="#FFCD00" stroke="var(--teal)" stroke-width="2"/><text x="60" y="124" text-anchor="end" font-size="13" font-style="italic" opacity="0.8">Cookie</text></a>
-          <a href="#step-1" data-go="1"><circle class="st" cx="200" cy="62" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="200" y="70" text-anchor="middle" font-size="22" font-weight="300">1</text><text x="200" y="22" text-anchor="middle" font-size="15">Transformation</text></a>
-          <a href="#step-2" data-go="2"><circle class="st" cx="331" cy="157" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="331" y="165" text-anchor="middle" font-size="22" font-weight="300">2</text><text x="364" y="163" text-anchor="start" font-size="15">Evolution</text></a>
-          <a href="#step-3" data-go="3"><circle class="st" cx="281" cy="312" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="281" y="320" text-anchor="middle" font-size="22" font-weight="300">3</text><text x="322" y="360" text-anchor="middle" font-size="15">Every day</text></a>
-          <a href="#step-4" data-go="4"><circle class="st" cx="119" cy="312" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="119" y="320" text-anchor="middle" font-size="22" font-weight="300">4</text><text x="78" y="360" text-anchor="middle" font-size="15">Look Back</text></a>
-          <a href="#step-5" data-go="5"><circle class="st" cx="69" cy="157" r="24" fill="var(--teal)" stroke="var(--fg)" stroke-width="2"/><text class="n" x="69" y="165" text-anchor="middle" font-size="22" font-weight="300">5</text><text x="36" y="163" text-anchor="end" font-size="15">What Comes Next?</text></a>
-        </svg>
-        <table class="pm">
-          <thead><tr><th>Evolutions</th><th>Project management</th></tr></thead>
-          <tbody>
-            <tr><td>Transformation</td><td>Program-level objective</td></tr>
-            <tr><td>Evolution</td><td>A fixed-length sprint</td></tr>
-            <tr><td>Game Plan</td><td>Sprint planning, and scope negotiated against capacity</td></tr>
-            <tr><td>Look Back</td><td>Retrospective</td></tr>
-            <tr><td>Cookie</td><td>A milestone that doesn&rsquo;t move, and what you give yourself for reaching it</td></tr>
-            <tr><td>Coach&rsquo;s Note</td><td>Stakeholder communication</td></tr>
-          </tbody>
-        </table>
+    <section class="card intro" id="dana" aria-labelledby="dana-h">
+      <span class="eyebrow">A demonstration &middot; sample data, a made-up runner</span>
+      <h2 id="dana-h">Meet Dana. Six weeks to a 10K.</h2>
+      <div class="dana">
+        <dl class="who">
+          <div><dt>The goal</dt><dd>Run a 10K on Thanksgiving morning, Thursday, November&nbsp;26.</dd></div>
+          <div><dt>Has</dt><dd>Nine years of fitness exports nobody ever looked at: a Fitbit, Runkeeper, now a Garmin.</dd></div>
+          <div><dt>Doesn&rsquo;t have</dt><dd>Patience for another app that wants an account.</dd></div>
+        </dl>
+        <ul class="doubts" aria-label="Three fair questions, answered first">
+          <li><b>&ldquo;What&rsquo;s Obsidian?&rdquo;</b><span>You don&rsquo;t need it. Everything here is a folder of notes on your laptop.</span></li>
+          <li><b>&ldquo;Doesn&rsquo;t AI make things up?&rdquo;</b><span>So the Coach shows a receipt for everything it says, from your own files.</span></li>
+          <li><b>&ldquo;Who sees my data?&rdquo;</b><span>Nobody, unless you show them. It runs without WiFi, and there&rsquo;s no account.</span></li>
+        </ul>
       </div>
+      <div class="say"><svg class="nar" data-mood="wave" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+        <p><b>Splat</b>Hi. I&rsquo;m Splat, the face of Note to Self. I&rsquo;ll walk you through Dana&rsquo;s six weeks. Scroll.</p></div>
     </section>
 
-    <section class="card" id="how" aria-labelledby="how-h">
-      <span class="eyebrow">The tools</span>
-      <h2 id="how-h">The same loop, in your pocket.</h2>
-      <div class="how">
-        <ol class="steps" aria-label="The loop, step by step">
-          <li id="step-1"><button type="button" data-step="0"><span class="n">1</span><b>Transformation</b><span class="d">Name the goal, and walk the Coach through your day. You get three habits that fit it, and why each one is yours.</span><span class="tool">Note to Self <span class="pill build">Being built</span> &middot; A Day In The Life <span class="pill live">Live</span></span></button></li>
-          <li id="step-2"><button type="button" data-step="1"><span class="n">2</span><b>Evolution &middot; Game Plan</b><span class="d">Sunday: one focus for the week, and the days each habit can really happen.</span><span class="tool">Plan the week <span class="pill build">Being built</span></span></button></li>
-          <li id="step-3"><button type="button" data-step="2"><span class="n">3</span><b>Every day</b><span class="d">Check it off, write a line. Long-press a true sentence to keep it as a Note to Self.</span><span class="tool">Today <span class="pill build">Being built</span> &middot; The Keeper, on your laptop <span class="pill build">Being built</span></span></button></li>
-          <li id="step-4"><button type="button" data-step="4"><span class="n">4</span><b>Look Back</b><span class="d">Saturday: what you said next to what you did, and the sentences you kept. No grade.</span><span class="tool">Your week <span class="pill build">Being built</span> &middot; Look Back with the Coach <span class="pill live">Live</span></span></button></li>
-          <li id="step-5"><button type="button" data-step="5"><span class="n">5</span><b>What Comes Next?</b><span class="d">Keep what worked, change one thing, go again. That step makes it a loop instead of a list. At the end of six weeks, the Cookie you planned.</span><span class="tool">Next week&rsquo;s three, from the Coach &middot; Cookie time <span class="pill soon">Next</span></span></button></li>
+    <div class="story">
+      <nav class="rail" aria-label="Dana's six weeks">
+        <ol>
+          <li><a href="#s-exports"><span>Sat Oct 17</span>Exports in</a></li>
+          <li><a href="#s-clean"><span>Sat Oct 17</span>The clean room</a></li>
+          <li><a href="#s-brag"><span>Sat Oct 17</span>The brag wall</a></li>
+          <li><a href="#s-plan"><span>Sun Oct 18</span>Pivot Session</a></li>
+          <li><a href="#s-sync"><span>Sun Oct 18</span>To the phone</a></li>
+          <li><a href="#s-day"><span>Every day</span>Progress</a></li>
+          <li><a href="#s-look"><span>Sat Oct 24</span>Look Back</a></li>
+          <li><a href="#s-six"><span>Oct 19&ndash;Nov 26</span>Six weeks</a></li>
+          <li><a href="#s-cookie"><span>Thu Nov 26</span>Cookie</a></li>
+          <li><a href="#s-folder"><span>Always</span>It&rsquo;s a folder</a></li>
         </ol>
-        <div class="stage">
-          <figure>
-            <div class="phone" aria-live="polite">
-              <img class="on" src="/assets/upnext/spark201-01-start.jpg" width="540" height="960" alt="Here's your start: why, run the whole thing. Three habits from the Coach, each with when and because you said: Run 20 minutes after work, Walk after dinner, Protein after the run.">
-              <img src="/assets/upnext/spark201-02-plan-the-week.jpg" width="540" height="960" loading="lazy" alt="Plan the week: this week's focus is Run at lunch, not after work, and the days for each habit.">
-              <img src="/assets/upnext/spark201-03-today.jpg" width="540" height="960" loading="lazy" alt="Today: two of three habits checked, two entries, one sentence highlighted.">
-              <img src="/assets/upnext/spark201-04-note-to-self.jpg" width="540" height="960" loading="lazy" alt="Save as a Note to Self? Only this sentence. It waits for Saturday, word for word.">
-              <img src="/assets/upnext/spark201-05-look-back.jpg" width="540" height="960" loading="lazy" alt="Your week: Run 2 of 3, walk after dinner 4 of 7, and one Note to Self: I skip runs when it's dark out.">
-              <img src="/assets/upnext/spark202-06-cookie.jpg" width="540" height="960" loading="lazy" alt="Cookie time, six weeks done: a yellow dragon bridge breathing fire at night. Your Cookie: a plane ticket to Da Nang.">
+      </nav>
+
+      <div class="scenes">
+
+        <section class="scene" id="s-exports" aria-labelledby="h-exports">
+          <span class="eyebrow">Saturday, October 17 &middot; Step 1</span>
+          <h3 id="h-exports">Bring the exports. Log into nothing.</h3>
+          <p>Every fitness app lets you download your history. Dana already did, years ago, and forgot. The files go into one folder on the laptop, and that&rsquo;s the whole import.</p>
+          <div class="panel two">
+            <div class="drop" aria-label="Three export files in a folder">
+              <div class="file"><i>ZIP</i><span>fitbit-takeout-2022.zip<small>412 MB &middot; 2017&ndash;2022</small></span></div>
+              <div class="file"><i>ZIP</i><span>runkeeper-data-export.zip<small>38 MB &middot; 2014&ndash;2019</small></span></div>
+              <div class="file"><i>DIR</i><span>garmin-forerunner/<small>from the watch, by cable &middot; 2023&ndash;now</small></span></div>
             </div>
-            <figcaption>Note to Self, on your phone. Sample data.</figcaption>
-          </figure>
-          <figure class="laptop">
-            <div class="binder" role="img" aria-label="Drawing of The Keeper: three tabbed folders, the front one open.">
-              <div class="folder f1"><i>Spring</i></div><div class="folder f2"><i>No Tricks</i></div>
-              <div class="folder f3"><i>Run a 5K</i><b>Run my first 5K</b><span>Six weeks &middot; week 2</span><u></u><u></u><u></u></div>
+            <div class="nologin" aria-label="A sign-in form, crossed out">
+              <div class="fake"><b>Sign in to continue</b><u></u><u></u><em>Connect your account</em></div>
+              <svg class="x" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M8 8 92 92M92 8 8 92"/></svg>
             </div>
-            <p class="k"><b>On your laptop: The Keeper.</b> A binder, one folder per Transformation, the open one the only thing in view.</p>
-            <figcaption>A drawing, not a screenshot.</figcaption>
-          </figure>
-        </div>
+          </div>
+          <p class="tools">Me &amp; <span class="pill use">In use</span> <small>We import our own this way. New pulls from the watch fold in later.</small></p>
+          <div class="say"><svg class="nar" data-mood="squint" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+            <p><b>Splat</b>I don&rsquo;t want your password. I want your old files.</p></div>
+        </section>
+
+        <section class="scene" id="s-clean" aria-labelledby="h-clean">
+          <span class="eyebrow">Saturday, October 17 &middot; Step 2</span>
+          <h3 id="h-clean">The clean room.</h3>
+          <p>The exports are read where they sit and never changed. What a coach needs comes in. What says where you live stays out.</p>
+          <div class="panel">
+            <div class="ledger">
+              <div><span class="eyebrow">Comes in</span>
+                <ul><li>Date and start time</li><li>Distance and duration</li><li>Heart rate</li><li>Steps by hour</li><li>Your notes on a workout</li></ul></div>
+              <div class="out"><span class="eyebrow">Stays out</span>
+                <ul><li>GPS routes</li><li>Home and work locations</li><li>Device serial numbers</li><li>Account email</li><li>Friends lists</li></ul></div>
+            </div>
+            <div class="tally">
+              <div><b class="count" data-to="3117">3,117</b><span>workouts</span></div>
+              <div><b class="count" data-to="1284">1,284</b><span>runs</span></div>
+              <div><b>2014&ndash;2026</b><span>three apps, one record</span></div>
+            </div>
+          </div>
+          <p class="tools">Me &amp; <span class="pill use">In use</span> <small>The same run logged in two apps counts once.</small></p>
+          <div class="say"><svg class="nar" data-mood="think" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+            <p><b>Splat</b>I keep the miles. I throw out the map.</p></div>
+        </section>
+
+        <section class="scene" id="s-brag" aria-labelledby="h-brag">
+          <span class="eyebrow">Saturday, October 17 &middot; Step 3</span>
+          <h3 id="h-brag">The brag wall.</h3>
+          <p>Before the plan, the hype. Nine years of Dana, laid out as a sticker sheet. Every sticker is something Dana already did.</p>
+          <div class="panel stickers">
+            <div class="st big"><b>9.3 km</b><span>Longest run ever<br>April 2019</span></div>
+            <div class="st"><b>14</b><span>Runs in one month<br>May 2018</span></div>
+            <div class="st"><b>27:48</b><span>Fastest 5K<br>2018</span></div>
+            <div class="st"><b>61%</b><span>Of runs before 8am<br>on a weekday</span></div>
+            <div class="st"><b>11 days</b><span>Longest streak<br>2018</span></div>
+            <div class="st"><b>5:41am</b><span>Earliest start<br>ever</span></div>
+          </div>
+          <p class="tools">Me &amp; pages <span class="pill build">Being built</span></p>
+          <div class="say"><svg class="nar" data-mood="bloom" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+            <p><b>Splat</b>Dana ran 9.3K once. Dana forgot. I didn&rsquo;t. That&rsquo;s 93% of a 10K.</p></div>
+        </section>
+
+        <section class="scene" id="s-plan" aria-labelledby="h-plan">
+          <span class="eyebrow">Sunday, October 18 &middot; Step 4</span>
+          <h3 id="h-plan">Pivot Session. Then the Game Plan.</h3>
+          <p>Dana names the goal and walks the Coach through a normal day. Three habits come back. Each one says <em>why it&rsquo;s yours</em>, and points to the file it came from.</p>
+          <div class="panel doc">
+            <div class="doc-head"><span>Game Plan - 18 Oct 2026.md</span><span>Run a 10K &middot; 6 weeks</span></div>
+            <ol class="habits">
+              <li><b>Run Tuesday and Thursday, before 8am</b><span class="rcpt">61% of your weekday runs started before 8 &middot; <code>runkeeper-data-export.zip</code></span></li>
+              <li><b>Long run Sundays, up 1 km a week</b><span class="rcpt">Your 2019 build to 9.3 km went up about 1 km a week &middot; <code>fitbit-takeout-2022.zip</code></span></li>
+              <li><b>Walk after dinner, any day</b><span class="rcpt">Your steps are lowest 7&ndash;9pm, every year since 2021 &middot; <code>garmin-forerunner/</code></span></li>
+            </ol>
+          </div>
+          <p class="tools">A Day In The Life <span class="pill live">Live</span> &middot; Note to Self <span class="pill build">Being built</span></p>
+          <div class="say"><svg class="nar" data-mood="think" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+            <p><b>Splat</b>If I can&rsquo;t point to the line, I don&rsquo;t say it. That&rsquo;s my whole answer to &ldquo;AI makes things up.&rdquo;</p></div>
+        </section>
+
+        <section class="scene" id="s-sync" aria-labelledby="h-sync">
+          <span class="eyebrow">Sunday, October 18 &middot; Step 5</span>
+          <h3 id="h-sync">The folder goes to the phone.</h3>
+          <p>Laptop and phone keep one folder in step, directly with each other. There&rsquo;s no cloud copy and no account in the middle. The phone gets the Game Plan. The laptop gets the week back.</p>
+          <div class="panel sync" role="img" aria-label="A laptop and a phone, each holding the same folder, passing it straight to each other. A cloud between them is crossed out.">
+            <div class="dev"><div class="lap"><div class="fold">Run a 10K</div></div><span>Laptop</span></div>
+            <div class="wire"><i></i><i></i><i></i>
+              <svg class="cloud" viewBox="0 0 64 40" aria-hidden="true"><path d="M18 34h30a10 10 0 0 0 0-20 14 14 0 0 0-27-3A11 11 0 0 0 18 34Z"/><path class="slash" d="M8 4 56 38"/></svg></div>
+            <div class="dev"><div class="ph"><div class="fold">Run a 10K</div></div><span>Phone</span></div>
+          </div>
+          <p class="tools">Laptop &harr; phone <span class="pill soon">Next</span> <small>We use Syncthing: free, open source, device to device.</small></p>
+          <div class="say"><svg class="nar" data-mood="wave" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+            <p><b>Splat</b>Same folder, two places. Nobody else has a copy.</p></div>
+        </section>
+
+        <section class="scene" id="s-day" aria-labelledby="h-day">
+          <span class="eyebrow">Every day &middot; Step 6</span>
+          <h3 id="h-day">Progress: check it off, write a line.</h3>
+          <p>The Spark on Dana&rsquo;s phone writes each day into the folder as a note. Dana writes whatever&rsquo;s true. A long-press on one sentence keeps it as a <em>Note to Self</em> for Saturday.</p>
+          <div class="panel phones">
+            <figure class="phone"><img src="/assets/upnext/spark201-03-today.jpg" width="540" height="960" loading="lazy" alt="Today: two of three habits checked, two entries, one sentence highlighted."></figure>
+            <figure class="phone"><img src="/assets/upnext/spark201-04-note-to-self.jpg" width="540" height="960" loading="lazy" alt="Save as a Note to Self? Only this sentence. It waits for Saturday, word for word."></figure>
+          </div>
+          <p class="tools">The Spark <span class="pill build">Being built</span> <small>Screens from the app, sample data.</small></p>
+          <div class="say"><svg class="nar" data-mood="shut" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+            <p><b>Splat</b>Dana writes. I don&rsquo;t read it. Only the sentence Dana hands me.</p></div>
+        </section>
+
+        <section class="scene" id="s-look" aria-labelledby="h-look">
+          <span class="eyebrow">Saturday, October 24 &middot; Step 7</span>
+          <h3 id="h-look">Look Back: what you said, next to what you did.</h3>
+          <p>Feelings first, then the numbers, then one thing to change. The Coach sees the week&rsquo;s numbers and the one marked sentence. The rest of the journal stays blurred, because it was never handed over.</p>
+          <div class="panel two">
+            <div class="journal" aria-label="A week of journal entries, blurred, with one sentence clear">
+              <p class="blur">Legs heavy. Work ran long again and the bus was late, so I sat in the car for a minute before going in.</p>
+              <p class="blur">Good one this morning. Cold but clear, and the second half felt easier than the first.</p>
+              <p><span class="blur">Didn&rsquo;t go. Got home at 7 and</span> <mark>I skip runs when it&rsquo;s dark out.</mark></p>
+              <p class="blur">Sunday long run, 5 km, slow, did not stop once. Called my sister after.</p>
+            </div>
+            <div class="week">
+              <div class="bar"><span>Runs before 8am</span><b>2 of 4</b><i style="--k:0.5"></i></div>
+              <div class="bar"><span>Long run</span><b>5 km</b><i style="--k:1"></i></div>
+              <div class="bar"><span>Walk after dinner</span><b>4 of 7</b><i style="--k:0.571"></i></div>
+              <div class="coach"><span class="eyebrow">The Coach</span>
+                <p>Both missed runs were Thursdays after 6pm <code>Progress, Oct 22</code>. Your Tuesday 7am runs held. Change one thing: Thursday moves to 7am.</p></div>
+            </div>
+          </div>
+          <p class="tools">Your week <span class="pill build">Being built</span> &middot; Look Back with the Coach, a call with a person <span class="pill live">Live</span></p>
+          <div class="say"><svg class="nar" data-mood="shut" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+            <p><b>Splat</b>See? Eyes shut. It&rsquo;s you against you. I only hold the note you left yourself.</p></div>
+        </section>
+
+        <section class="scene" id="s-six" aria-labelledby="h-six">
+          <span class="eyebrow">October 19 &ndash; November 26 &middot; Step 8</span>
+          <h3 id="h-six">Six weeks, one Look Back each.</h3>
+          <p>Each week is an Evolution: plan Sunday, live it, look back Saturday, change one thing. The long run climbs a kilometer at a time.</p>
+          <div class="panel six">
+            <svg class="climb" viewBox="0 0 640 300" role="img" aria-label="Long run each week: 5, 6, 7, 8 and 9 kilometers, then the 10K race. A dashed line marks Dana's 2019 best of 9.3 kilometers.">
+              <g class="grid"><line x1="60" x2="620" y1="250" y2="250"/><line x1="60" x2="620" y1="150" y2="150"/><line x1="60" x2="620" y1="50" y2="50"/></g>
+              <g class="ax"><text x="50" y="254" text-anchor="end">0</text><text x="50" y="154" text-anchor="end">5 km</text><text x="50" y="54" text-anchor="end">10 km</text></g>
+              <line class="best" x1="60" x2="620" y1="64" y2="64"/><text class="bestl" x="66" y="58" text-anchor="start">Dana&rsquo;s 2019 best, 9.3 km</text>
+              <g class="bars">
+                <rect x="80" y="150" width="60" height="100"/><rect x="170" y="130" width="60" height="120"/><rect x="260" y="110" width="60" height="140"/>
+                <rect x="350" y="90" width="60" height="160"/><rect x="440" y="70" width="60" height="180"/><rect class="race" x="530" y="50" width="60" height="200"/>
+              </g>
+              <g class="ax"><text x="110" y="276" text-anchor="middle">Wk 1</text><text x="200" y="276" text-anchor="middle">Wk 2</text><text x="290" y="276" text-anchor="middle">Wk 3</text>
+                <text x="380" y="276" text-anchor="middle">Wk 4</text><text x="470" y="276" text-anchor="middle">Wk 5</text><text x="560" y="276" text-anchor="middle">Race</text></g>
+              <g class="val"><text x="110" y="142" text-anchor="middle">5</text><text x="200" y="122" text-anchor="middle">6</text><text x="290" y="102" text-anchor="middle">7</text>
+                <text x="380" y="82" text-anchor="middle">8</text><text x="470" y="62" text-anchor="middle">9</text><text x="560" y="40" text-anchor="middle">10</text></g>
+            </svg>
+            <table class="heat" aria-label="Habits kept, by week">
+              <thead><tr><th></th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr></thead>
+              <tbody>
+                <tr><th>Runs before 8</th><td style="--k:.5">2/4</td><td style="--k:.75">3/4</td><td style="--k:1">4/4</td><td style="--k:.75">3/4</td><td style="--k:1">4/4</td><td style="--k:1">2/2</td></tr>
+                <tr><th>Long run</th><td style="--k:1">&#10003;</td><td style="--k:1">&#10003;</td><td style="--k:1">&#10003;</td><td style="--k:.0">&ndash;</td><td style="--k:1">&#10003;</td><td style="--k:1">race</td></tr>
+                <tr><th>Walk after dinner</th><td style="--k:.57">4/7</td><td style="--k:.71">5/7</td><td style="--k:.71">5/7</td><td style="--k:.86">6/7</td><td style="--k:.86">6/7</td><td style="--k:1">4/4</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="tools">Me &amp; pages <span class="pill build">Being built</span> <small>Week 4: a cold, no long run. The Look Back said so, and week 5 picked it back up.</small></p>
+          <div class="say"><svg class="nar" data-mood="think" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+            <p><b>Splat</b>Week 4 went sideways. That&rsquo;s fine. The Look Back is a look, not a grade.</p></div>
+        </section>
+
+        <section class="scene" id="s-cookie" aria-labelledby="h-cookie">
+          <span class="eyebrow">Thanksgiving, Thursday, November 26 &middot; Step 9</span>
+          <h3 id="h-cookie">Cookie: the race, then pie.</h3>
+          <p>The Cookie is the date that doesn&rsquo;t move, and what you give yourself for reaching it. Six weeks of notes become one report and one brag-wall post, saved into the folder. Where it goes from there is Dana&rsquo;s call.</p>
+          <div class="panel cookie">
+            <div class="bib"><span class="eyebrow">Turkey Trot &middot; 10K</span><b>1:04:12</b><span>Dana &middot; first 10K &middot; new longest run, by 0.7 km</span></div>
+            <ul class="report" aria-label="What the six-week report holds">
+              <li><b>6</b> Look Backs</li><li><b>38</b> daily notes</li><li><b>9</b> Notes to Self</li><li><b>1</b> change that stuck: Thursday at 7am</li>
+            </ul>
+          </div>
+          <p class="tools">The six-week report and the post <span class="pill soon">Next</span></p>
+          <div class="say"><svg class="nar" data-mood="bloom" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+            <p><b>Splat</b>Ten. Kilometers. Now the pie.</p></div>
+        </section>
+
+        <section class="scene" id="s-folder" aria-labelledby="h-folder">
+          <span class="eyebrow">Always &middot; The whole trick</span>
+          <h3 id="h-folder">It was a folder the whole time.</h3>
+          <p>Every step above wrote a plain text file into one folder on Dana&rsquo;s laptop. Open it in any text editor. Copy it to a thumb drive. Delete it. That&rsquo;s what <em>yours</em> means.</p>
+          <div class="panel two files">
+            <pre class="tree" aria-label="The folder"><b>Note to Self/</b>
+  <b>Run a 10K/</b>                    <i>the goal</i>
+    Pivot Session - 18 Oct.md
+    <b>-Exports/</b>                   <i>untouched</i>
+    <b>Week 1 (Oct 19-25)/</b>
+      Game Plan - 18 Oct.md
+      <b>Progress/</b>
+        2026-10-20 - Tuesday.md
+        <span class="hl">2026-10-22 - Thursday.md</span>
+      Look Back - 24 Oct.md
+    <b>Week 2 &hellip; Week 6/</b>
+    Cookie - 26 Nov.md</pre>
+            <div class="editor"><div class="doc-head"><span>2026-10-22 - Thursday.md</span><span>plain text</span></div>
+<pre>Rainy. Didn't want to go.
+
+### Habits
+- [x] Walk after dinner
+- [ ] Run before 8am
+
+---
+## 712p Skipped it
+Got home at 7 and it was already dark.
+<mark>I skip runs when it's dark out. #notetoself</mark></pre></div>
+          </div>
+          <p class="tools">The folder <span class="pill use">In use</span> <small>Our own six-week runs live in folders exactly like this.</small></p>
+          <div class="say"><svg class="nar" data-mood="wave" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
+            <p><b>Splat</b>No magic. Text files, and a coach who only reads what you hand over.</p></div>
+        </section>
+
       </div>
-    </section>
+    </div>
 
     <section class="card" aria-labelledby="talk-h">
       <p class="proof">We run it on ourselves first. This October it is No Tricks: thirty-one days of the method, in public. And the company ran its own Look Back: <a href="https://pressroom.whatcomesnextllc.ai/what-comes-next-llc-company-look-back-2026.html">what we said, what we did &rarr;</a></p>
@@ -270,30 +579,63 @@
   <footer><span>Statuses as of October 2026.</span><a href="https://whatcomesnextllc.ai/">whatcomesnextllc.ai</a></footer>
   <script src="/assets/upnext/splat-v1.js"></script>
   <script>
-  // Card 3's player. Beats: [step, screen]. Step 3 holds two screens (today, then keeping a sentence);
-  // step 5 shows the Cookie at the end of six weeks, then the start again, because what comes next is the loop going round. Click a step (or a
-  // station on the loop) to jump there; that stops the auto-play. Reduced motion: no auto-play.
+  // Dana's six weeks. Each scene gets .on when it's in view (animations start from a visible resting state), the
+  // rail follows along, counts tick up once, and each narrating Splat acts out his line:
+  //   wave = looks at you and bobs · squint = side-eye at the sign-in form · think = looks up at the content
+  //   bloom = arms out on a win · shut = eyes closed, because he doesn't read the journal.
+  // Reduced motion: everything drawn once at rest.
   (function () {
-    var BEATS = [[0, 0], [1, 1], [2, 2], [2, 3], [3, 4], [4, 5], [4, 0]], MS = 3800;
-    var steps = document.querySelectorAll('.steps li'), imgs = document.querySelectorAll('.phone img');
-    var still = matchMedia('(prefers-reduced-motion: reduce)').matches, i = 0, timer = null;
-    function show(b) {
-      i = b; var step = BEATS[b][0], img = BEATS[b][1];
-      steps.forEach(function (li, k) { li.classList.toggle('on', k === step); });
-      imgs.forEach(function (im, k) { im.classList.toggle('on', k === img); });
+    var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var scenes = [].slice.call(document.querySelectorAll('.scene'));
+    var rail = {}; [].forEach.call(document.querySelectorAll('.rail a'), function (a) { rail[a.getAttribute('href').slice(1)] = a; });
+
+    function tick(el) {
+      var to = +el.dataset.to, t0 = performance.now();
+      (function f(now) { var k = Math.min(1, (now - t0) / 1100); k = 1 - Math.pow(1 - k, 3);
+        el.textContent = Math.round(to * k).toLocaleString('en-US'); if (k < 1) requestAnimationFrame(f); })(t0);
     }
-    function play() { stop(); if (!still) timer = setInterval(function () { show((i + 1) % BEATS.length); }, MS); }
-    function stop() { if (timer) clearInterval(timer); timer = null; }
-    function jump(step) { stop(); for (var b = 0; b < BEATS.length; b++) if (BEATS[b][0] === step) { show(b); break; } }
-    document.querySelectorAll('.steps button').forEach(function (btn, k) { btn.addEventListener('click', function () { jump(k); }); });
-    document.querySelectorAll('.loop a[data-go]').forEach(function (a) {
-      a.addEventListener('click', function () { jump(+a.dataset.go - 1); });
+    var seen = new IntersectionObserver(function (es) { es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('on');
+      if (!still) [].forEach.call(e.target.querySelectorAll('.count'), tick);
+      seen.unobserve(e.target);
+    }); }, { threshold: 0.3 });
+    scenes.forEach(function (s) { seen.observe(s); });
+
+    var here = new IntersectionObserver(function (es) { es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      Object.keys(rail).forEach(function (id) { rail[id].classList.toggle('on', id === e.target.id); });
+    }); }, { rootMargin: '-45% 0px -50% 0px' });
+    scenes.forEach(function (s) { here.observe(s); });
+
+    var nars = [].map.call(document.querySelectorAll('svg.nar'), function (svg, i) {
+      var n = { svg: svg, draw: makeSplat(svg), mood: svg.dataset.mood, seed: 2.1 + i * 0.7, vis: false, k: 0 };
+      n.draw({ t: 0, open: 1, rot: 0 }); return n;
     });
-    // play only while the card is on screen, so it starts at 1 when someone arrives
-    var card = document.getElementById('how');
-    new IntersectionObserver(function (es) { es.forEach(function (e) {
-      if (e.isIntersecting && !timer) { show(0); play(); } else if (!e.isIntersecting) stop(); }); }, { threshold: 0.4 }).observe(card);
-    show(0);
+    var vio = new IntersectionObserver(function (es) { es.forEach(function (e) {
+      nars.forEach(function (n) { if (n.svg === e.target) n.vis = e.isIntersecting; });
+    }); }, { threshold: 0.6 });
+    nars.forEach(function (n) { vio.observe(n.svg); });
+
+    function pose(n, t) {
+      var k = n.k, blink = blinkAt(t, n.seed), wob = Math.sin(t * 2.2 + n.seed);
+      switch (n.mood) {
+        case 'squint': return { t: t, open: lerp(1, 0.5, k) * blink, lookX: 0.9 * k, lookY: -0.3 * k, rot: 0 };
+        case 'think':  return { t: t, open: blink, lookX: -0.5 * k, lookY: -0.9 * k, rot: 0 };
+        case 'bloom':  return { t: t, open: blink, bloom: k * (0.55 + 0.45 * Math.sin(t * 3)), lookY: -0.3 * k, rot: 0 };
+        case 'shut':   return { t: t, open: lerp(1, 0, k), rot: 0 };
+        default:       return { t: t, open: blink, lookX: 0.4 * wob * k, lookY: 0, rot: 0 };
+      }
+    }
+    var t0 = performance.now();
+    (function frame(now) {
+      var t = still ? 0 : (now - t0) / 1000;
+      nars.forEach(function (n) {
+        n.k = still ? 1 : n.k + ((n.vis ? 1 : 0) - n.k) * 0.06;     // ease into the mood once he's on screen
+        if (still || n.vis || n.k > 0.01) n.draw(pose(n, t));
+      });
+      if (!still) requestAnimationFrame(frame);
+    })(t0);
   })();
   </script>
 </body>
