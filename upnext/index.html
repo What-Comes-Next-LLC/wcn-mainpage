@@ -136,19 +136,26 @@
   .tally b { display: block; font-weight: 200; font-size: clamp(2rem, 5vw, 3rem); line-height: 1; font-variant-numeric: tabular-nums; }
   .tally span { font-size: 0.8rem; color: var(--muted); }
 
-  /* 3: the brag wall, as stickers */
-  .stickers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; background: rgba(244,244,244,0.06); }
-  .st { aspect-ratio: 1; border-radius: 50%; display: grid; place-content: center; text-align: center; gap: 0.3rem; padding: 0.6rem;
-        background: var(--fg); color: var(--ink); box-shadow: 0 0.35rem 0 rgba(14,22,20,0.35); transform: rotate(var(--r, -4deg)); max-width: 11rem; justify-self: center; width: 100%; }
-  .st:nth-child(2) { --r: 5deg; background: var(--amber); } .st:nth-child(3) { --r: -2deg; background: var(--gold); }
-  .st:nth-child(4) { --r: 3deg; } .st:nth-child(5) { --r: -6deg; background: var(--sage); } .st:nth-child(6) { --r: 4deg; background: #f3e9d6; }
-  .st.big { background: var(--coral); color: var(--fg); --r: -5deg; }
-  .st b { font-weight: 800; font-size: clamp(1.15rem, 3vw, 1.7rem); line-height: 1; }
-  .st span { font-size: clamp(0.62rem, 1.4vw, 0.74rem); font-weight: 600; line-height: 1.25; }
-  .scene.on .st { animation: stick 500ms cubic-bezier(.3,1.6,.5,1) both; }
-  .scene.on .st:nth-child(2) { animation-delay: 90ms; } .scene.on .st:nth-child(3) { animation-delay: 180ms; } .scene.on .st:nth-child(4) { animation-delay: 270ms; }
-  .scene.on .st:nth-child(5) { animation-delay: 360ms; } .scene.on .st:nth-child(6) { animation-delay: 450ms; }
-  @keyframes stick { from { transform: rotate(var(--r, -4deg)) scale(0.6); } to { transform: rotate(var(--r, -4deg)) scale(1); } }
+  /* 3: the brag wall, as Polaroids (ILBTYD's /log/ frame: cream border, a tilt, the caption in the margin) */
+  .pols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 1.8rem); background: rgba(14,22,20,0.32); }
+  .pol { margin: 0; background: #f3f1ec; padding: 0.6rem 0.6rem 0; box-shadow: 0 1px 2px rgba(0,0,0,0.5), 0 0.8rem 1.6rem rgba(0,0,0,0.45);
+         transform: rotate(var(--r, -2deg)); }
+  .pol:nth-child(2) { --r: 2.5deg; } .pol:nth-child(3) { --r: -1deg; } .pol:nth-child(4) { --r: 1.5deg; } .pol:nth-child(5) { --r: -3deg; } .pol:nth-child(6) { --r: 2deg; }
+  .shot { aspect-ratio: 1; display: grid; place-items: center; position: relative; overflow: hidden; }
+  .shot b { position: relative; color: #fff; font-weight: 800; font-size: clamp(1.2rem, 3.2vw, 2rem); text-shadow: 0 2px 10px rgba(0,0,0,0.45); font-variant-numeric: tabular-nums; }
+  .shot::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 26%; background: rgba(20,20,20,0.85); clip-path: polygon(0 100%, 40% 0, 60% 0, 100% 100%); }
+  .s1 { background: linear-gradient(180deg, #1d2a3a, #4b3a52 50%, #e98a5a 88%, #f4b267); }
+  .s2 { background: linear-gradient(180deg, #7fb4d6, #cfe3ea 70%, #e6d5b8); }
+  .s3 { background: linear-gradient(180deg, #2c5d4a, #49a078 70%, #b9d88a); }
+  .s4 { background: linear-gradient(180deg, #24304a, #6b5b8e 55%, #f2a07b); }
+  .s5 { background: linear-gradient(180deg, #8a4a2f, #e76f51 60%, #f4a261); }
+  .s6 { background: linear-gradient(180deg, #0b1020, #1d2a4a 60%, #3c4f7a); }
+  .pol figcaption { color: #3a3833; font-size: clamp(0.72rem, 1.5vw, 0.86rem); font-weight: 600; padding: 0.6rem 0.2rem 0.9rem; line-height: 1.3; }
+  .pol figcaption small { display: block; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6860; font-weight: 500; margin-top: 0.15rem; }
+  .scene.on .pol { animation: pin 520ms cubic-bezier(.3,1.5,.5,1) both; }
+  .scene.on .pol:nth-child(2) { animation-delay: 90ms; } .scene.on .pol:nth-child(3) { animation-delay: 180ms; } .scene.on .pol:nth-child(4) { animation-delay: 270ms; }
+  .scene.on .pol:nth-child(5) { animation-delay: 360ms; } .scene.on .pol:nth-child(6) { animation-delay: 450ms; }
+  @keyframes pin { from { transform: rotate(calc(var(--r, -2deg) * 3)) translateY(-0.8rem); } to { transform: rotate(var(--r, -2deg)) translateY(0); } }
 
   /* 4: the Game Plan, with receipts */
   .doc { background: rgba(244,244,244,0.94); color: var(--ink); }
@@ -244,7 +251,7 @@
     .dana, .panel.two, .cookie { grid-template-columns: 1fr; }
     .story { grid-template-columns: 1fr; }
     .rail { display: none; }
-    .stickers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 34rem) {
     .ledger { grid-template-columns: 1fr; }
@@ -255,7 +262,7 @@
   @media (prefers-reduced-motion: reduce) {
     .wire i { animation: none; }
     .wire i:nth-child(1) { left: 20%; } .wire i:nth-child(2) { left: 48%; } .wire i:nth-child(3) { left: 76%; }
-    .scene.on .st, .scene.on .climb .bars rect, .scene.on .nologin .x path { animation: none; }
+    .scene.on .pol, .scene.on .climb .bars rect, .scene.on .nologin .x path { animation: none; }
   }
 
   /* card 4: one line of proof, then the one next step */
@@ -393,14 +400,14 @@
         <section class="scene" id="s-brag" aria-labelledby="h-brag">
           <span class="eyebrow">Saturday, October 17 &middot; Step 3</span>
           <h3 id="h-brag">The brag wall.</h3>
-          <p>Before the plan, the hype. Nine years of Dana, laid out as a sticker sheet. Every sticker is something Dana already did.</p>
-          <div class="panel stickers">
-            <div class="st big"><b>9.3 km</b><span>Longest run ever<br>April 2019</span></div>
-            <div class="st"><b>14</b><span>Runs in one month<br>May 2018</span></div>
-            <div class="st"><b>27:48</b><span>Fastest 5K<br>2018</span></div>
-            <div class="st"><b>61%</b><span>Of runs before 8am<br>on a weekday</span></div>
-            <div class="st"><b>11 days</b><span>Longest streak<br>2018</span></div>
-            <div class="st"><b>5:41am</b><span>Earliest start<br>ever</span></div>
+          <p>Before the plan, the hype. Nine years of Dana, pinned up as Polaroids. Every one is something Dana already did.</p>
+          <div class="panel pols">
+            <figure class="pol"><div class="shot s1"><b>9.3 km</b></div><figcaption>Longest run ever<small>April 2019</small></figcaption></figure>
+            <figure class="pol"><div class="shot s2"><b>14</b></div><figcaption>Runs in one month<small>May 2018</small></figcaption></figure>
+            <figure class="pol"><div class="shot s3"><b>27:48</b></div><figcaption>Fastest 5K<small>2018</small></figcaption></figure>
+            <figure class="pol"><div class="shot s4"><b>61%</b></div><figcaption>Of runs before 8am<small>on a weekday</small></figcaption></figure>
+            <figure class="pol"><div class="shot s5"><b>11 days</b></div><figcaption>Longest streak<small>2018</small></figcaption></figure>
+            <figure class="pol"><div class="shot s6"><b>5:41am</b></div><figcaption>Earliest start<small>ever</small></figcaption></figure>
           </div>
           <p class="tools">Me &amp; pages <span class="pill build">Being built</span></p>
           <div class="say"><svg class="nar" data-mood="bloom" viewBox="-50 -50 100 100" aria-hidden="true"></svg>
