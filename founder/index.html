@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founder — Jason Rashaad · What Comes Next? LLC</title>
+<meta name="description" content="Twenty years of one founder's record, drawn from his own exports: six Seasons, six moves with nowhere to go, five hundred threads of people, and nineteen countries. No photo of him needed.">
+<link rel="canonical" href="https://whatcomesnextllc.ai/founder/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Founder: twenty years, six times without anywhere to go">
+<meta property="og:description" content="One founder's record, from his own exports: the Seasons, the moves, the people, the places.">
+<meta property="og:url" content="https://whatcomesnextllc.ai/founder/">
+<meta property="og:site_name" content="What Comes Next? LLC">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://whatcomesnextllc.ai/assets/wcn-og-image-July-2026.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#216869">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/assets/favicon-16x16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/raleway-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<!-- /founder/ (2026-10-19): the Founder page as the example of a personal, longitudinal view of one person's
+     record. Jason's six Seasons, broken by the six moves of dontnobodygiveashitjason.org/homeless-jones,
+     drawn from his own exports. Data files beside this page, all reviewed public cuts:
+       data.json   wcn-presentcompany viewer/build_founder.py --page-from (counts, levels, months; per-person
+                   rows are anonymous by design: no name, address, number or key)
+       world.json  Me & The World's public cut (build_world_wall.py): countries in the order first
+                   photographed, 0.5° dots, size buckets, no dates, last two months left out
+       land.json   Natural Earth 110m coastlines, public domain
+       seasons.txt the page's own Seasons and moves (never Me &'s epochs.txt)
+     Zero third-party requests. founder.js draws everything; no chart library. -->
+<style>
+  @font-face { font-family: 'Raleway'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('/assets/fonts/raleway-latin-var.woff2') format('woff2'); }
+  @font-face { font-family: 'Raleway Fallback'; src: local('Helvetica Neue'), local('Arial'); size-adjust: 102%; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* Tokens as index.html (the design system of record). Season hues validated on --teal (dataviz validator,
+       2026-10-19): CVD + chroma pass; lighter than its dark-mode band on purpose, the ground is mid-teal. */
+    --teal: #216869; --teal-deep: #1a5354; --fg: #f4f4f4;
+    --muted: rgba(244,244,244,0.82); --muted-dim: rgba(244,244,244,0.6); --hairline: rgba(244,244,244,0.16);
+    --amber: #f4a261; --coral: #e76f51; --gold: #EAAA00; --sage: #49a078; --ink: #0e1614;
+    --pad: clamp(1.75rem, 5vw, 4.5rem);
+  }
+  html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+  body { background: var(--teal); color: var(--fg); font-family: 'Raleway', 'Raleway Fallback', system-ui, -apple-system, sans-serif;
+         font-weight: 300; line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  .watermark { position: fixed; left: -8vmin; bottom: -18vmin; height: min(120vh, 160vw); width: auto; fill: var(--fg);
+               opacity: 0.045; pointer-events: none; user-select: none; z-index: 0; }
+  .nav { position: fixed; top: 0; right: 0; z-index: 10; display: flex; gap: clamp(1.1rem, 2.6vw, 2.25rem); padding: var(--pad); pointer-events: none; }
+  .nav a { pointer-events: auto; color: var(--fg); text-decoration: none; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.18em; opacity: 0.5; transition: opacity 200ms; white-space: nowrap; }
+  .nav a:hover, .nav a:focus-visible, .nav a[aria-current="page"] { opacity: 1; }
+  main { position: relative; z-index: 1; padding: calc(var(--pad) * 1.6) 16px var(--pad); }
+  .col { max-width: 560px; margin-inline: auto; }
+  .eyebrow { font-size: 0.68rem; font-weight: 400; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); }
+  h1 { font-weight: 200; font-size: clamp(2.2rem, 9vw, 3.4rem); line-height: 1.05; letter-spacing: -0.02em; margin-top: 1rem; text-wrap: balance; }
+  h2 { font-weight: 200; font-size: clamp(1.7rem, 7vw, 2.4rem); line-height: 1.12; letter-spacing: -0.015em; text-wrap: balance; }
+  .lede { font-size: clamp(1.05rem, 4.2vw, 1.2rem); color: var(--muted); margin-top: 1.1rem; }
+  a { color: var(--fg); }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem 0.8rem; margin: 2rem 0 1.6rem; }
+  .tiles b { display: block; font-size: 1.6rem; font-weight: 200; font-variant-numeric: tabular-nums; }
+  .tiles span { font-size: 0.75rem; color: var(--muted-dim); }
+  .before { font-size: 0.86rem; color: var(--muted-dim); line-height: 1.5; border-left: 2px solid var(--hairline); padding-left: 0.8rem; margin: 0 0 2.2rem; }
+  .before i { color: var(--coral); font-style: normal; font-weight: 600; }
+
+  /* the weave */
+  .legend { display: flex; gap: 0.5rem 1rem; flex-wrap: wrap; font-size: 0.75rem; color: var(--muted-dim); margin: 0.9rem 0 0.5rem; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 0.35rem; vertical-align: -1px; }
+  .howto { font-size: 0.82rem; color: var(--muted-dim); line-height: 1.45; }
+  .tl { margin-top: 0.6rem; }
+  .head { position: sticky; top: 0; z-index: 2; background: var(--teal); border-bottom: 1px solid var(--hairline); padding: 0.45rem 0 0.35rem; }
+  .head .t { font-size: 0.72rem; font-weight: 600; color: var(--muted); }
+  .head .pick { font-size: 0.82rem; color: var(--fg); min-height: 1.35em; }
+  #weave { width: 100%; height: auto; display: block; touch-action: manipulation; cursor: crosshair; }
+  #weave .yr { stroke: var(--hairline); } #weave .ax { fill: var(--muted-dim); font-size: 9.5px; }
+  #weave .season { fill: rgba(244,244,244,0.16); } #weave .season.next { fill: none; stroke: var(--fg); stroke-dasharray: 3 3; }
+  #weave .slab { fill: var(--fg); font-size: 9.5px; }
+  #weave .dark { fill: rgba(14,22,20,0.32); }
+  #weave .move { fill: rgba(231,111,81,0.05); stroke: var(--coral); stroke-width: 1.2; }
+  #weave .mlab { fill: var(--coral); font-size: 13px; font-weight: 700; text-anchor: end; }
+  #weave .mspan { fill: var(--coral); font-size: 8.5px; text-anchor: end; }
+  #weave.picked .threads { opacity: 0.35; }
+  #weave .hl { fill: #fff; } #weave .hlbox { fill: none; stroke: #fff; stroke-width: 1; opacity: 0.7; }
+  .method { color: var(--muted-dim); font-size: 0.8rem; line-height: 1.5; margin-top: 1rem; }
+
+  /* the end: the globe, the passport, the question */
+  .end { position: relative; margin-top: 4.5rem; padding: 3rem 0 1rem; isolation: isolate; overflow-x: clip; overflow-y: visible; }
+  .end .ghost { position: absolute; z-index: -1; right: -18%; top: 4%; height: 92%; width: auto; fill: var(--coral); opacity: 0.07; pointer-events: none; }
+  .end p.sub { color: var(--muted); line-height: 1.5; margin: 0.7rem 0 0.4rem; }
+  .stage { position: relative; width: 100%; aspect-ratio: 1; touch-action: pan-y; cursor: grab; }
+  .stage canvas { width: 100%; height: 100%; display: block; }
+  .scrub { display: flex; gap: 0.8rem; align-items: center; }
+  .scrub input { flex: 1; accent-color: var(--amber); height: 28px; }
+  .scrub button { font: inherit; font-size: 0.8rem; color: var(--fg); background: transparent; border: 1px solid var(--hairline); border-radius: 999px; padding: 0.4rem 0.9rem; cursor: pointer; }
+  .readout { font-size: 0.86rem; color: var(--muted-dim); min-height: 1.4em; margin-top: 0.3rem; }
+  .gstats { display: flex; gap: 1.6rem; flex-wrap: wrap; margin-top: 0.9rem; }
+  .gstats b { display: block; font-size: 1.4rem; font-weight: 200; } .gstats span { font-size: 0.75rem; color: var(--muted-dim); }
+  .passport { background: rgba(244,244,244,0.05); border: 1px solid var(--hairline); border-radius: 10px; padding: 14px 10px;
+              display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 6px; margin-top: 0.7rem; }
+  .stamp { aspect-ratio: 7/6; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; margin: 5px;
+           border: 2px solid currentColor; outline: 1px solid currentColor; outline-offset: 3px; opacity: 0;
+           transform: scale(1.6) rotate(var(--r)); transition: opacity 0.25s, transform 0.35s cubic-bezier(.2,1.6,.4,1); }
+  .stamp.on { opacity: 0.92; transform: scale(1) rotate(var(--r)); }
+  .stamp.o { border-radius: 50%; } .stamp.r { border-radius: 9px; } .stamp.t { border-radius: 3px 20px 3px 20px; }
+  .stamp i { font-style: normal; font-size: 1.7rem; line-height: 1; font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; }
+  .stamp b { font-size: 0.55rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; line-height: 1.1; max-width: 92%; }
+  .stamp small { font-size: 0.52rem; font-weight: 700; letter-spacing: 0.16em; }
+  .question { margin-top: 3.5rem; }
+  .question h2 { font-size: clamp(2.4rem, 11vw, 3.6rem); font-weight: 200; }
+  .question p { color: var(--muted); margin-top: 0.8rem; line-height: 1.55; }
+  .question .made { font-size: 0.86rem; color: var(--muted-dim); }
+  .question .made a { color: var(--muted); }
+  footer { position: relative; z-index: 1; border-top: 1px solid var(--hairline); padding: 2rem var(--pad); margin-top: 3rem;
+           display: flex; justify-content: space-between; gap: 1rem; font-size: 0.8rem; color: var(--muted); }
+  footer a { color: var(--muted); }
+  @media (max-width: 34rem) {
+    .nav { left: 0; justify-content: center; gap: 0.9rem; padding: 1.1rem 16px; background: linear-gradient(var(--teal) 70%, transparent); }
+    .nav a { font-size: 0.62rem; letter-spacing: 0.1em; }
+    main { padding-top: 4.4rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .stamp { transition: none; } }
+</style>
+</head>
+<body>
+<svg class="watermark" viewBox="0 -108 83 108" aria-hidden="true" focusable="false"><path id="q" d="M 38.734375 -108 C 42.859375 -108 47.175781 -107.707031 51.6875 -107.125 C 56.207031 -106.550781 60.484375 -105.453125 64.515625 -103.828125 C 69.890625 -101.710938 74.179688 -98.585938 77.390625 -94.453125 C 80.609375 -90.328125 82.363281 -85.816406 82.65625 -80.921875 C 82.84375 -76.503906 82.117188 -72.710938 80.484375 -69.546875 C 78.859375 -66.378906 76.65625 -63.570312 73.875 -61.125 C 71.09375 -58.675781 68.019531 -56.394531 64.65625 -54.28125 C 61.289062 -52.175781 57.976562 -50.039062 54.71875 -47.875 C 51.457031 -45.71875 48.550781 -43.367188 46 -40.828125 C 43.457031 -38.285156 41.585938 -35.285156 40.390625 -31.828125 C 39.191406 -28.367188 39.023438 -24.285156 39.890625 -19.578125 L 37.734375 -19.578125 C 35.710938 -25.535156 35.0625 -30.578125 35.78125 -34.703125 C 36.5 -38.828125 38.054688 -42.351562 40.453125 -45.28125 C 42.859375 -48.21875 45.691406 -50.882812 48.953125 -53.28125 C 52.222656 -55.675781 55.441406 -58.097656 58.609375 -60.546875 C 61.773438 -62.992188 64.460938 -65.753906 66.671875 -68.828125 C 68.878906 -71.898438 70.078125 -75.644531 70.265625 -80.0625 C 70.554688 -84.476562 69.550781 -88.601562 67.25 -92.4375 C 64.945312 -96.28125 61.726562 -99.453125 57.59375 -101.953125 C 53.46875 -104.453125 48.71875 -105.75 43.34375 -105.84375 C 37.875 -106.03125 32.570312 -105.234375 27.4375 -103.453125 C 22.300781 -101.679688 18.289062 -98.925781 15.40625 -95.1875 C 13.289062 -92.40625 11.894531 -89.1875 11.21875 -85.53125 C 10.550781 -81.882812 10.941406 -78.046875 12.390625 -74.015625 C 8.359375 -73.921875 5.285156 -74.953125 3.171875 -77.109375 C 1.054688 -79.273438 0 -81.988281 0 -85.25 C 0 -88.03125 0.8125 -90.597656 2.4375 -92.953125 C 4.070312 -95.304688 6.113281 -97.367188 8.5625 -99.140625 C 11.007812 -100.921875 13.390625 -102.335938 15.703125 -103.390625 C 19.347656 -105.023438 23.113281 -106.203125 27 -106.921875 C 30.882812 -107.640625 34.796875 -108 38.734375 -108 Z M 38.734375 -11.953125 C 37.097656 -11.953125 35.703125 -11.375 34.546875 -10.21875 C 33.398438 -9.070312 32.828125 -7.679688 32.828125 -6.046875 C 32.828125 -4.410156 33.398438 -2.992188 34.546875 -1.796875 C 35.703125 -0.597656 37.097656 0 38.734375 0 C 40.367188 0 41.785156 -0.597656 42.984375 -1.796875 C 44.179688 -2.992188 44.78125 -4.410156 44.78125 -6.046875 C 44.78125 -7.679688 44.179688 -9.070312 42.984375 -10.21875 C 41.785156 -11.375 40.367188 -11.953125 38.734375 -11.953125 Z M 38.734375 -11.953125"/></svg>
+
+<nav class="nav" aria-label="Sections">
+  <a href="/#evolutions">Evolutions</a>
+  <a href="/upnext/">Up next</a>
+  <a href="/founder/" aria-current="page">Founder</a>
+  <a href="/#contact">Contact</a>
+</nav>
+
+<main><div class="col">
+
+  <section aria-labelledby="h1">
+    <p class="eyebrow">Founder &middot; Jason Rashaad</p>
+    <h1 id="h1">Twenty years. Six times without anywhere to go.</h1>
+    <!-- DRAFT (Jason's words in session, 2026-10-19): replace or keep. -->
+    <p class="lede">I started this company because no one hires anyone with this in their history. So here it is: my record, as counts, from my own exports. One row per month, starting in 2015.</p>
+    <div class="tiles" id="tiles"></div>
+    <p class="before" id="before"></p>
+  </section>
+
+  <section aria-labelledby="h-weave">
+    <p class="eyebrow" id="h-weave">The people</p>
+    <div class="legend" id="legend"></div>
+    <p class="howto">Each thread is a person. Lit, we talked that month; brighter, we talked more. Faint, the thread is still there and we weren&rsquo;t talking. Tap a thread to follow it.</p>
+    <div class="tl">
+      <div class="head"><div class="t" id="wtitle"></div><div class="pick" id="pick" aria-live="polite">&nbsp;</div></div>
+      <svg id="weave" role="img" aria-label="One thread per person, months running down the page from 2015, coloured by the Season we met in, with the six moves outlined"></svg>
+    </div>
+    <p class="method">A conversation ends after six quiet hours. Threads are people I had three or more conversations with since 2015, over one-to-one texts, Google Voice, Gchat and Bluesky; no names, ever. Dark grey months have no record at all, which is not the same as silence.</p>
+  </section>
+
+  <section class="end" aria-labelledby="h-globe">
+    <svg class="ghost" viewBox="0 -108 83 108" aria-hidden="true" focusable="false"><use href="#q"/></svg>
+    <p class="eyebrow">The places</p>
+    <!-- DRAFT header: Jason to workshop. -->
+    <h2 id="h-globe">Nineteen countries, in the order I first went.</h2>
+    <p class="sub">Every photo I took with a place on it, as a glow, and a flag for every country. Swipe the globe sideways; scrub the trip below it.</p>
+    <div class="stage" id="stage"><canvas id="globe" aria-label="A globe you can turn: places I photographed appear in the order I first went, with a flag for each country"></canvas></div>
+    <div class="scrub"><input type="range" id="trip" min="0" max="100" step="0.01" value="0" aria-label="The trip, in order"><button id="replay" type="button">Replay</button></div>
+    <p class="readout" id="readout" aria-live="polite"></p>
+    <div class="gstats" id="gstats"></div>
+    <p class="eyebrow" style="margin-top:2rem">Stamps &middot; in the order I first went</p>
+    <div class="passport" id="passport"></div>
+
+    <div class="question">
+      <h2>What Comes Next?</h2>
+      <!-- DRAFT: Claude's line from Jason's framing (Drexel ongoing; What Comes Next overlaps it). Jason's call. -->
+      <p>Not the sixth Season. That&rsquo;s the doctorate, and it&rsquo;s still going. The next one is the company.</p>
+      <p class="made">Built from my own exports, on my laptop, with the same pieces I&rsquo;m building into <a href="/upnext/">Note to Self</a>: the record (Me &amp;) and the views of it. <a href="/#founder">Talks and consulting &rarr;</a></p>
+    </div>
+  </section>
+
+</div></main>
+
+<footer><span>Counts as of October 2026.</span><a href="https://whatcomesnextllc.ai/">whatcomesnextllc.ai</a></footer>
+<script src="founder.js"></script>
+</body>
+</html>

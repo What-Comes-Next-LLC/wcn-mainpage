@@ -1,0 +1,18 @@
+# The Founder page's Seasons and the six moves (Jason, 2026-10-19). Source: dontnobodygiveashitjason.org/homeless-jones.
+# This file is the page's own: Me &'s epochs.txt is a separate thing and is never read for this page.
+#
+# kind   | name           | start   | end     ("" end = still going; YYYY = the whole year)
+move     | 1              | 1998    | 1998
+season   | Ann Arbor      | 1999    | 2004-09
+move     | 2              | 1999    | 1999
+season   | Detroit        | 2004-10 | 2008-11
+season   | DC             | 2009    | 2014
+season   | Seattle        | 2015    | 2016-03
+move     | 3              | 2016-03 | 2016-12
+season   | 40th Birthday  | 2016-12 | 2021-10
+move     | 4              | 2021-10 | 2022-08
+season   | Lansing        | 2022-08 | 2024
+move     | 5              | 2024    | 2024
+season   | Drexel         | 2024-07 |
+move     | 6              | 2025-10 | 2026-01
+season   | What Comes Next? | 2026-01 |
