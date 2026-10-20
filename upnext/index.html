@@ -278,6 +278,7 @@
   footer { position: relative; z-index: 1; border-top: 1px solid var(--hairline); padding: 2rem var(--pad);
            display: flex; justify-content: space-between; gap: 1rem; font-size: 0.8rem; color: var(--muted); }
   footer a { color: var(--muted); }
+  footer .ai { color: var(--coral); }
   a:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
 
   @media (max-width: 56rem) {
@@ -295,8 +296,8 @@
   </svg>
 
   <nav class="nav" aria-label="Sections">
-    <a href="/#evolutions">Evolutions</a>
-    <a href="/upnext/" aria-current="page">Up next</a>
+    <a href="/founder/">About</a>
+    <a href="/upnext/" aria-current="page">Next</a>
     <a href="/#contact">Contact</a>
   </nav>
 
@@ -583,7 +584,7 @@ Got home at 7 and it was already dark.
 
   </div>
   </main>
-  <footer><span>Statuses as of October 2026.</span><a href="https://whatcomesnextllc.ai/">whatcomesnextllc.ai</a></footer>
+  <footer><span>Statuses as of October 2026.</span><a href="https://whatcomesnextllc.ai/">whatcomesnextllc.<span class="ai">ai</span></a></footer>
   <script src="/assets/upnext/splat-v1.js"></script>
   <script>
   // Dana's six weeks. Each scene gets .on when it's in view (animations start from a visible resting state), the

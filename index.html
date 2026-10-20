@@ -179,6 +179,7 @@
        clears WCAG AA for LARGE text only, so it stays on display-size type and never
        on body copy or small links. See the notes doc. */
     --amber:     #f4a261;
+    --coral:     #e76f51;
 
     --pad: clamp(1.75rem, 5vw, 4.5rem);
   }
@@ -764,6 +765,7 @@
   .footer-legal a { color: var(--muted); text-decoration: none; }
   .footer-legal a:hover { color: var(--fg); }
   .footer-legal .domain { margin-left: auto; }
+  .corner-domain .ai, .footer-legal .ai { color: var(--coral); }
 
   /* ── Motion & density preferences ───────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
@@ -792,12 +794,12 @@
        that slot made the mismatch legible, so it was fixed on 2026-08-29.
        #speaking replaced #waitlist on 2026-09-24 (A Day In The Life retired) and, unlike
        the waitlist, it IS in the nav: it is the page's buy surface now. -->
-  <!-- Three links since 2026-10-12: Evolutions (the method), Founder (was About + Speaking),
-       Contact (was Support + Contact). The old anchors #about, #speaking and #support still
-       land, as ids inside the merged sections. -->
+  <!-- Same three links on every page since 2026-10-20: About (/founder/), Next (/upnext/),
+       Contact. The old anchors #about, #speaking and #support still land, as ids inside the
+       merged sections. -->
   <nav class="nav" aria-label="Sections">
-    <a href="#evolutions">Evolutions</a>
-    <a href="#founder">Founder</a>
+    <a href="/founder/">About</a>
+    <a href="/upnext/">Next</a>
     <a href="#contact">Contact</a>
   </nav>
 
@@ -833,7 +835,7 @@
 
     <a class="scroll-cue" href="#evolutions" aria-label="Scroll to Evolutions">The methodology</a>
 
-    <p class="corner-domain">whatcomesnextllc.ai</p>
+    <p class="corner-domain">whatcomesnextllc.<span class="ai">ai</span></p>
   </section>
 
   <!-- ══ EVOLUTIONS ════════════════════════════════════════════
@@ -1125,7 +1127,7 @@
       <span>&copy; 2026 What Comes Next? LLC</span>
       <a href="/privacy.html">Privacy</a>
       <a href="mailto:coach@whatcomesnextllc.ai">Support</a>
-      <span class="domain">whatcomesnextllc.ai</span>
+      <span class="domain">whatcomesnextllc.<span class="ai">ai</span></span>
     </div>
   </footer>
 
