@@ -778,9 +778,38 @@
     html { scroll-snap-type: none; }
     section:not(#hero) { min-height: 0; }
   }
+
+  /* ── The Six Week Success Story banner (2026-10-22, gone after 2026-11-10) ──
+     The study app's last screen has ONE tappable thing, a button hard-coded to this
+     page. So this is how a participant on The Spark 1.2.1 reaches the closing question
+     at wawawednesday.com/done. Bottom, because the nav owns the top. Hidden until the
+     script says the date is still open, so it can't outlive the drawing. #111 on amber
+     is 8.7:1. Delete this block, the <a> and the script after 11-11. */
+  .study-banner {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    display: block; padding: 0.95rem var(--pad); text-align: center;
+    background: var(--amber); color: #111; text-decoration: none;
+    font-weight: 500; line-height: 1.35;
+  }
+  .study-banner:hover, .study-banner:focus-visible { background: #f6b07a; }
+  .study-banner[hidden] { display: none; }
+  body.has-study-banner { padding-bottom: 4.5rem; }
 </style>
 </head>
 <body>
+
+  <a class="study-banner" id="study-banner" href="https://wawawednesday.com/done/" hidden>
+    In the Six Week Success Story? One question closes your six weeks &rarr;
+  </a>
+  <script>
+    (function () {
+      var t = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+      if (t <= '2026-11-10') {
+        document.getElementById('study-banner').hidden = false;
+        document.body.classList.add('has-study-banner');
+      }
+    })();
+  </script>
 
   <!-- Ghost watermark: the master "?" glyph, bleed-cropped off the lower-left. -->
   <svg class="watermark" viewBox="0 -108 83 108" aria-hidden="true" focusable="false">
